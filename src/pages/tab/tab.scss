@@ -1,88 +1,207 @@
+@mixin tab-icon($imgUrl) {
+  background: url($imgUrl) no-repeat center;
+  background-size: contain;
+  width: 25px;
+}
 
-.bar{
-  &.bar-stable{
-    border-color: #e8e8e8;
-    background-color: white;
-    background-image: linear-gradient(0deg,#dedede,#dedede 50%,transparent 50%);
-    //color: #1F8CEB;
-    //background: white;//#48ACF8;
-
-    .title,.button-clear,.button{
-      color: #2d2d2d;
-    }
+.myTab {
+  .scroll {
+    //height:  calc(100% - 49px)
   }
 }
 
+.tabs {
+  background: #FFFFFF;
+  .line{
 
-.hms-tab{
-  .hms-tab-page{
-    .has-footer {
-      bottom: 50px;
-    }
   }
-
-  .hms-tab-bar{
-    padding: 0;
-    height: 50px;
-    .hms-tab-item{
-      width: 25%;
-      float: left;
-
-      &.activated{
-        .hms-tab-application-off{
-          background-image: url("../assets/img/tab/center@3x.png");
-        }
-        .hms-tab-message-off{
-          background-image: url("../assets/img/tab/message@3x.png");
-        }
-        .hms-tab-contact-off{
-          background-image: url("../assets/img/tab/contact@3x.png");
-        }
-        .hms-tab-mine-off{
-          background-image: url("../assets/img/tab/mine@3x.png");
-        }
-      }
-
-      .hms-tab-icon{
-        margin-top: 5px;
-        width: 25px;
-        height: 25px;
-        margin-left: auto;
-        margin-right: auto;
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-
-      .hms-tab-name{
-        text-align: center;
-        font-size: 12px;
-      }
-
-      .hms-tab-application-on{
-        background-image: url("../assets/img/tab/center@3x.png");
-      }
-      .hms-tab-application-off{
-        background-image: url("../assets/img/tab/center-outline@3x.png");
-      }
-      .hms-tab-message-on{
-        background-image: url("../assets/img/tab/message@3x.png");
-      }
-      .hms-tab-message-off{
-        background-image: url("../assets/img/tab/message-outline@3x.png");
-      }
-      .hms-tab-contact-on{
-        background-image: url("../assets/img/tab/contact@3x.png");
-      }
-      .hms-tab-contact-off{
-        background-image: url("../assets/img/tab/contact-outline@3x.png");
-      }
-      .hms-tab-mine-on{
-        background-image: url("../assets/img/tab/mine@3x.png");
-      }
-      .hms-tab-mine-off{
-        background-image: url("../assets/img/tab/mine-outline@3x.png");
-      }
-    }
+  .tab-item {
+    opacity: 1;
+    //background: linear-gradient(90deg, #0F0F0F 0%, #1D2334 50%, #0F0F0F 100%);
   }
+  .tab-item.activated {
+    height: 100% !important;
+  }
+  .backColor-on {
+    color: #072F65;
+  }
+  .backColor-off {
+    color: #d2d2d2;
+  }
+  .fontColor-on {
+    font-family: PingFangSC-Light;
+    font-size: 10px;
+    color: #0775F5;
+    letter-spacing: -0.24px;
+    line-height: 10px;
+  }
+  .fontColor-off {
+    font-family: PingFangSC-Light;
+    font-size: 10px;
+    color: #AAAAAA;
+    letter-spacing: -0.24px;
+    line-height: 10px;
+  }
+  .main-on {
+    @include tab-icon("../assets/img/tab/icon_nav_index_active.png");
+  }
+  .main-off {
+    @include tab-icon("../assets/img/tab/icon_nav_index.png");
+  }
+  .app-on {
+    @include tab-icon("../assets/img/tab/icon_nav_user_active.png");
+  }
+  .app-off {
+    @include tab-icon("../assets/img/tab/icon_nav_user.png");
+  }
+  .class-on {
+    @include tab-icon("../assets/img/tab/icon_nav_class_active.png");
+  }
+  .class-off {
+    @include tab-icon("../assets/img/tab/icon_nav_class.png");
+  }
+  .school-on {
+    @include tab-icon("../assets/img/tab/icon_nav_school_active.png");
+  }
+  .school-off {
+    @include tab-icon("../assets/img/tab/icon_nav_school.png");
+  }
+  .setting-on {
+    @include tab-icon("../assets/img/tab/icon_nav_setting.png");
+  }
+  .setting-off {
+    @include tab-icon("../assets/img/tab/icon_nav_setting.png");
+  }
+}
+
+/**
+ * Action Sheets for Android
+ * --------------------------------------------------
+ */
+.platform-android .action-sheet-backdrop {
+  -webkit-transition: background-color 150ms ease-in-out;
+  transition: background-color 150ms ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.platform-android .action-sheet-backdrop.active {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.platform-android .action-sheet-wrapper {
+  -webkit-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+  -webkit-transition: all cubic-bezier(0.36, 0.66, 0.04, 1) 500ms;
+  transition: all cubic-bezier(0.36, 0.66, 0.04, 1) 500ms;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+
+.platform-android .action-sheet-up {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.platform-android .action-sheet {
+  margin-left: 8px;
+  margin-right: 8px;
+  width: auto;
+  z-index: 11;
+  overflow: hidden;
+}
+
+.platform-android .action-sheet .button {
+  display: block;
+  padding: 1px;
+  width: 100%;
+  border-radius: 0;
+  border-color: #d1d3d6;
+  background-color: transparent;
+  color: #007aff;
+  font-size: 21px;
+}
+
+.platform-android .action-sheet .button:hover {
+  color: #007aff;
+}
+
+.platform-android .action-sheet .button.destructive {
+  color: #ff3b30;
+}
+
+.platform-android .action-sheet .button.destructive:hover {
+  color: #ff3b30;
+}
+
+.platform-android .action-sheet .button.active, .platform-android .action-sheet .button.activated {
+  box-shadow: none;
+  border-color: #d1d3d6;
+  color: #007aff;
+  background: #e4e5e7;
+}
+
+.platform-android .action-sheet-has-icons .icon {
+  position: absolute;
+  left: 16px;
+}
+
+.platform-android .action-sheet-title {
+  padding: 16px;
+  color: #8f8f8f;
+  text-align: center;
+  font-size: 13px;
+}
+
+.platform-android .action-sheet-group {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.platform-android .action-sheet-group .button {
+  border-width: 1px 0px 0px 0px;
+}
+
+.platform-android .action-sheet-group .button:first-child:last-child {
+  border-width: 0;
+}
+
+.platform-android .action-sheet-options {
+  background: #f1f2f3;
+}
+
+.platform-android .action-sheet-cancel .button {
+  font-weight: 500;
+}
+
+.platform-android .action-sheet-open {
+  pointer-events: none;
+}
+
+.platform-android .action-sheet-open.modal-open .modal {
+  pointer-events: none;
+}
+
+.platform-android .action-sheet-open .action-sheet-backdrop {
+  pointer-events: auto;
+}
+
+.platform-android .action-sheet .action-sheet-title, .platform-android .action-sheet .button {
+  text-align: center;
+}
+
+.platform-android .action-sheet-cancel {
+  display: block;
 }

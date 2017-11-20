@@ -1,0 +1,74 @@
+//公共head
+//.header{
+//  background-color:#1A1E28;
+//  background-image: none;
+//
+//  .header_button{
+//    width: 44px;
+//    height: 44px;
+//    line-height: 44px;
+//    margin-top: 1px;
+//    font-size: 30px;
+//    color: $color-base;
+//    text-align: center;
+//  }
+//  .header_title{
+//    color: $color-base;
+//  }
+//  .header_buttonRig{
+//    font-size: 16px;
+//    color: white;
+//    background: #1A1E28;
+//  }
+//  .right-image{
+//    right: 0.2rem;
+//    width: 23px;
+//    height: 23px;
+//    position: absolute;
+//    top: 0;
+//    border: 10px solid transparent;
+//    box-sizing: content-box;
+//    z-index: 5;
+//  }
+//}
+
+
+//弹窗
+.popup-body {
+  padding: 10px;
+  overflow: auto;
+  text-align: center;
+}
+
+.popup {
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  background: #f8f8f8 !important;
+  h3 {
+    font-size: 100% !important;
+  }
+  .popup-head {
+    padding: 20px 10px 0;
+    border: none;
+    .popup-title{
+      color: #444 !important;
+    }
+  }
+  .popup-body {
+    padding: 10px 15px 15px;
+    color: #444;
+  }
+  .popup-buttons {
+    min-height: 0 !important;
+    padding: 0 !important;
+    height: 50px !important;
+    border-top: 1px solid #e5e5e5 !important;
+    button {
+      color: #32A4EC !important;
+      border-left: 1px solid #e5e5e5;
+    }
+    button:first-child {
+      border: none;
+    }
+  }
+}

@@ -65,7 +65,8 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-camera",
     "cordova-sqlite-storage",
-    "cordova-plugin-file"
+    "cordova-plugin-file",
+    "cordova-plugin-crosswalk-webview"
   ],
   "cordovaPlatforms": [
     "android"

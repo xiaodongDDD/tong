@@ -31,12 +31,12 @@
 // logLevel(value)              - sets and returns a new log level
 // useConsole()                 - returns whether logger is using console
 // useConsole(value)            - sets and returns whether logger is using console
-// log(message,...)             - logs a message at level LOG
-// error(message,...)           - logs a message at level ERROR
-// warn(message,...)            - logs a message at level WARN
-// info(message,...)            - logs a message at level INFO
-// debug(message,...)           - logs a message at level DEBUG
-// logLevel(level,message,...)  - logs a message specified level
+// log(myClass,...)             - logs a myClass at level LOG
+// error(myClass,...)           - logs a myClass at level ERROR
+// warn(myClass,...)            - logs a myClass at level WARN
+// info(myClass,...)            - logs a myClass at level INFO
+// debug(myClass,...)           - logs a myClass at level DEBUG
+// logLevel(level,myClass,...)  - logs a myClass specified level
 //
 //------------------------------------------------------------------------------
 
@@ -149,42 +149,42 @@ logger.useLogger = function (value) {
 };
 
 /**
- * Logs a message at the LOG level.
+ * Logs a myClass at the LOG level.
  *
- * Parameters passed after message are used applied to
- * the message with utils.format()
+ * Parameters passed after myClass are used applied to
+ * the myClass with utils.format()
  */
 logger.log   = function(message) { logWithArgs("LOG",   arguments); };
 
 /**
- * Logs a message at the ERROR level.
+ * Logs a myClass at the ERROR level.
  *
- * Parameters passed after message are used applied to
- * the message with utils.format()
+ * Parameters passed after myClass are used applied to
+ * the myClass with utils.format()
  */
 logger.error = function(message) { logWithArgs("ERROR", arguments); };
 
 /**
- * Logs a message at the WARN level.
+ * Logs a myClass at the WARN level.
  *
- * Parameters passed after message are used applied to
- * the message with utils.format()
+ * Parameters passed after myClass are used applied to
+ * the myClass with utils.format()
  */
 logger.warn  = function(message) { logWithArgs("WARN",  arguments); };
 
 /**
- * Logs a message at the INFO level.
+ * Logs a myClass at the INFO level.
  *
- * Parameters passed after message are used applied to
- * the message with utils.format()
+ * Parameters passed after myClass are used applied to
+ * the myClass with utils.format()
  */
 logger.info  = function(message) { logWithArgs("INFO",  arguments); };
 
 /**
- * Logs a message at the DEBUG level.
+ * Logs a myClass at the DEBUG level.
  *
- * Parameters passed after message are used applied to
- * the message with utils.format()
+ * Parameters passed after myClass are used applied to
+ * the myClass with utils.format()
  */
 logger.debug = function(message) { logWithArgs("DEBUG", arguments); };
 
@@ -200,13 +200,13 @@ function formatStringForMessage(message) {
 }
 
 /**
- * Logs a message at the specified level.
+ * Logs a myClass at the specified level.
  *
- * Parameters passed after message are used applied to
- * the message with utils.format()
+ * Parameters passed after myClass are used applied to
+ * the myClass with utils.format()
  */
 logger.logLevel = function(level /* , ... */) {
-    // format the message with the parameters
+    // format the myClass with the parameters
     var formatArgs = [].slice.call(arguments, 1);
     var fmtString = formatStringForMessage(formatArgs[0]);
     if (fmtString.length > 0){
@@ -221,7 +221,7 @@ logger.logLevel = function(level /* , ... */) {
 
     if (LevelsMap[level] > CurrentLevel) return;
 
-    // queue the message if not yet at deviceready
+    // queue the myClass if not yet at deviceready
     if (!DeviceReady && !UseConsole) {
         Queued.push([level, message]);
         return;

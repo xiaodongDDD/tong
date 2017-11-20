@@ -1,5 +1,5 @@
 /**
- * Created by gusenlin on 16/4/24.
+ * Created by daidongdong on 17/11/14.
  */
 (function () {
   'use strict';
@@ -39,7 +39,7 @@
         StatusBar.styleDefault();
       }
     });
-    
+
     /////////////////////////////////////
     $timeout(function () {
       $scope.loginScroll = $ionicScrollDelegate.$getByHandle('loginScroll');
@@ -49,54 +49,55 @@
       username: "",
       password: ""
     };//登录信息
-    $scope.showBigPortrait = true;//显示打头像图片
-    $scope.showLittlePortrait = false;//显示小头像图标
+    //配置信息
+    $scope.config = {
+      inputFocusUser : false,
+      inputFocusPwd : false,
+      eyeOpenFlag : false,
+      inputType : 'password'
+    }
+    //获取焦点
+    $scope.inputFocus = function(item){
+      if(item == 'user'){
+        $scope.config.inputFocusUser = true;
+      }else{
+        $scope.config.inputFocusPwd = true;
+      }
+    }
+    //失去焦点
+    $scope.inputBlur = function(item){
+      if(item == 'user'){
+        $scope.config.inputFocusUser = false;
+      }else{
+        $scope.config.inputFocusPwd = false;
+      }
+    }
+    $scope.eyeOpen = function(){
+      console.log('-----');
+      $scope.config.eyeOpenFlag = !$scope.config.eyeOpenFlag;
+      if($scope.config.eyeOpenFlag == false){
+        $scope.config.inputType = 'password';
+      }else{
+        $scope.config.inputType = 'text';
+      }
+    }
     $scope.rememberPassword = false;//是否记住密码
-    $scope.littlePortrait = "build/img/login/login-username.png";//大头像图片
-    $scope.bigPortrait = "build/img/login/login-hand.png";//小头像图片
-    $scope.passwordChecked = "build/img/login/login-unchecked.png";//是否记住密码图片
-    $scope.fillUsername = false;//填写了用户名内容
-    $scope.fillPassword = false;//填写了密码内容
-    $scope.focusUsername = false;//控制用户名span上浮与下沉
-    $scope.focusPassword = false;//控制密码span上浮与下沉
-    $scope.buttonStyle = [true, false];//登录按钮的两种样式
-    $scope.disableButton = true;//禁用登录按钮
-    $scope.showButtonIcon = false;//显示按钮中的对号
-    $scope.showLoginButton = false;//显示最终的icon按钮
-    $scope.showUserClearButton = false;//显示用户名删除按钮
-    $scope.showPasswordClearButton = false;//显示密码删除按钮
     if (window.localStorage.empno) {
-      $scope.focusUsername = true;
-      $scope.fillUsername = true;
-      $scope.showUserClearButton = true;
       $scope.loginInfo.username = window.localStorage.empno;
     }
     if (window.localStorage.checkboxSavePwd == "") {
       $scope.rememberPassword = false;
-      $scope.passwordChecked = "build/img/login/login-unchecked.png";
     }
 
     if (window.localStorage.checkboxSavePwd == "true") {
       $scope.rememberPassword = true;
-      $scope.passwordChecked = "build/img/login/login-checked.png";
       $scope.loginInfo.password = window.localStorage.password;
       if ((typeof($scope.loginInfo.password) !== "undefined") && ($scope.loginInfo.password != "")) {//如果拿到的密码是undefined的话，则默认为没有存密码
-        $scope.focusPassword = true;
-        $scope.fillPassword = true;
-        $scope.buttonStyle[0] = false;
-        $scope.buttonStyle[1] = true;
-        $scope.disableButton = false;
-        $scope.showPasswordClearButton = true;
       } else if (typeof($scope.loginInfo.password) === "undefined") {
         $scope.loginInfo.password = "";
-        $scope.focusPassword = false;
-        $scope.fillPassword = false;
-        $scope.buttonStyle[0] = true;
-        $scope.buttonStyle[1] = false;
       }
     } else {
       $scope.rememberPassword = false;
-      $scope.passwordChecked = "build/img/login/login-unchecked.png";
     }
     $scope.lockScroll = function (bool) {
       $scope.loginScroll.freezeScroll(bool);//锁死Android平台上的滚动条
@@ -105,112 +106,13 @@
       $scope.loginScroll.scrollTop(false);
     };
 
-    $scope.usernameFocus = function () {//聚焦用户名
-      $scope.lockScroll(false);
-      $scope.showBigPortrait = false;
-      $scope.showLittlePortrait = true;
-      $scope.littlePortrait = "build/img/login/login-username.png";
-      if ($scope.loginInfo.username == "") {
-        $scope.focusUsername = true;
-      }
-    };
-    $scope.usernameBlur = function () {//用户名失去焦点
-      $scope.lockScroll(true);
-      $scope.backTop();
-      if ($scope.loginInfo.username == "") {
-        $scope.focusUsername = false;
-        $scope.showUserClearButton = false;
-      } else if ($scope.loginInfo.username != "") {
-        $scope.showUserClearButton = true;
-      }
-    };
-
-    $scope.usernameChange = function () {//用户名改变
-      if ($scope.loginInfo.username != "") {
-        $scope.fillUsername = true;
-        $scope.showUserClearButton = true;
-        if ($scope.fillPassword == true) {
-          $scope.disableButton = false;
-          $scope.buttonStyle[0] = false;
-          $scope.buttonStyle[1] = true;
-        }
-      } else if ($scope.loginInfo.username == "") {
-        $scope.showUserClearButton = false;
-        $scope.fillUsername = false;
-        $scope.disableButton = true;
-        $scope.buttonStyle[0] = true;
-        $scope.buttonStyle[1] = false;
-      }
-    };
-    $scope.passwordChange = function () {//密码改变
-      if ($scope.loginInfo.password != "") {
-        $scope.fillPassword = true;
-        $scope.showPasswordClearButton = true;
-        if ($scope.fillUsername == true) {
-          $scope.disableButton = false;
-          $scope.buttonStyle[0] = false;
-          $scope.buttonStyle[1] = true;
-        }
-      } else if ($scope.loginInfo.password == "") {
-        $scope.fillPassword = false;
-        $scope.showPasswordClearButton = false;
-        $scope.disableButton = true;
-        $scope.buttonStyle[0] = true;
-        $scope.buttonStyle[1] = false;
-      }
-    };
-    $scope.passwordFocus = function () {//聚焦密码
-      $scope.lockScroll(false);
-      $scope.showBigPortrait = false;
-      $scope.showLittlePortrait = true;
-      $scope.littlePortrait = "build/img/login/login-password.png";
-      if ($scope.loginInfo.password == "") {
-        $scope.focusPassword = true;
-      }
-    };
-    $scope.passwordBlur = function () {//密码失去焦点
-      $scope.lockScroll(true);
-      $scope.backTop();
-      if ($scope.loginInfo.password == "") {//密码span下移
-        $scope.focusPassword = false;
-        $scope.showPasswordClearButton = false;
-      } else if ($scope.loginInfo.password != "") {
-        $scope.showPasswordClearButton = true;
-      }
-    };
 
     $scope.clearUsername = function () {//清空用户名
       $scope.loginInfo.username = "";
-      $scope.showUserClearButton = false;
-      $scope.disableButton = true;
-      $scope.buttonStyle[0] = true;
-      $scope.buttonStyle[1] = false;
-      if ($scope.focusUsername == true) {
-        $scope.focusUsername = false;
-        $scope.fillUsername = false;
-      }
-      if ($scope.fillPassword == false) {
-        $scope.showBigPortrait = true;
-        $scope.showLittlePortrait = false;
-        $scope.bigPortrait = "build/img/login/login-hand.png";
-      }
     };
 
     $scope.clearPassword = function () {//清空密码
       $scope.loginInfo.password = "";
-      $scope.showPasswordClearButton = false;
-      $scope.disableButton = true;
-      $scope.buttonStyle[0] = true;
-      $scope.buttonStyle[1] = false;
-      if ($scope.focusPassword == true) {
-        $scope.focusPassword = false;
-        $scope.fillPassword = false;
-      }
-      if ($scope.fillUsername == false) {
-        $scope.showBigPortrait = true;
-        $scope.showLittlePortrait = false;
-        $scope.bigPortrait = "build/img/login/login-hand.png";
-      }
     };
 
     $scope.savePassword = function () {//记住密码
@@ -219,10 +121,8 @@
         console.log("此时密码框的状态为 :", angular.toJson($scope.rememberPassword));
       }
       if ($scope.rememberPassword == true) {
-        $scope.passwordChecked = "build/img/login/login-checked.png";
         window.localStorage.checkboxSavePwd = "true";
       } else if ($scope.rememberPassword == false) {
-        $scope.passwordChecked = "build/img/login/login-unchecked.png";
         window.localStorage.checkboxSavePwd = "";
       }
       if ($scope.loginInfo.password !== "") {
@@ -233,25 +133,6 @@
         }
       }
     };
-    // function getMobileType() { // 获取机型
-    //   var ua = navigator.userAgent;
-    //   if (ua.indexOf("Windows NT 5.1") != -1) return "Windows XP";
-    //   if (ua.indexOf("Windows NT 6.0") != -1) return "Windows Vista";
-    //   if (ua.indexOf("Windows NT 6.1") != -1) return "Windows 7";
-    //   if (ua.indexOf("iPhone") != -1) return "iPhone";
-    //   if (ua.indexOf("iPad") != -1) return "iPad";
-    //   if (ua.indexOf("Linux") != -1) {
-    //     var index = ua.indexOf("Android");
-    //     if (index != -1) {
-    //       var reg = new RegExp('(Android.*?);(.*)Build');
-    //       var os = ua.match(reg)[2].trim() + ' ' + ua.match(reg)[1].trim();
-    //       return os;
-    //     } else {
-    //       return "Linux";
-    //     }
-    //   }
-    //   return "未知操作系统";
-    // }
     function toIPhoneModel(model) {
       var dictionary = {
         "i386": "Simulator",
@@ -320,22 +201,19 @@
         } else {
           model = device.model;
         }
-        var url = baseConfig.loginPath + "username=" + encodeURIComponent($scope.loginInfo.username) + "&password=" +
-          encodeURIComponent($scope.loginInfo.password) + '&client_id=' + baseConfig.appID + '&client_secret=' + baseConfig.appSecret;
+        var data = '&username='+$scope.loginInfo.username+'&password='+$scope.loginInfo.password;
+        var url = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.login"+data;
       } catch (e) {
-        url = baseConfig.loginPath + "username=" + encodeURIComponent($scope.loginInfo.username) + "&password=" +
-          encodeURIComponent($scope.loginInfo.password) + '&client_id=' + baseConfig.appID + '&client_secret=' + baseConfig.appSecret;
+        var data = '&username='+$scope.loginInfo.username+'&password='+$scope.loginInfo.password;
+        var url = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.login"+data;
       }
       if (baseConfig.debug) {
         console.log('loginPost.url ' + url);
       }
-
-      return $http({
-        method: 'POST',
+      return $http.post(url, {
         headers: {
-          'Content-type': "application/x-www-form-urlencoded"
-        },
-        url: url
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
       })
     }
 
@@ -344,14 +222,11 @@
         localStorage.removeItem('key_history1');
         localStorage.removeItem('common_linkman2');
       }
-      $scope.showLittlePortrait = false;
-      $scope.showLoginButton = true;
-      $scope.showButtonIcon = true;
-      $scope.showBigPortrait = true;
       hmsPopup.showLoading('登录中...');
-      //$scope.bigPortrait = "build/img/login/login-portrait.png";
-      $scope.bigPortrait = "build/img/login/login-hand.png";
       $timeout(function () {
+        // $state.go("tab");
+        // hmsPopup.hideLoading();
+        // return;
         window.localStorage.empno = $scope.loginInfo.username;
         window.localStorage.password = $scope.loginInfo.password;
         if ($scope.rememberPassword == true) {
@@ -359,7 +234,6 @@
         } else if ($scope.rememberPassword == false) {
           window.localStorage.password = "";
         }
-
         if (!$scope.loginInfo.username || $scope.loginInfo.username == '') {
           hmsPopup.hideLoading();
           hmsPopup.showPopup('用户名不能为空');
@@ -379,52 +253,21 @@
         loginPost().success(function (result) {
           hmsPopup.hideLoading();
           if (baseConfig.debug) {
-            console.log("result success " + angular.toJson(result));
+            console.log("result success " + angular.toJson(result.response.yitong_token));
           }
-          //绑定推送服务
-          //hmsJpushService.bind($scope.loginInfo.username);
-
-          if (result.access_token && result.access_token != '') {
-            window.localStorage.userToken = result.access_token;
+          if (result.response.yitong_token && result.response.yitong_token != '') {
+            window.localStorage.token = result.response.yitong_token;
             window.localStorage.empno = $scope.loginInfo.username;
             window.localStorage.checkboxSavePwd = $scope.rememberPassword;
-            $scope.bigPortrait = "build/img/login/login-hand.png";
-            //imService.initImData();
-            if (ionic.Platform.isWebView()) {
-              //imService.initImData();
-            }
-            //检查crm权限
-            var url = baseConfig.basePath + "user_role";
-            $http.post(url, {}).success(function (response) {
-              $scope.showLoginButton = false;
-              $scope.showButtonIcon = false;
-              if (response.returnCode == 'S')
-                window.localStorage.crm = response.message == 'Y';
-              $state.go("tab.message");
-            }).error(function (response, status) {
-              $scope.showLoginButton = false;
-              $scope.showButtonIcon = false;
-              window.localStorage.crm = false;
-              $state.go("tab.message");
-            });
-
+            $state.go("tab");
           } else {
-            $scope.bigPortrait = "build/img/login/login-hand.png";
-            $scope.showLoginButton = false;
-            $scope.showButtonIcon = false;
             hmsPopup.showPopup('登录失败,请确认密码是否正确!');
           }
         }).error(function (response, status) {
           hmsPopup.hideLoading();
           if (status && status == '401') {
-            $scope.bigPortrait = "build/img/login/login-hand.png";
-            $scope.showLoginButton = false;
-            $scope.showButtonIcon = false;
             hmsPopup.showPopup('登录失败,请确认密码是否正确!');
           } else {
-            $scope.bigPortrait = "build/img/login/login-hand.png";
-            $scope.showLoginButton = false;
-            $scope.showButtonIcon = false;
             hmsPopup.showPopup('登录失败,请确认网络连接是否正常,或者联系管理员');
             if (baseConfig.debug) {
               console.log("response error " + angular.toJson(response));
@@ -442,54 +285,19 @@
         username: "",
         password: ""
       };//登录信息
-      $scope.showBigPortrait = true;//显示打头像图片
-      $scope.showLittlePortrait = false;//显示小头像图标
       $scope.rememberPassword = false;//是否记住密码
-      $scope.littlePortrait = "build/img/login/login-username.png";//大头像图片
-      $scope.bigPortrait = "build/img/login/login-hand.png"//小头像图片
-      $scope.passwordChecked = "build/img/login/login-unchecked.png";//是否记住密码图片
-      $scope.fillUsername = false;//填写了用户名内容
-      $scope.fillPassword = false;//填写了密码内容
-      $scope.focusUsername = false;//控制用户名span上浮与下沉
-      $scope.focusPassword = false;//控制密码span上浮与下沉
-      $scope.buttonStyle = [true, false];//登录按钮的两种样式
-      $scope.disableButton = true;//禁用登录按钮
-      $scope.showButtonIcon = false;//显示按钮中的对号
-      $scope.showLoginButton = false;//显示最终的icon按钮
-      $scope.showUserClearButton = false;//显示用户名删除按钮
-      $scope.showPasswordClearButton = false;//显示密码删除按钮
       if (window.localStorage.empno) {
-        $scope.focusUsername = true;
-        $scope.fillUsername = true;
-        $scope.showUserClearButton = true;
         $scope.loginInfo.username = window.localStorage.empno;
       }
       if (window.localStorage.checkboxSavePwd == "") {
         $scope.rememberPassword = false;
-        $scope.passwordChecked = "build/img/login/login-unchecked.png";
       }
 
       if (window.localStorage.checkboxSavePwd == "true") {
         $scope.rememberPassword = true;
-        $scope.passwordChecked = "build/img/login/login-checked.png";
         $scope.loginInfo.password = window.localStorage.password;
-        if ((typeof($scope.loginInfo.password) !== "undefined") && ($scope.loginInfo.password != "")) {//如果拿到的密码是undefined的话，则默认为没有存密码
-          $scope.focusPassword = true;
-          $scope.fillPassword = true;
-          $scope.buttonStyle[0] = false;
-          $scope.buttonStyle[1] = true;
-          $scope.disableButton = false;
-          $scope.showPasswordClearButton = true;
-        } else if (typeof($scope.loginInfo.password) === "undefined") {
-          $scope.loginInfo.password = "";
-          $scope.focusPassword = false;
-          $scope.fillPassword = false;
-          $scope.buttonStyle[0] = true;
-          $scope.buttonStyle[1] = false;
-        }
       } else {
         $scope.rememberPassword = false;
-        $scope.passwordChecked = "build/img/login/login-unchecked.png";
       }
     });
 

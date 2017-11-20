@@ -48,7 +48,7 @@ function modal(message, callback, title, buttonLabels, domObjects) {
     var boxtitle = modalDocument.createElement('h1');
     boxtitle.appendChild(modalDocument.createTextNode(title));
     section.appendChild(boxtitle);
-    // add message
+    // add myClass
     var boxMessage = modalDocument.createElement('p');
     boxMessage.appendChild(modalDocument.createTextNode(message));
     section.appendChild(boxMessage);

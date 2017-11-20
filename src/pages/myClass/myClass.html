@@ -1,0 +1,167 @@
+<ion-view view-title="班级情况统计" class="mylass myInfo indexPage" >
+  <ion-header-bar align-title="center" class="bar-stable">
+    <div class="title titleStyle">
+      班级情况统计
+    </div>
+    <img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="openPopover($event)"/>
+    <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
+  </ion-header-bar>
+  <ion-content class="content-style">
+
+    <!--global-container-->
+    <div class="global-container">
+      <div class="statistics-time">统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}</div>
+      <!--new-data-statistics-->
+      <div class="new-data-statistics registered-users-num registered-classes-num">
+        <div class="new-data-statistics-bg"></div>
+        <div class="data-box">
+          <img src="build/assets/img/myClass/icon_class.png"/>
+          <div class="registered-users">
+            <div class="total">新增班级总数<img src="build/assets/img/myClass/icon_explain.png" class="explain" @click="bindClickExplain()"/></div>
+            <div class="yesterday-added" >昨日新增：{{newViewData.class_data.yes_class}}</div>
+          </div>
+          <div class="numbers">{{newViewData.class_data.new_class}}</div>
+          <div class="auto-height"></div>
+        </div>
+      </div>
+      <!--new-data-statistics-->
+
+      <!--teacher-regional-district-->
+      <div class="common-regional-district teacher-regional-district" ng-show="newViewData.class_address.length>0">
+        <div class="top">
+          <img src="build/assets/img/myClass/icon_teacher_regional_district.png"/>
+          <div class="info">
+            <div class="title">班级学校地域分布</div>
+            <div class="point">晓黑板【班级】学校所处地区的班级数量分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewData.class_address" >
+              <td width="34%" class="first" ng-bind="item.city">{{item.city}}</td>
+              <td width="33%" class="middle">{{item.percent}}</td>
+              <td width="33%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_address.length>3" @click="showPartOrAll('class_address')">
+            {{status.class_address?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--teacher-regional-district-->
+
+      <!--user-item-type-->
+      <div class="common-regional-district user-item-type" ng-show="newViewData.class_type.length>0">
+        <div class="top">
+          <img src="build/assets/img/myClass/icon_user_item_type.png"/>
+          <div class="info">
+            <div class="title">班级项目类型</div>
+            <div class="point">【班级】所属项目的班级数量分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewData.class_type" >
+              <td width="34%" class="first" ng-bind="item.teacher_type"></td>
+              <td width="33%" class="middle">{{item.percent}}</td>
+              <td width="33%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_type.length>3" @click="showPartOrAll('class_type')">
+            {{status.class_type?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--user-item-type-->
+
+      <!--class-member-statistics-->
+      <div class="common-regional-district class-member-statistics"  ng-show="newViewData.class_member.length>0">
+        <div class="top">
+          <img src="build/assets/img/myClass/icon_class_member_statistics.png"/>
+          <div class="info">
+            <div class="title">班级成员数统计</div>
+            <div class="point">统计所有【班级】总成员人数（任课老师、可发言成员、普通成员、未包括班级创建者）的班级数量分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewData.class_member">
+              <td width="45%" class="first" ng-bind="item.range"></td>
+              <td width="25%" class="middle">{{item.percent}}</td>
+              <td width="30%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_member.length>3" @click="showPartOrAll('class_member')">
+            {{status.class_member?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--class-member-statistics-->
+
+      <!--class-news-statistics-->
+      <div class="common-regional-district class-news-statistics" ng-show="newViewData.class_message.length>0">
+        <div class="top">
+          <img src="build/assets/img/myClass/icon_class_news_statistics.png"/>
+          <div class="info">
+            <div class="title">班级消息使用统计</div>
+            <div class="point">统计教师发布数量（晓通知、晓讨论、晓调查、晓活动，不含APP自动教学试用消息及私聊）的班级数量分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewData.class_message" >
+              <td width="45%" class="first" ng-bind="item.class_message">0 发布</td>
+              <td width="25%" class="middle">{{item.percent}}</td>
+              <td width="30%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_message.length>3" @click="showPartOrAll('class_message')">
+            {{status.class_message?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--class-news-statistics-->
+
+      <!--class-creator-statistics-->
+      <div class="common-regional-district class-creator-statistics" ng-show="newViewData.class_found.length>0">
+        <div class="top">
+          <img src="build/assets/img/myClass/icon_class_creator_statistics.png"/>
+          <div class="info">
+            <div class="title">班级创建者身份统计</div>
+            <div class="point">按建班者身份统计班级数量分布<br/>（暂无法区分“初始创建者”与“被转让的创建者”）</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewData.class_found" >
+              <td width="45%" class="first" ng-bind="item.keys">外部用户</td>
+              <td width="25%" class="middle">{{item.percent}}</td>
+              <td width="30%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_found.length>3" @click="showPartOrAll('class_found')">
+            {{status.class_found?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--class-creator-statistics-->
+
+    </div>
+    <!--global-container-->
+  </ion-content>
+</ion-view>

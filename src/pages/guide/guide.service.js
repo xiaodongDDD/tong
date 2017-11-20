@@ -1,10 +1,10 @@
 /**
- * Created by gusenlin on 16/9/21.
+ * Created by daidongdong on 2017/11/14.
  */
 (function () {
   'use strict';
   angular
-    .module('applicationModule')
+    .module('indexPageModule')
     .service('guideService', guideService);
 
   guideService.$inject = [

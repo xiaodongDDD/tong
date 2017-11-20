@@ -1,0 +1,183 @@
+.myInfo {
+  .right-image {
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    border: 10px solid transparent;
+    border-right: 0;
+    box-sizing: content-box;
+    z-index: 5;
+  }
+  .titleName {
+    font-family: PingFangSC-Regular;
+    font-size: 15px;
+    color: #000000;
+    letter-spacing: -0.36px;
+    line-height: 28px;
+    height: 28px;
+  }
+  .titleNum {
+    font-family: PingFangSC-Regular;
+    font-size: 10px;
+    color: #000000;
+    letter-spacing: 0.5px;
+    height: 14px;
+    line-height: 14px;
+  }
+  .titleStyle{
+    font-family: PingFangSC-Light;
+    font-size: 17px;
+    color: #000000;
+    letter-spacing: -0.41px;
+  }
+  .left-image {
+    right: 55px;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 0;
+    border: 13px solid transparent;
+    border-right: 0;
+    box-sizing: content-box;
+    z-index: 5;
+  }
+  .global-container .registered-users-num {
+    height: 95px;
+  }
+  .global-container .registered-users-num .new-data-statistics-bg {
+    width: 100%;
+    height: 48px;
+    background: url(../assets/img/myInfo/new_data_statistics_bg_two.png) 0 0 no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  .global-container .registered-classes-num .new-data-statistics-bg {
+    width: 100%;
+    height: 74px;
+    background: url(../assets/img/myInfo/new_classes_statistics_bg.png) 0 0 no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  .global-container .registered-users-num .data-box {
+    padding: 25px 15px 0 20px;
+  }
+  .global-container .registered-users-num .data-box > img {
+    float: left;
+    width: 40px;
+    height: 34px;
+    margin-top: 5px;
+  }
+  .global-container .registered-users-num .data-box .registered-users {
+    float: left;
+    margin-left: 20px;
+  }
+  .global-container .registered-users-num .data-box .registered-users .total {
+    font-size: 17px;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+  }
+  .global-container .registered-users-num .data-box .registered-users .yesterday-added {
+    font-size: 14px;
+    color: #B6E7FF;
+  }
+  .global-container .registered-users-num .data-box .numbers {
+    float: right;
+    font-size: 36px;
+    color: #FFFFFF;
+    line-height: 46px;
+  }
+  .global-container .registered-users-num .data-box .registered-users .total .explain {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    margin-left: 6px;
+  }
+  .global-container .registered-users-num .explain-box-hide {
+    height: 38px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 3px;
+    color: #FFFFFF;
+    font-size: 15px;
+    text-align: center;
+    line-height: 38px;
+  }
+  .global-container .registered-users-num .explain-box-hide.classes {
+    width: 260px;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    margin-left: -130px;
+  }
+  .global-container .registered-users-num .explain-box-hide.school {
+    width: 242px;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    margin-left: -121px;
+  }
+  .common-regional-district {
+    background-color: #FFFFFF;
+    margin-top: 15px;
+    border-radius: 4px;
+    padding: 0 10px;
+  }
+  .common-regional-district .top {
+    padding: 10px 0;
+  }
+  .common-regional-district .top img {
+    float: left;
+    width: 25px;
+    height: 25px;
+  }
+  .common-regional-district .top .info {
+    margin-left: 35px;
+  }
+  .common-regional-district .top .info .title {
+    font-size: 17px;
+    color: #000000;
+    margin-bottom: 6px;
+  }
+  .common-regional-district .top .info .point {
+    font-size: 12px;
+    color: #888888;
+  }
+  .common-regional-district .bottom table {
+    width: 100%;
+  }
+  .common-regional-district .bottom table tr {
+    height: 40px;
+    border-top: 1px solid #EFEFEF;
+  }
+  .common-regional-district .bottom table tr td {
+    font-size: 15px;
+    color: #000000;
+    line-height: 40px;
+  }
+  .common-regional-district .bottom table tr td.first {
+    padding-left: 4px;
+  }
+  .common-regional-district .bottom table tr td.middle {
+    text-align: center;
+  }
+  .common-regional-district .bottom table tr td.last {
+    text-align: right;
+    padding-right: 10px;
+  }
+  .common-regional-district .bottom .view-all-btn {
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    border-top: 1px solid #EFEFEF;
+    font-size: 15px;
+    color: #888888;
+    text-align: center;
+    line-height: 40px;
+  }
+
+}

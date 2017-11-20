@@ -1,7 +1,6 @@
 /**
- * Created by wolf on 2016/6/30. (wen.da)
+ * Created by daidongdong on 2017/11/14.
  */
-
 (function () {
   //'use strict';
 

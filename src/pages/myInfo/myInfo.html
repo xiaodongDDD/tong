@@ -1,21 +1,115 @@
-<ion-view view-title="我的" class="my-info">
-  <ion-header-bar align-title="center" class="bar-stable">
-    <div class="buttons">
-      <button class="button button-icon icon ion-ios-arrow-left" ng-click="$hmsGoBack()">
-      </button>
+<ion-view view-title="我的" class="myInfo indexPage">
+  <ion-header-bar class="head-bg">
+    <div class="title titleStyle">
+      注册用户情况统计
     </div>
-    <h1 class="title">
-      <span>
-        我的
-      </span>
-    </h1>
-    <div class="buttons">
-      <button class="button button-clear">
-        <span class="barRightButton">1234</span>
-      </button>
-    </div>
+    <img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="openPopover($event)"/>
+    <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
-  <ion-content>
+  <ion-content class="content-style">
+    <!--global-container-->
+    <div class="global-container">
+      <div class="statistics-time" >统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}
+      </div>
+      <!--new-data-statistics-->
+      <div class="new-data-statistics registered-users-num">
+        <div class="new-data-statistics-bg"></div>
+        <div class="data-box">
+          <img src="build/assets/img/myInfo/icon_user.png"/>
+          <div class="registered-users">
+            <div class="total">注册用户总数</div>
+            <div class="yesterday-added" >昨日新增：{{newViewData.user_data.yes_res}}</div>
+          </div>
+          <div class="numbers" >{{newViewData.user_data.new_res}}</div>
+          <div class="auto-height"></div>
+        </div>
+      </div>
+      <!--new-data-statistics-->
 
+      <!--teacher-regional-district-->
+      <div class="common-regional-district teacher-regional-district" ng-if="userViewData.teacher_address.length>0">
+        <div class="top">
+          <img src="build/assets/img/myInfo/icon_teacher_regional_district.png"/>
+          <div class="info">
+            <div class="title">教师用户地域分布</div>
+            <div class="point">晓黑板教师用户所处的地区人数分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in  userViewData.teacher_address">
+              <td width="34%" class="first" ng-bind="item.city">未知</td>
+              <td width="33%" class="middle">{{item.percent}}</td>
+              <td width="33%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.teacher_address.length>3"
+             @click="showPartOrAll('teacher_address')">
+            {{status.teacher_address?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--teacher-regional-district-->
+
+      <!--user-role-district-->
+      <div class="common-regional-district user-role-district" ng-if="userViewData.user_role.length>0">
+        <div class="top">
+          <img src="build/assets/img/myInfo/icon_user_role_district.png"/>
+          <div class="info">
+            <div class="title">用户角色分布</div>
+            <div class="point">晓黑板个人账户中不同角色类型的人数分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in userViewData.user_role" >
+              <td width="34%" class="first" ng-bind="item.teacher_type"></td>
+              <td width="33%" class="middle">{{item.percent}}</td>
+              <td width="33%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_role.length>3"
+             @click="showPartOrAll('user_role')">
+            {{status.user_role?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--user-role-district-->
+
+      <!--user-item-type-->
+      <div class="common-regional-district user-item-type" ng-if="newViewData.user_type.length>0">
+        <div class="top">
+          <img src="build/assets/img/myInfo/icon_user_item_type.png"/>
+          <div class="info">
+            <div class="title">用户项目类型</div>
+            <div class="point">晓黑板注册用户所属的项目人数分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewData.user_type" >
+              <td width="34%" class="first" ng-bind="item.teacher_type">教师</td>
+              <td width="33%" class="middle">{{item.percent}}</td>
+              <td width="33%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_type.length>3"
+             @click="showPartOrAll('user_type')">
+            {{status.user_type?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--user-item-type-->
+    </div>
+    <!--global-container-->
   </ion-content>
 </ion-view>

@@ -1,12 +1,12 @@
 /**
- * Created by gusenlin on 16/5/16.
+ * Created by daidongdong on 2017/11/14.
  */
 
 (function () {
   'use strict';
 
   angular
-    .module('applicationModule')
+    .module('indexPageModule')
     .config(config);
 
   config.$inject = ['$stateProvider'];
@@ -23,7 +23,7 @@
   }
 
   angular
-    .module('applicationModule')
+    .module('indexPageModule')
     .controller('guideCtrl', guideCtrl);
 
   guideCtrl.$inject = [

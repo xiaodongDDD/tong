@@ -1,0 +1,247 @@
+<ion-view view-title="学校情况统计" class="mylass myInfo indexPage" >
+  <ion-header-bar align-title="center" class="bar-stable">
+    <div class="title titleStyle">
+      学校情况统计
+    </div>
+    <img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="openPopover($event)"/>
+    <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
+  </ion-header-bar>
+  <ion-content class="content-style">
+    <!--global-container-->
+    <div class="global-container">
+      <!--new-data-statistics-->
+      <div class="statistics-time" >统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}</div>
+      <!--new-data-statistics-->
+      <div class="new-data-statistics registered-users-num">
+        <div class="new-data-statistics-bg"></div>
+        <div class="data-box">
+          <img src="build/assets/img/school/icon_zhengxiao.png"/>
+          <div class="registered-users">
+            <div class="total">整校用户<img src="build/assets/img/school/icon_explain.png" class="explain" @click="bindClickExplain()"/></div>
+            <div class="yesterday-added" >昨日新增：{{newViewData.school_yes_data.yes_data || 0}}</div>
+          </div>
+          <div class="numbers" >{{newViewData.school_yes_data.school_count || 0}}</div>
+          <div class="auto-height"></div>
+        </div>
+        <!--<div class="explain-box-hide school" v-show="explainFlag">以【学校】为单位的用户统计数</div>-->
+      </div>
+      <!--teacher-regional-district-->
+      <div class="common-regional-district teacher-regional-district" ng-show="newViewData.distinct_list.length>0">
+        <div class="top">
+          <img src="build/assets/img/school/icon_teacher_regional_district.png"/>
+          <div class="info">
+            <div class="title">学校地域分布</div>
+            <div class="point">统计整校用户所处地区的学校数量分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewData.distinct_list" >
+              <td width="34%" class="first" ng-bind="item.province"></td>
+              <td width="33%" class="middle">{{item.percent}}</td>
+              <td width="33%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.distinct_list.length>3" @click="showPartOrAll('distinct_list')">
+            {{status.distinct_list?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--teacher-regional-district-->
+
+      <!--school-scale-statistics-->
+      <div class="common-regional-district school-scale-statistics" ng-show="newViewData.school_ranges.length>0">
+        <div class="top">
+          <img src="build/assets/img/school/icon_school_scale_statistics.png"/>
+          <div class="info">
+            <div class="title">学校规模统计</div>
+            <div class="point">统计整校人数（实际教职工人、在读学生）的学校数量分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewData.school_ranges">
+              <td width="60%" class="first" ng-bind="item.range"></td>
+              <td width="20%" class="middle">{{item.percent}}</td>
+              <td width="20%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.school_ranges.length>3" @click="showPartOrAll('school_ranges')">
+            {{status.school_ranges?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--school-scale-statistics-->
+
+      <!--framing-proportion-statistics-->
+      <div class="common-regional-district framing-proportion-statistics" ng-show="newViewData.arc_percent.length>0">
+        <div class="top">
+          <img src="build/assets/img/school/icon_framing_proportion_statistics.png"/>
+          <div class="info">
+            <div class="title">构架人数占比统计</div>
+            <div class="point">架构内教师人数与实际教职工人数所占比率的学校数量分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewData.arc_percent" >
+              <td width="50%" class="first" ng-bind="item.range"></td>
+              <td width="25%" class="middle">{{item.percent}}</td>
+              <td width="25%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.arc_percent.length>3" @click="showPartOrAll('arc_percent')">
+            {{status.arc_percent?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--framing-proportion-statistics-->
+
+      <!--code-framing-proportion-statistics-->
+      <div class="common-regional-district code-framing-proportion-statistics" ng-show="newViewData.join_school.length>0">
+        <div class="top">
+          <img src="build/assets/img/school/icon_framing_proportion_statistics.png"/>
+          <div class="info">
+            <div class="title">扫码与构架人数占比统计</div>
+            <div class="point">扫码加入整校的教师人数与【学校】架构内教师人数所占比率的学校数量分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewData.join_school" >
+              <td width="50%" class="first" ng-bind="item.range"></td>
+              <td width="25%" class="middle">{{item.percent}}</td>
+              <td width="25%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.join_school.length>3" @click="showPartOrAll('join_school')">
+            {{status.join_school?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--code-framing-proportion-statistics-->
+
+      <!--class-news-statistics-->
+      <div class="common-regional-district class-news-statistics" ng-show="newViewData.message_use.length>0">
+        <div class="top">
+          <img src="build/assets/img/school/icon_class_news_statistics.png"/>
+          <div class="info">
+            <div class="title">消息使用统计</div>
+            <div class="point">校方发布的整校通知发布数量的学校数量分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in [1]" >
+              <td width="50%" class="first" ng-bind="item.range"></td>
+              <td width="25%" class="middle">{{item.percent}}</td>
+              <td width="25%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.message_use.length>3" @click="showPartOrAll('message_use')">
+            {{status.message_use?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--class-news-statistics-->
+
+      <!--school-type-statistics-->
+      <div class="common-regional-district school-type-statistics" ng-show="newViewData.school_property.length>0">
+        <div class="top">
+          <img src="build/assets/img/school/icon_school_type_statistics.png"/>
+          <div class="info">
+            <div class="title">学校创办类型统计</div>
+            <div class="point">统计学校创办类型占比的学校数量分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewData.school_property" >
+              <td width="34%" class="first" ng-bind="item.key"></td>
+              <td width="33%" class="middle">{{item.percent}}</td>
+              <td width="33%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.school_property.length>3" @click="showPartOrAll('school_property')">
+            {{status.school_property?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--school-type-statistics-->
+
+      <!--academic-section-statistics-->
+      <div class="common-regional-district academic-section-statistics" ng-show="newViewData.study_section.length>0">
+        <div class="top">
+          <img src="build/assets/img/school/icon_academic_section_statistics.png"/>
+          <div class="info">
+            <div class="title">学段统计</div>
+            <div class="point">统计学校不同学段占比的学校数量分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewData.study_section" >
+              <td width="50%" class="first" ng-bind="item.key">十二年一贯制</td>
+              <td width="25%" class="middle">{{item.percent}}</td>
+              <td width="25%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.study_section.length>3" @click="showPartOrAll('study_section')">
+            {{status.study_section?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--academic-section-statistics-->
+
+      <!--academic-section-statistics-->
+      <div class="common-regional-district zx-transaction-statistics" ng-show="newViewData.trainer_lists.length>0">
+        <div class="top">
+          <img src="build/assets/img/school/icon_zx_transaction_statistics.png"/>
+          <div class="info">
+            <div class="title">整校成交统计</div>
+            <div class="point">培训师所负责的学校数量分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewData.trainer_lists" >
+              <td width="34%" class="first" ng-bind="item.user_name"></td>
+              <td width="33%" class="middle">{{item.percent}}</td>
+              <td width="33%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.trainer_lists.length>3" @click="showPartOrAll('trainer_lists')">
+            {{status.trainer_lists?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--academic-section-statistics-->
+
+    </div>
+    <!--global-container-->
+  </ion-content>
+</ion-view>

@@ -1,5 +1,5 @@
 /**
- * Created by gusenlin on 2017/1/22.
+ * Created by daidongdong on 2017/11/14.
  */
 (function () {
   'use strict';
@@ -9,12 +9,13 @@
     'ngCordova',
     'baseConfig',
     'loginModule',
-    'messageModule',
-    'contactModule',
-    'applicationModule',
+    'myClassModule',
+    'schoolModule',
+    'indexPageModule',
     'myInfoModule',
     'utilModule',
-    'hmsModule'
+    'hmsModule',
+    'settingModule'
   ]);
 
   angular.module('myApp')
@@ -84,46 +85,39 @@
       .state('tab', {
         url: '/tab',
         templateUrl: 'build/pages/tab/tab.html',
-        controller: 'tabCtrl',
-        controllerAs: 'vm'
+        controller: 'tabsCtrl'
       })
-      // Each tab has its own nav history stack:
-      .state('tab.message', {
-        url: '/message',
-        views: {
-          'tab-message': {
-            templateUrl: 'build/pages/message/message.html',
-            controller: ''
-          }
-        }
+      //首頁
+      .state('indexPage', {
+        url: '/indexPage',
+        templateUrl: 'build/pages/indexPage/indexPage.html',
+        controller: 'indexPageCtrl',
       })
-      .state('tab.application', {
-        url: '/application',
-        views: {
-          'tab-application': {
-            templateUrl: 'build/pages/application/application.html',
-            controller: ''
-          }
-        }
-      })
-      .state('tab.contact', {
-        url: '/contact',
-        views: {
-          'tab-contact': {
-            templateUrl: 'build/pages/contact/contact.html',
-            controller: ''
-          }
-        }
-      })
-      .state('tab.myInfo', {
+      //用戶
+      .state('myInfo', {
         url: '/myInfo',
-        views: {
-          'tab-myInfo': {
-            templateUrl: 'build/pages/myInfo/myInfo.html',
-            controller: ''
-          }
-        }
-      });
+        templateUrl: 'build/pages/myInfo/myInfo.html',
+        controller: 'myInfoCtrl',
+      })
+      //學校
+      .state('school', {
+        url: '/school',
+        templateUrl: 'build/pages/school/school.html',
+        controller: 'schoolCtrl'
+      })
+      //班級
+      .state('myClass', {
+        url: '/myClass',
+        templateUrl: 'build/pages/myClass/myClass.html',
+        controller: 'myClassCtrl'
+      })
+      //设置
+      .state('setting', {
+        url: '/setting',
+        templateUrl: 'build/pages/setting/setting.html',
+        controller: 'settingCtrl'
+      })
+;
 
     if (!window.localStorage.needGuid || window.localStorage.needGuid == "true") {
       //if (baseConfig.debug) {
@@ -136,11 +130,11 @@
       console.log('window.localStorage.userToken ' + window.localStorage.userToken);
 
       if (window.localStorage.userToken && window.localStorage.userToken != "") {
-        $urlRouterProvider.otherwise('/tab/message');
+        $urlRouterProvider.otherwise('/login');
         /*if (window.localStorage.getItem('gesturePassword') && window.localStorage.getItem('gesturePassword') != '') {
          $urlRouterProvider.otherwise('/gesture-lock');
          } else {
-         $urlRouterProvider.otherwise('/tab/message');
+         $urlRouterProvider.otherwise('/tab/myClass');
          }*/
       } else {
         $urlRouterProvider.otherwise('/login');

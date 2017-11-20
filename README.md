@@ -1,7 +1,7 @@
 # [Hand Portal] &middot; [![CircleCI Status](https://circleci.com/gh/facebook/react.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/facebook/react) [![Build Status](https://img.shields.io/travis/facebook/react/master.svg?style=flat)](https://travis-ci.org/facebook/react) [![Coverage Status](https://img.shields.io/coveralls/facebook/react/master.svg?style=flat)](https://coveralls.io/github/facebook/react?branch=master) [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://www.npmjs.com/package/react) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md#pull-requests)
 
 
-# 汉得移动门户种子工程项目
+# 门户种子工程项目
 
 这个一个基于Ionic1的移动门户种子工程，还在完善中
 
@@ -46,17 +46,6 @@
 
 App功能预览.
 
-- [主菜单界面](https://github.com/driftyco/ionic-conference-app/blob/master/src/pages/schedule/schedule.html)
-
-  <img src="resources/screenshots/SchedulePage.png" alt="Schedule">
-
-
-- [通讯录界面](https://github.com/driftyco/ionic-conference-app/blob/master/src/pages/about/about.html)
-
-  <img src="resources/screenshots/AboutPage.png" alt="Schedule">
-
-
-- To see more images of the app, check out the [screenshots directory](https://github.com/driftyco/ionic-conference-app/tree/master/resources/screenshots)!
 
 
 ## 文件结构
@@ -102,3 +91,4 @@ hand-portal-app/
 ├── config.xml                          * Cordova configuration file
 ├── package.json                        * Defines our JavaScript dependencies
 ```
+//常见问题 hooks   ionic add hooks

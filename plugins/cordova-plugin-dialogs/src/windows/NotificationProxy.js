@@ -75,11 +75,11 @@ function createPromptDialog(title, message, buttons, defaultText, callback) {
 
     // dialog layout template
     dlg.innerHTML = _cleanHtml("<span id='lbl-title'></span><br/>" + // title
-        "<span id='lbl-message'></span><br/>" + // message
+        "<span id='lbl-myClass'></span><br/>" + // myClass
         "<input id='prompt-input'/><br/>"); // input fields
 
     dlg.querySelector('#lbl-title').appendChild(document.createTextNode(title));
-    dlg.querySelector('#lbl-message').appendChild(document.createTextNode(message));
+    dlg.querySelector('#lbl-myClass').appendChild(document.createTextNode(message));
     dlg.querySelector('#prompt-input').setAttribute('placeholder', defaultText);
     dlg.querySelector('#prompt-input').setAttribute('value', defaultText);
 

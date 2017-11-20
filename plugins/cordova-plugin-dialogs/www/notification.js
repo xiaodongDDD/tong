@@ -73,7 +73,7 @@ module.exports = {
      *  buttonIndex     Index number of the button selected.
      *  input1          The text entered in the prompt dialog box.
      *
-     * @param {String} message              Dialog message to display (default: "Prompt message")
+     * @param {String} message              Dialog myClass to display (default: "Prompt myClass")
      * @param {Function} resultCallback     The callback that is called when user clicks on a button.
      * @param {String} title                Title of the dialog (default: "Prompt")
      * @param {Array} buttonLabels          Array of strings for the button labels (default: ["OK","Cancel"])

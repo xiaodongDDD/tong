@@ -1,38 +1,30 @@
 <ion-view view-title="登录" class="login" calculate-portrait="big-portrait,little-portrait">
-  <ion-content class="content-style" has-bouncing="false" scrollbar-y="false" delegate-handle="loginScroll">
-    <div class="hand_logo">
-      <img src="build/assets/img/login/logo@3x.png">
-    </div>
-    <div>
-      <ion-item class="login-item">
-        <!--  <label ng-class="{'focus-user-label':!focusUsername,'blur-user-label':focusUsername}">用户名</label>-->
-        <div class="login_user_img">
-          <img src="build/assets/img/login/user@3x.png">
+  <ion-content class="content-style loginContent" has-bouncing="false" scrollbar-y="false"
+               delegate-handle="loginScroll">
+    <div class="login-contianer">
+      <div class="logo">
+        <img src="build/assets/img/login/product_logo.png"/>
+        <div class="product-name">一&nbsp;统</div>
+      </div>
+      <div class="login-box">
+        <div class="point">可使用晓黑板APP账号密码直接登录</div>
+        <!--<div class="account-point" v-show="accountPointFlag" v-text="accountPointText"></div>-->
+        <input class="common account" type="text" placeholder="请输入手机号码" ng-model="loginInfo.username"
+               ng-class="{'active':config.inputFocusUser}" ng-focus="inputFocus('user')" ng-blur="inputBlur('user')"
+               maxlength="11"/>
+        <div class="psd-point" ng-show="psdPointFlag">密码不正确，请重新输入</div>
+        <div class="password-item">
+          <input class="common password" type="{{config.inputType}}" placeholder="请输入密码" ng-model="loginInfo.password"
+                 maxlength="20"
+                 ng-class="{'active':config.inputFocusPwd}" ng-focus="inputFocus('pwd')" ng-blur="inputBlur('pwd')"/>
+          <div class="eye-close" ng-class="{'eye-open':config.eyeOpenFlag}" ng-click="eyeOpen()"></div>
         </div>
-        <input type="text" autocomplete="off" class="username-input" ng-model="loginInfo.username"
-               ng-change="usernameChange()" placeholder="请输入工号"/>
-        <ion-item class="user-clear-item" ng-show="showUserClearButton">
-          <button class="button button-block clear-button" ng-click="clearUsername()">
-            <img src="build/assets/img/login/cancel@3x.png" class="clear-image"/>
-          </button>
-        </ion-item>
-        <div class="gray-line"></div>
-        <!-- <label ng-class="{'focus-password-label':!focusPassword,'blur-password-label':focusPassword}">密码</label>-->
-        <div class="login_pwd_img">
-          <img src="build/assets/img/login/password@3x.png">
-        </div>
-        <input type="password" autocomplete="off" class="password-input" ng-model="loginInfo.password"
-               placeholder="请输入密码"
-               ng-change="passwordChange()"/>
-        <ion-item class="password-clear-item" ng-show="showPasswordClearButton">
-          <button class="button button-block clear-button" ng-click="clearPassword()">
-            <img src="build/assets/img/login/cancel@3x.png" class="clear-image"/>
-          </button>
-        </ion-item>
-        <div class="gray-line"></div>
+        <button class="login-btn" type="button" ng-click="login()">登录</button>
+        <!--<a href="javascript:void(0)" class="forget-password">忘记密码</a>-->
+      </div>
     </div>
-    <div>
-      <div class="noPassword" ng-click="login()">登录</div>
+    <div class="login-footer">
+      <img src="build/assets/img/login/login_footer.png"/>
     </div>
   </ion-content>
 </ion-view>

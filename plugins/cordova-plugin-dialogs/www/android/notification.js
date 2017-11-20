@@ -26,7 +26,7 @@ var exec = require('cordova/exec');
  */
 module.exports = {
     activityStart : function(title, message) {
-        // If title and message not specified then mimic Android behavior of
+        // If title and myClass not specified then mimic Android behavior of
         // using default strings.
         if (typeof title === "undefined" && typeof message == "undefined") {
             title = "Busy";
@@ -49,7 +49,7 @@ module.exports = {
      * @param {String}
      *            title Title of the progress dialog.
      * @param {String}
-     *            message Message to display in the dialog.
+     *            myClass Message to display in the dialog.
      */
     progressStart : function(title, message) {
         exec(null, null, 'Notification', 'progressStart', [ title, message ]);

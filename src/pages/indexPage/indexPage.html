@@ -1,0 +1,144 @@
+<ion-view view-title="首页" class="indexPage">
+  <ion-header-bar  class="head-bg">
+    <!--<button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>-->
+    <div class="title">
+      <div class="titleName" ng-bind="newViewData.user_info.user_name"></div>
+      <div class="titleNum" ng-bind = "newViewData.user_info.invited_code"></div>
+    </div>
+    <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
+  </ion-header-bar>
+  <ion-content class="content-style">
+    <div class="global-container">
+      <div class="statistics-time" v-cloak>
+        统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}
+      </div>
+      <div class="new-data-statistics">
+        <div class="new-data-statistics-bg"></div>
+        <div class="data-box">
+          <div class="title">今日APP新增数据统计</div>
+          <div class="data-list">
+            <div class="data-item register-item">
+              <img src="build/assets/img/indexPage/icon_user.png"/>
+              <div class="spe-info">
+                <div class="number">{{newViewData.new_data.new_register_user || 0}}</div>
+                <div class="data-type">注册新增</div>
+              </div>
+              <div class="auto-height"></div>
+            </div>
+            <div class="data-item class-item">
+              <img src="build/assets/img/indexPage/icon_class.png"/>
+              <div class="spe-info">
+                <div class="number">{{newViewData.new_data.new_classes || 0}}</div>
+                <div class="data-type">班级新增</div>
+              </div>
+              <div class="auto-height"></div>
+            </div>
+            <div class="data-item">
+              <img src="build/assets/img/indexPage/icon_equipment.png"/>
+              <div class="spe-info">
+                <div class="number">{{newViewData.new_data.trigger || 0}}</div>
+                <div class="data-type">设备启动</div>
+              </div>
+              <div class="auto-height"></div>
+            </div>
+            <div class="data-item">
+              <img src="build/assets/img/indexPage/icon_zhengxiao.png"/>
+              <div class="spe-info">
+                <div class="number">{{newViewData.new_data.new_school || 0}}</div>
+                <div class="data-type">整校新增</div>
+              </div>
+              <div class="auto-height"></div>
+            </div>
+            <div class="auto-height"></div>
+          </div>
+        </div>
+      </div>
+
+      <!--personal-rank-->
+      <div class="common-rank" ng-if="newViewData.personal_ranking_team && newViewData.personal_ranking_team.user_count != 0">
+        <div class="rank-title">
+          <div class="left personal">个人排行榜-团队</div>
+          <div class="people-num" style="display:none;">{{newViewData.personal_ranking_team.user_count || 0}}&nbsp;位组员<img
+            src="build/assets/img/indexPage/icon_spread.png"/></div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="rank-list">
+          <div class="rank-item" ng-repeat="item in newViewData.personal_ranking_team.user_list">
+            <div class="rank-num"></div>
+            <img ng-src="{{item.avatar}}" class="head"/>
+            <div class="person-info">
+              <div class="top">
+                <span class="name" ng-bind="item.user_name"></span>
+                <span class="num" ng-bind="item.invited_code"></span>
+              </div>
+              <div class="bottom">
+                <span class="register">注册 {{item.new_register_user}}</span>
+                <span class="classes">班级 {{item.new_classes}}</span>
+                <span class="zhengxiao">整校 {{item.new_school}}</span>
+              </div>
+            </div>
+            <div class="auto-height"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="common-rank" ng-if="newViewData.leading_ranking_company && newViewData.leading_ranking_company.leading_count != 0">
+        <div class="rank-title">
+          <div class="left lead">领队排行榜</div>
+          <div class="people-num" style="display:none;">{{newViewData.personal_ranking_team.user_count || 0}}&nbsp;位组员<img
+            src="build/assets/img/indexPage/icon_spread.png"/></div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="rank-list">
+          <div class="rank-item" ng-repeat="item in newViewData.leading_ranking_company.leading_list">
+            <div class="rank-num"></div>
+            <img ng-src="{{item.avatar}}" class="head"/>
+            <div class="person-info">
+              <div class="top">
+                <span class="name" ng-bind="item.user_name"></span>
+                <span class="num" ng-bind="item.invited_code"></span>
+              </div>
+              <div class="bottom">
+                <span class="register">注册 {{item.new_register_user}}</span>
+                <span class="classes">班级 {{item.new_classes}}</span>
+                <span class="zhengxiao">整校 {{item.new_school}}</span>
+              </div>
+            </div>
+            <div class="auto-height"></div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="common-rank">
+        <div class="rank-title">
+          <div class="left company">个人排行榜-公司</div>
+          <div class="people-num" style="display:none;">{{newViewData.personal_ranking_team.user_count || 0}}&nbsp;位组员<img
+            src="build/assets/img/indexPage/icon_spread.png"/></div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="rank-list">
+          <div class="rank-item" ng-repeat="item in newViewData.user_ranking_company.user_list">
+            <div class="rank-num"></div>
+            <img ng-src="{{item.avatar}}" class="head"/>
+            <div class="person-info">
+              <div class="top">
+                <span class="name" ng-bind="item.user_name"></span>
+                <span class="num" ng-bind="item.invited_code"></span>
+              </div>
+              <div class="bottom">
+                <span class="register">注册 {{item.new_register_user}}</span>
+                <span class="classes">班级 {{item.new_classes}}</span>
+                <span class="zhengxiao">整校 {{item.new_school}}</span>
+              </div>
+            </div>
+            <div class="auto-height"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </ion-content>
+</ion-view>

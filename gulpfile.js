@@ -181,7 +181,7 @@ gulp.task('copy-img', function () {
 
 //复制开发环境 config.xml
 gulp.task('copy-dev-config', function () {
-  //return gulp.src(configDEVPath).pipe(gulp.dest(''));
+  return gulp.src(configDEVPath).pipe(gulp.dest(''));
 });
 
 //复制发布环境 config.xml
@@ -346,17 +346,31 @@ function copyfile(oldPath, newPath) {
 
 function copyPages(e) {
   var oldPath = e.path;
+
+  console.log(oldPath+"旧");
   var newPath = oldPath.replace('/src/', '/www/build/');
+  console.log(newPath+"新");
   var newDirPathTemp = newPath.split("/");
+
+  // console.log(oldPath+'旧');
+  // var newPath = oldPath.replace('\\src\\', '\\www\\build\\');
+  // console.log(newPath+'新');
+  // var newDirPathTemp = newPath.split("\\");
+
+
   var currentPath = fs.realpathSync('.');
   var newDirPath = [];
   for (var i = 0; i < newDirPathTemp.length - 1; i++) {
     newDirPath[i] = newDirPathTemp[i];
   }
+  // newDirPath = newDirPath.join("\\");
   newDirPath = newDirPath.join("/");
   newDirPath = newDirPath.replace(currentPath, '');
   newDirPath = newDirPath.replace(/\\/g, "/");
   newDirPath = newDirPath.replace("/", "./");
+
+
+
 
   // 修改或增加时
   if ('added' == e.type || 'changed' == e.type || 'renamed' == e.type) {
