@@ -6,7 +6,7 @@
     <img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="openPopover($event)"/>
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
-  <ion-content class="content-style">
+  <ion-content class="content-style" delegate-handle="mainScroll">
     <!--global-container-->
     <div class="global-container">
       <div class="statistics-time" >统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}
@@ -39,7 +39,7 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in  userViewData.teacher_address">
+            <tr ng-repeat="item in  newViewDataSp.teacher_address">
               <td width="34%" class="first" ng-bind="item.city">未知</td>
               <td width="33%" class="middle">{{item.percent}}</td>
               <td width="33%" class="last">{{item.count}}</td>
@@ -47,8 +47,8 @@
             </tbody>
           </table>
           <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.teacher_address.length>3"
-             @click="showPartOrAll('teacher_address')">
-            {{status.teacher_address?'收起':'查看全部'}}
+             ng-click="showPartOrAll('teacher_address')">
+            {{config.status.teacher_address?'收起':'查看全部'}}
           </a>
         </div>
       </div>
@@ -67,7 +67,7 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in userViewData.user_role" >
+            <tr ng-repeat="item in newViewDataSp.user_role" >
               <td width="34%" class="first" ng-bind="item.teacher_type"></td>
               <td width="33%" class="middle">{{item.percent}}</td>
               <td width="33%" class="last">{{item.count}}</td>
@@ -75,8 +75,8 @@
             </tbody>
           </table>
           <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_role.length>3"
-             @click="showPartOrAll('user_role')">
-            {{status.user_role?'收起':'查看全部'}}
+             ng-click="showPartOrAll('user_role')">
+            {{config.status.user_role?'收起':'查看全部'}}
           </a>
         </div>
       </div>
@@ -95,7 +95,7 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in newViewData.user_type" >
+            <tr ng-repeat="item in newViewDataSp.user_type" >
               <td width="34%" class="first" ng-bind="item.teacher_type">教师</td>
               <td width="33%" class="middle">{{item.percent}}</td>
               <td width="33%" class="last">{{item.count}}</td>
@@ -103,8 +103,8 @@
             </tbody>
           </table>
           <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_type.length>3"
-             @click="showPartOrAll('user_type')">
-            {{status.user_type?'收起':'查看全部'}}
+             ng-click="showPartOrAll('user_type')">
+            {{config.status.user_type?'收起':'查看全部'}}
           </a>
         </div>
       </div>

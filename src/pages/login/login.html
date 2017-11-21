@@ -7,8 +7,8 @@
         <div class="product-name">一&nbsp;统</div>
       </div>
       <div class="login-box">
-        <div class="point">可使用晓黑板APP账号密码直接登录</div>
-        <!--<div class="account-point" v-show="accountPointFlag" v-text="accountPointText"></div>-->
+        <div class="point" ng-show="config.accountPointFlag">可使用晓黑板APP账号密码直接登录</div>
+        <div class="account-point" ng-show="!config.accountPointFlag" ng-bind="data.accountPointText"></div>
         <input class="common account" type="text" placeholder="请输入手机号码" ng-model="loginInfo.username"
                ng-class="{'active':config.inputFocusUser}" ng-focus="inputFocus('user')" ng-blur="inputBlur('user')"
                maxlength="11"/>

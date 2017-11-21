@@ -1,4 +1,4 @@
-<ion-view view-title="首页" class="indexPage">
+<ion-view view-title="首页" class="indexPage myInfo">
   <ion-header-bar  class="head-bg">
     <!--<button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>-->
     <div class="title">
@@ -17,7 +17,7 @@
         <div class="data-box">
           <div class="title">今日APP新增数据统计</div>
           <div class="data-list">
-            <div class="data-item register-item">
+            <div class="data-item register-item" ng-click="goOtherTab('2')">
               <img src="build/assets/img/indexPage/icon_user.png"/>
               <div class="spe-info">
                 <div class="number">{{newViewData.new_data.new_register_user || 0}}</div>
@@ -25,7 +25,7 @@
               </div>
               <div class="auto-height"></div>
             </div>
-            <div class="data-item class-item">
+            <div class="data-item class-item" ng-click="goOtherTab('3')">
               <img src="build/assets/img/indexPage/icon_class.png"/>
               <div class="spe-info">
                 <div class="number">{{newViewData.new_data.new_classes || 0}}</div>
@@ -41,7 +41,7 @@
               </div>
               <div class="auto-height"></div>
             </div>
-            <div class="data-item">
+            <div class="data-item" ng-click="goOtherTab('4')">
               <img src="build/assets/img/indexPage/icon_zhengxiao.png"/>
               <div class="spe-info">
                 <div class="number">{{newViewData.new_data.new_school || 0}}</div>
@@ -79,7 +79,9 @@
             </div>
             <div class="auto-height"></div>
           </div>
-
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_address.length>3" ng-click="showPartOrAll('class_address')">
+            {{config.status.class_address?'收起':'查看全部'}}
+          </a>
         </div>
       </div>
 
@@ -107,7 +109,9 @@
             </div>
             <div class="auto-height"></div>
           </div>
-
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_address.length>3" ng-click="showPartOrAll('class_address')">
+            {{config.status.class_address?'收起':'查看全部'}}
+          </a>
         </div>
       </div>
 
@@ -136,6 +140,9 @@
             </div>
             <div class="auto-height"></div>
           </div>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_ranking_company.user_list.length>3" ng-click="showPartOrAll('class_address')">
+            {{config.status.class_address?'收起':'查看全部'}}
+          </a>
         </div>
       </div>
 

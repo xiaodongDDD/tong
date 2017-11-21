@@ -54,7 +54,11 @@
       inputFocusUser : false,
       inputFocusPwd : false,
       eyeOpenFlag : false,
-      inputType : 'password'
+      inputType : 'password',
+      accountPointFlag : 'true'
+    }
+    $scope.data = {
+      accountPointText : ''
     }
     //获取焦点
     $scope.inputFocus = function(item){
@@ -63,6 +67,7 @@
       }else{
         $scope.config.inputFocusPwd = true;
       }
+      $ionicScrollDelegate.$getByHandle('login-contianer').resize();
     }
     //失去焦点
     $scope.inputBlur = function(item){
@@ -73,7 +78,6 @@
       }
     }
     $scope.eyeOpen = function(){
-      console.log('-----');
       $scope.config.eyeOpenFlag = !$scope.config.eyeOpenFlag;
       if($scope.config.eyeOpenFlag == false){
         $scope.config.inputType = 'password';
@@ -251,7 +255,6 @@
 
 
         loginPost().success(function (result) {
-          hmsPopup.hideLoading();
           if (baseConfig.debug) {
             console.log("result success " + angular.toJson(result.response.yitong_token));
           }
@@ -263,6 +266,7 @@
           } else {
             hmsPopup.showPopup('登录失败,请确认密码是否正确!');
           }
+          hmsPopup.hideLoading();
         }).error(function (response, status) {
           hmsPopup.hideLoading();
           if (status && status == '401') {

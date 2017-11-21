@@ -95,7 +95,7 @@
   .global-container .registered-users-num .data-box .registered-users .total .explain {
     width: 18px;
     height: 18px;
-    vertical-align: middle;
+    vertical-align: text-bottom;
     margin-left: 6px;
   }
   .global-container .registered-users-num .explain-box-hide {
@@ -178,6 +178,7 @@
     color: #888888;
     text-align: center;
     line-height: 40px;
+    text-decoration: none;
   }
 
 }

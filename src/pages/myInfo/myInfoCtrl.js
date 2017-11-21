@@ -7,10 +7,19 @@ angular.module('myInfoModule')
     '$ionicSlideBoxDelegate', '$ionicPlatform','$ionicPopover','hmsHttp','baseConfig','indexPageService',
     function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform,$ionicPopover,hmsHttp,baseConfig,indexPageService) {
       $scope.data = {
-        type : 'day'
+        type : 'day',
+        names:["teacher_address","user_role","user_type"],
       };
-      $scope.config = {};
+      $scope.config = {
+        status : {
+          teacher_address : false,
+          user_role : false,
+          user_type : false,
+        }
+      };
+      $scope.configSp = angular.copy($scope.config);
       $scope.newViewData = {};
+      $scope.newViewDataSp = {};
       $scope.operating = indexPageService.operating;
       for(var i=0;i<$scope.operating.length;i++){
         if($scope.operating[i].id == 'day'){
@@ -27,13 +36,39 @@ angular.module('myInfoModule')
         hmsHttp.get(indexUrl).success(
           function (response) {
             // console.log(JSON.stringify(response));
-            $scope.newViewData = response.response
+            $scope.newViewData = response.response;
+            sliceThreeData(response.response);
           }
         ).error(
           function (response, status, header, config) {
           }
         );
       }
+
+      //查看更多
+      $scope.showPartOrAll = function(name){
+        if($scope.config.status[name]){
+          $scope.newViewDataSp[name]=this.newViewData[name].slice(0, 3);
+          $scope.config.status[name]=false;
+        }else{
+          $scope.newViewDataSp[name]=this.newViewData[name];
+          $scope.config.status[name]=true;
+        };
+        $ionicScrollDelegate.$getByHandle('mainScroll').resize();
+      }
+      // 截取3条数据
+      var sliceThreeData = function(data){
+        for(var i = 0; i<$scope.data.names.length;i++){
+          $scope.newViewDataSp[$scope.data.names[i]] = [];
+          if(typeof data[$scope.data.names[i]] != undefined){
+            $scope.newViewDataSp[$scope.data.names[i]] =  data[$scope.data.names[i]].length > 3 ? data[$scope.data.names[i]].slice(0,3) :  data[$scope.data.names[i]];
+          }else{
+          };
+        };
+        console.log($scope.newViewDataSp);
+      }
+
+      //右上角popover
       $scope.popover = $ionicPopover.fromTemplateUrl('build/pages/indexPage/modal/popover.html', {
         scope: $scope
       });
@@ -56,6 +91,7 @@ angular.module('myInfoModule')
         }
         x.selected = !x.selected;
         $scope.data.type = x.id;
+        $scope.config = angular.copy($scope.configSp);
         init();
         $scope.popover.hide();
       }

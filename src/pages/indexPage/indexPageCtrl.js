@@ -3,17 +3,28 @@
  */
 
 angular.module('indexPageModule')
-  .controller('indexPageCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicPopover','indexPageService','hmsHttp','baseConfig',
-    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicPopover,indexPageService,hmsHttp,baseConfig) {
+  .controller('indexPageCtrl', ['$scope', '$rootScope', '$state', '$ionicPopover','indexPageService','hmsHttp','baseConfig','tabService',
+    function ($scope, $rootScope, $state,$ionicPopover,indexPageService,hmsHttp,baseConfig,tabService) {
       $scope.data = {
         type : 'day'
       }
       $scope.newViewData = {};
+      $scope.newViewDataSp = {};
       $scope.config = {};
 
       $scope.goPage = function () {
       }
+
+      //去往其他tab
+      $scope.goOtherTab = function(item){
+        $scope.tabs = tabService.tabs;
+        for(var i = 0;i<$scope.tabs.length;i++){
+          $scope.tabs[i].isActive = false;
+        }
+        $scope.tabs[item - 1].isActive = true;
+        $state.go("tab");
+      }
+
       $scope.operating = indexPageService.operating;
       for(var i=0;i<$scope.operating.length;i++){
         if($scope.operating[i].id == 'day'){
@@ -28,7 +39,6 @@ angular.module('indexPageModule')
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.index&type="+$scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
-            // console.log(JSON.stringify(response));
             $scope.newViewData = response.response
           }
         ).error(
