@@ -1,156 +1,157 @@
 
-.login{
-}
-.loginContent{
-  .scroll{
+.login {
+  background: url("../assets/img/login/login_footer.png");
+  background-size: 100% auto;
+  background-color: $global-background;
+  animation:backgroundTransition 4s linear;
+  background-position:bottom center;
+  background-repeat:no-repeat;
+  -webkit-animation: backgroundTransition 4s linear;
+  .loginContent {
+    //height: 100%;
+    //.scroll{
+    //  height: 100%;
+    //}
+  }
+  .loginModal {
+    width: 100%;
     height: 100%;
   }
-}
-.loginModal{
-  width: 100%;
-  height: 100%;
-}
-.login-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
+  .login-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 
-.login-footer img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
+  .login-footer img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
 
-.login-contianer {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 300;
-}
+  .logo {
+    padding: 40px 0 30px;
+  }
 
-.login-contianer .logo {
-  padding: 40px 0 30px;
-}
+  .logo img {
+    display: block;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
 
-.login-contianer .logo img {
-  display: block;
-  width: 85px;
-  height: 85px;
-  border-radius: 50%;
-  margin: 0 auto;
-}
+  .logo .product-name {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 10px;
+    height: 42px;
+    line-height: 42px;
+  }
 
-.login-contianer .logo .product-name {
-  font-size: 30px;
-  text-align: center;
-  margin-top: 10px;
-  height: 42px;
-  line-height: 42px;
-}
+  .login-box {
+    padding: 0 30px;
+    position: relative;
+  }
 
-.login-contianer .login-box {
-  padding: 0 30px;
-  position: relative;
-}
+  .login-box .point {
+    font-size: 13px;
+    color: #888888;
+    text-align: center;
+    margin-bottom: 10px;
+  }
 
-.login-contianer .login-box .point {
-  font-size: 13px;
-  color: #888888;
-  text-align: center;
-  margin-bottom: 10px;
-}
+  .login-box .common {
+    width: 100%;
+    height: 44px;
+    background-color: #FFFFFF;
+    border: 1px solid #C1D5FB;
+    border-radius: 100px;
+    font-size: 16px;
+    color: #030303;
+    line-height: 44px;
+    text-align: center;
+    padding: 0 40px;
+  }
 
-.login-contianer .login-box .common {
-  width: 100%;
-  height: 44px;
-  background-color: #FFFFFF;
-  border: 1px solid #C1D5FB;
-  border-radius: 100px;
-  font-size: 16px;
-  color: #030303;
-  line-height: 44px;
-  text-align: center;
-  padding: 0 40px;
-}
+  .login-box .account {
+    background: #FFFFFF url(../assets/img/login/icon_account.png) 10px center no-repeat;
+    background-size: 14px 20px;
+    margin-bottom: 30px;
+  }
 
-.login-contianer .login-box .account {
-  background: #FFFFFF url(../assets/img/login/icon_account.png) 10px center no-repeat;
-  background-size: 14px 20px;
-  margin-bottom: 30px;
-}
+  .login-box .password {
+    background: #FFFFFF url(../assets/img/login/icon_password.png) 10px center no-repeat;
+    background-size: 14px 20px;
+  }
 
-.login-contianer .login-box .password {
-  background: #FFFFFF url(../assets/img/login/icon_password.png) 10px center no-repeat;
-  background-size: 14px 20px;
-}
+  .login-box .active {
+    border: 1px solid #3E7EF6;
+  }
 
-.login-contianer .login-box .active {
-  border: 1px solid #3E7EF6;
-}
+  .login-box .account-point, .login-box .psd-point {
+    width: 100%;
+    font-size: 13px;
+    color: #FF3B30;
+    text-align: center;
+    margin-bottom: 10px;
+  }
 
-.login-contianer .login-box .account-point, .login-contianer .login-box .psd-point {
-  width: 100%;
-  font-size: 13px;
-  color: #FF3B30;
-  text-align: center;
-  margin-bottom: 10px;
-}
+  .login-box .psd-point {
+    position: absolute;
+    top: 77px;
+    left: 0px;
+  }
 
-.login-contianer .login-box .psd-point {
-  position: absolute;
-  top: 77px;
-  left: 0px;
-}
+  .login-box .password-item {
+    width: 100%;
+    height: 44px;
+    position: relative;
+  }
 
-.login-contianer .login-box .password-item {
-  width: 100%;
-  height: 44px;
-  position: relative;
-  margin-bottom: 50px;
-}
+  .login-box .password-item .eye-close {
+    width: 24px;
+    height: 44px;
+    background: url(../assets/img/login/icon_eye_close.png) center center no-repeat;
+    background-size: 19px 16px;
+    position: absolute;
+    top: 0px;
+    right: 12px;
+  }
 
-.login-contianer .login-box .password-item .eye-close {
-  width: 24px;
-  height: 44px;
-  background: url(../assets/img/login/icon_eye_close.png) center center no-repeat;
-  background-size: 19px 16px;
-  position: absolute;
-  top: 0px;
-  right: 12px;
-}
+  .login-box .password-item .eye-open {
+    background: url(../assets/img/login/icon_eye_open.png) center center no-repeat;
+    background-size: 19px 16px;
+  }
 
-.login-contianer .login-box .password-item .eye-open {
-  background: url(../assets/img/login/icon_eye_open.png) center center no-repeat;
-  background-size: 19px 16px;
-}
+  .login-btn {
+    display: block;
+    width: 250px;
+    height: 48px;
+    background-color: #3E7EF6;
+    box-shadow: 0 10px 15px 0 rgba(57, 120, 255, 0.29);
+    border-radius: 60px;
+    font-size: 16px;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 48px;
+    margin: 0 auto;
+    border: 0;
+    margin-top: 50px;
 
-.login-contianer .login-box .login-btn {
-  display: block;
-  width: 250px;
-  height: 48px;
-  background-color: #3E7EF6;
-  box-shadow: 0 10px 15px 0 rgba(57, 120, 255, 0.29);
-  border-radius: 60px;
-  font-size: 16px;
-  color: #FFFFFF;
-  text-align: center;
-  line-height: 48px;
-  margin: 0 auto;
-  border: 0;
-}
+  }
 
-.login-contianer .login-box .forget-password {
-  display: block;
-  width: 80px;
-  height: 24px;
-  font-size: 16px;
-  color: #3E7EF6;
-  text-align: center;
-  line-height: 24px;
-  margin: 50px auto 0;
+  .login-box .forget-password {
+    display: block;
+    width: 80px;
+    height: 24px;
+    font-size: 16px;
+    color: #3E7EF6;
+    text-align: center;
+    line-height: 24px;
+    margin: 50px auto 0;
+  }
+
 }
 

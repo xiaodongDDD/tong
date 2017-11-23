@@ -1,6 +1,6 @@
 {
   "baseConfig": {
-    "debug": true,
+    "debug": false,
     "nativeScreenFlag": false,
     "appStoreFlag": false,
     "isWxWebView": false,

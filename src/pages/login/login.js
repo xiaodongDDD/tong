@@ -51,37 +51,38 @@
     };//登录信息
     //配置信息
     $scope.config = {
-      inputFocusUser : false,
-      inputFocusPwd : false,
-      eyeOpenFlag : false,
-      inputType : 'password',
-      accountPointFlag : 'true'
+      inputFocusUser: false,
+      inputFocusPwd: false,
+      eyeOpenFlag: false,
+      inputType: 'password',
+      accountPointFlag: true,
+      psdPointFlag: false
     }
     $scope.data = {
-      accountPointText : ''
+      accountPointText: ''
     }
     //获取焦点
-    $scope.inputFocus = function(item){
-      if(item == 'user'){
+    $scope.inputFocus = function (item) {
+      if (item == 'user') {
         $scope.config.inputFocusUser = true;
-      }else{
+      } else {
         $scope.config.inputFocusPwd = true;
       }
       $ionicScrollDelegate.$getByHandle('login-contianer').resize();
     }
     //失去焦点
-    $scope.inputBlur = function(item){
-      if(item == 'user'){
+    $scope.inputBlur = function (item) {
+      if (item == 'user') {
         $scope.config.inputFocusUser = false;
-      }else{
+      } else {
         $scope.config.inputFocusPwd = false;
       }
     }
-    $scope.eyeOpen = function(){
+    $scope.eyeOpen = function () {
       $scope.config.eyeOpenFlag = !$scope.config.eyeOpenFlag;
-      if($scope.config.eyeOpenFlag == false){
+      if ($scope.config.eyeOpenFlag == false) {
         $scope.config.inputType = 'password';
-      }else{
+      } else {
         $scope.config.inputType = 'text';
       }
     }
@@ -205,11 +206,11 @@
         } else {
           model = device.model;
         }
-        var data = '&username='+$scope.loginInfo.username+'&password='+$scope.loginInfo.password;
-        var url = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.login"+data;
+        var data = '&username=' + $scope.loginInfo.username + '&password=' + $scope.loginInfo.password;
+        var url = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.login" + data;
       } catch (e) {
-        var data = '&username='+$scope.loginInfo.username+'&password='+$scope.loginInfo.password;
-        var url = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.login"+data;
+        var data = '&username=' + $scope.loginInfo.username + '&password=' + $scope.loginInfo.password;
+        var url = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.login" + data;
       }
       if (baseConfig.debug) {
         console.log('loginPost.url ' + url);
@@ -222,6 +223,8 @@
     }
 
     $scope.login = function () {//登录功能
+      $scope.config.psdPointFlag = false;
+      $scope.config.accountPointFlag = true;
       if (window.localStorage.empno != $scope.loginInfo.username) {
         localStorage.removeItem('key_history1');
         localStorage.removeItem('common_linkman2');
@@ -238,14 +241,16 @@
         } else if ($scope.rememberPassword == false) {
           window.localStorage.password = "";
         }
-        if (!$scope.loginInfo.username || $scope.loginInfo.username == '') {
+        console.log(phoneNumber($scope.loginInfo.username));
+        if (!$scope.loginInfo.username || $scope.loginInfo.username == '' || !phoneNumber($scope.loginInfo.username)) {
           hmsPopup.hideLoading();
-          hmsPopup.showPopup('用户名不能为空');
+          $scope.config.accountPointFlag = false;
+          $scope.data.accountPointText = '手机号码错误';
           return;
         }
         if (!$scope.loginInfo.password || $scope.loginInfo.password == '') {
           hmsPopup.hideLoading();
-          hmsPopup.showPopup('密码不能为空');
+          $scope.config.psdPointFlag = true;
           return;
         }
 
@@ -264,7 +269,8 @@
             window.localStorage.checkboxSavePwd = $scope.rememberPassword;
             $state.go("tab");
           } else {
-            hmsPopup.showPopup('登录失败,请确认密码是否正确!');
+            $scope.config.accountPointFlag = false;
+            $scope.data.accountPointText = result.response.msg;
           }
           hmsPopup.hideLoading();
         }).error(function (response, status) {
@@ -308,6 +314,8 @@
     $scope.$on('$ionicView.afterEnter', function () {
       $ionicHistory.clearCache();
       $ionicHistory.clearHistory();
+    });
+    $scope.$on('$ionicView.loaded', function () {
     });
 
     $scope.$on('$destroy', function (e) {

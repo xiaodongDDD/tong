@@ -1,4 +1,4 @@
-<ion-view view-title="班级情况统计" class="mylass myInfo indexPage" >
+<ion-view view-title="班级情况统计" class="mylass myInfo indexPage" cache-view='true'>
   <ion-header-bar align-title="center" class="bar-stable">
     <div class="title titleStyle">
       班级情况统计
@@ -7,6 +7,11 @@
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
+    <!-- 1.添加下拉刷新的组件 -->
+    <ion-refresher
+      pulling-text="正在刷新页面数据..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
 
     <!--global-container-->
     <div class="global-container">
@@ -17,8 +22,9 @@
         <div class="data-box">
           <img src="build/assets/img/myClass/icon_class.png"/>
           <div class="registered-users">
-            <div class="total">新增班级总数<img src="build/assets/img/myClass/icon_explain.png" class="explain" ng-click="bindClickExplain()"/></div>
-            <div class="yesterday-added" >昨日新增：{{newViewData.class_data.yes_class}}</div>
+            <div class="total">新增班级总数<img src="build/assets/img/myClass/icon_explain.png" class="explain"
+                                          ng-click="bindClickExplain()"/></div>
+            <div class="yesterday-added">昨日新增：{{newViewData.class_data.yes_class}}</div>
           </div>
           <div class="numbers">{{newViewData.class_data.new_class}}</div>
           <div class="auto-height"></div>
@@ -40,14 +46,15 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in newViewDataSp.class_address" >
+            <tr ng-repeat="item in newViewDataSp.class_address">
               <td width="34%" class="first" ng-bind="item.city">{{item.city}}</td>
               <td width="33%" class="middle">{{item.percent}}</td>
               <td width="33%" class="last">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_address.length>3" ng-click="showPartOrAll('class_address')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_address.length>3"
+             ng-click="showPartOrAll('class_address')">
             {{config.status.class_address?'收起':'查看全部'}}
           </a>
         </div>
@@ -67,14 +74,15 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in newViewDataSp.class_type" >
+            <tr ng-repeat="item in newViewDataSp.class_type">
               <td width="34%" class="first" ng-bind="item.teacher_type"></td>
               <td width="33%" class="middle">{{item.percent}}</td>
               <td width="33%" class="last">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_type.length>3" ng-click="showPartOrAll('class_type')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_type.length>3"
+             ng-click="showPartOrAll('class_type')">
             {{config.status.class_type?'收起':'查看全部'}}
           </a>
         </div>
@@ -82,7 +90,7 @@
       <!--user-item-type-->
 
       <!--class-member-statistics-->
-      <div class="common-regional-district class-member-statistics"  ng-show="newViewData.class_member.length>0">
+      <div class="common-regional-district class-member-statistics" ng-show="newViewData.class_member.length>0">
         <div class="top">
           <img src="build/assets/img/myClass/icon_class_member_statistics.png"/>
           <div class="info">
@@ -101,7 +109,8 @@
             </tr>
             </tbody>
           </table>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_member.length>3" ng-click="showPartOrAll('class_member')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_member.length>3"
+             ng-click="showPartOrAll('class_member')">
             {{config.status.class_member?'收起':'查看全部'}}
           </a>
         </div>
@@ -121,14 +130,15 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in newViewDataSp.class_message" >
+            <tr ng-repeat="item in newViewDataSp.class_message">
               <td width="45%" class="first" ng-bind="item.class_message">0 发布</td>
               <td width="25%" class="middle">{{item.percent}}</td>
               <td width="30%" class="last">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_message.length>3" ng-click="showPartOrAll('class_message')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_message.length>3"
+             ng-click="showPartOrAll('class_message')">
             {{config.status.class_message?'收起':'查看全部'}}
           </a>
         </div>
@@ -148,14 +158,15 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in newViewDataSp.class_found" >
+            <tr ng-repeat="item in newViewDataSp.class_found">
               <td width="45%" class="first" ng-bind="item.keys">外部用户</td>
               <td width="25%" class="middle">{{item.percent}}</td>
               <td width="30%" class="last">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_found.length>3" ng-click="showPartOrAll('class_found')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_found.length>3"
+             ng-click="showPartOrAll('class_found')">
             {{config.status.class_found?'收起':'查看全部'}}
           </a>
         </div>

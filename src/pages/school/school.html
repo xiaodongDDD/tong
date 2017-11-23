@@ -1,4 +1,4 @@
-<ion-view view-title="学校情况统计" class="mylass myInfo indexPage" >
+<ion-view view-title="学校情况统计" class="mylass myInfo indexPage" cache-view='true'>
   <ion-header-bar align-title="center" class="bar-stable">
     <div class="title titleStyle">
       学校情况统计
@@ -7,6 +7,12 @@
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
+    <!-- 1.添加下拉刷新的组件 -->
+    <ion-refresher
+      pulling-text="正在刷新页面数据..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+
     <!--global-container-->
     <div class="global-container">
       <!--new-data-statistics-->

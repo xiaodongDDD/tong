@@ -4,10 +4,10 @@
 
 angular.module('myInfoModule')
   .controller('myInfoCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-    '$ionicSlideBoxDelegate', '$ionicPlatform','$ionicPopover','hmsHttp','baseConfig','indexPageService',
-    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform,$ionicPopover,hmsHttp,baseConfig,indexPageService) {
+    '$ionicSlideBoxDelegate', '$ionicPlatform','$ionicPopover','hmsHttp','baseConfig','indexPageService','SettingsService',
+    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform,$ionicPopover,hmsHttp,baseConfig,indexPageService,SettingsService) {
       $scope.data = {
-        type : 'day',
+        type : '',
         names:["teacher_address","user_role","user_type"],
       };
       $scope.config = {
@@ -22,7 +22,7 @@ angular.module('myInfoModule')
       $scope.newViewDataSp = {};
       $scope.operating = indexPageService.operating;
       for(var i=0;i<$scope.operating.length;i++){
-        if($scope.operating[i].id == 'day'){
+        if($scope.operating[i].id == $scope.data.type){
           $scope.operating[i].selected = true;
         }else{
           $scope.operating[i].selected = false;
@@ -31,20 +31,25 @@ angular.module('myInfoModule')
       $scope.goPage = function () {
       }
       //接口
-      function init(){
+      function initPageData(){
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.userData&type="+$scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
             // console.log(JSON.stringify(response));
             $scope.newViewData = response.response;
             sliceThreeData(response.response);
+            SettingsService.set('useData',$scope.newViewData);
           }
         ).error(
           function (response, status, header, config) {
           }
         );
       }
-
+      //下拉刷新
+      $scope.doRefresh=function () {
+        initPageData();
+        $scope.$broadcast("scroll.refreshComplete");
+      }
       //查看更多
       $scope.showPartOrAll = function(name){
         if($scope.config.status[name]){
@@ -92,10 +97,10 @@ angular.module('myInfoModule')
         x.selected = !x.selected;
         $scope.data.type = x.id;
         $scope.config = angular.copy($scope.configSp);
-        init();
+        initPageData();
         $scope.popover.hide();
       }
 
       //初始化页面
-      init();
+      initPageData();
     }]);

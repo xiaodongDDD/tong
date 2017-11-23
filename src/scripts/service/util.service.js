@@ -63,7 +63,7 @@
               console.log(postName + " url " + url);
               console.log(postName + " paramter " + angular.toJson(paramter));
             }
-            var destUrl = url + "&yitong_token="+window.localStorage.token;
+            var destUrl = url + "&yitong_token=" + window.localStorage.token;
             var startTime = new Date().getTime();
             var post = $http.post(destUrl, paramter, {
               headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer '}
@@ -113,9 +113,9 @@
               console.log(getName + " Start!");
               console.log(getName + " url " + url);
             }
-            var destUrl = url + "&yitong_token="+window.localStorage.token;
+            var destUrl = url + "&yitong_token=" + window.localStorage.token;
             var get = $http.get(destUrl, {
-              headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' }
+              headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer '}
             }).success(function (response) {
               if (baseConfig.debug) {
                 console.log(getName + " success");
@@ -141,9 +141,8 @@
           scope.$eval(attrs.repeatDone);
         }
       }
-    }).
-  service('publicMethod', ['$filter', '$ionicLoading', '$ionicPopup', '$ionicHistory','$cordovaDialogs',
-    function ($filter, $ionicLoading, $ionicPopup, $ionicHistory,$cordovaDialogs) {
+    }).service('publicMethod', ['$filter', '$ionicLoading', '$ionicPopup', '$ionicHistory', '$cordovaDialogs',
+    function ($filter, $ionicLoading, $ionicPopup, $ionicHistory, $cordovaDialogs) {
       return {
         //调用电话
         showphone: function (types) {
@@ -179,21 +178,19 @@
 
 
         //温度转换  symbol当前温度单位°C或°F
-        temperatureConv:function(x,symbol){
+        temperatureConv: function (x, symbol) {
 
-          if(symbol=='°C'){
+          if (symbol == '°C') {
 
-            return  32 +1.8*x;//返回华氏度
+            return 32 + 1.8 * x;//返回华氏度
           }
-          else{  //°F
-            return  (x-32) /1.8;//返回摄氏度
+          else {  //°F
+            return (x - 32) / 1.8;//返回摄氏度
           }
         }
       };
 
-    }]).
-
-  //页面间的传值
+    }]).//页面间的传值
   service('SettingsService', function () {
     var _variables = {};
     return {
@@ -205,13 +202,14 @@
       }
     };
   })
-    .controller("AppCtrl",["$scope","$timeout",function ($scope,$timeout) {
+    .controller("AppSpCtrl", ["$scope", "$timeout", function ($scope, $timeout) {
       var ToastFlag = false;
       $scope.Toast = {
         show: function (msg, time) {
           if (ToastFlag == true) {
             $scope.Toast.hide();
-          };
+          }
+          ;
           $scope.isVisible = 'visible animated bounceInUp';
           $scope.isActive = 'active';
           ToastFlag = true;

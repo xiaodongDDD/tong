@@ -1,13 +1,19 @@
-<ion-view view-title="首页" class="indexPage myInfo">
-  <ion-header-bar  class="head-bg">
+<ion-view view-title="首页" class="indexPage myInfo" cache-view='true'>
+  <ion-header-bar class="head-bg">
     <!--<button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>-->
     <div class="title">
       <div class="titleName" ng-bind="newViewData.user_info.user_name"></div>
-      <div class="titleNum" ng-bind = "newViewData.user_info.invited_code"></div>
+      <div class="titleNum" ng-bind="newViewData.user_info.invited_code"></div>
     </div>
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
   <ion-content class="content-style">
+    <!-- 1.添加下拉刷新的组件 -->
+    <ion-refresher
+      pulling-text="正在刷新页面数据..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+
     <div class="global-container">
       <div class="statistics-time" v-cloak>
         统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}
@@ -55,11 +61,13 @@
       </div>
 
       <!--personal-rank-->
-      <div class="common-rank" ng-if="newViewData.personal_ranking_team && newViewData.personal_ranking_team.user_count != 0">
+      <div class="common-rank"
+           ng-if="newViewData.personal_ranking_team && newViewData.personal_ranking_team.user_count != 0">
         <div class="rank-title">
           <div class="left personal">个人排行榜-团队</div>
-          <div class="people-num" style="display:none;">{{newViewData.personal_ranking_team.user_count || 0}}&nbsp;位组员<img
-            src="build/assets/img/indexPage/icon_spread.png"/></div>
+          <div class="people-num" style="display:none;">{{newViewData.personal_ranking_team.user_count ||
+            0}}&nbsp;位组员<img
+              src="build/assets/img/indexPage/icon_spread.png"/></div>
           <div class="auto-height"></div>
         </div>
         <div class="rank-list">
@@ -79,17 +87,20 @@
             </div>
             <div class="auto-height"></div>
           </div>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_address.length>3" ng-click="showPartOrAll('class_address')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_address.length>3"
+             ng-click="showPartOrAll('class_address')">
             {{config.status.class_address?'收起':'查看全部'}}
           </a>
         </div>
       </div>
 
-      <div class="common-rank" ng-if="newViewData.leading_ranking_company && newViewData.leading_ranking_company.leading_count != 0">
+      <div class="common-rank"
+           ng-if="newViewData.leading_ranking_company && newViewData.leading_ranking_company.leading_count != 0">
         <div class="rank-title">
           <div class="left lead">领队排行榜</div>
-          <div class="people-num" style="display:none;">{{newViewData.personal_ranking_team.user_count || 0}}&nbsp;位组员<img
-            src="build/assets/img/indexPage/icon_spread.png"/></div>
+          <div class="people-num" style="display:none;">{{newViewData.personal_ranking_team.user_count ||
+            0}}&nbsp;位组员<img
+              src="build/assets/img/indexPage/icon_spread.png"/></div>
           <div class="auto-height"></div>
         </div>
         <div class="rank-list">
@@ -109,7 +120,8 @@
             </div>
             <div class="auto-height"></div>
           </div>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_address.length>3" ng-click="showPartOrAll('class_address')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_address.length>3"
+             ng-click="showPartOrAll('class_address')">
             {{config.status.class_address?'收起':'查看全部'}}
           </a>
         </div>
@@ -119,8 +131,9 @@
       <div class="common-rank">
         <div class="rank-title">
           <div class="left company">个人排行榜-公司</div>
-          <div class="people-num" style="display:none;">{{newViewData.personal_ranking_team.user_count || 0}}&nbsp;位组员<img
-            src="build/assets/img/indexPage/icon_spread.png"/></div>
+          <div class="people-num" style="display:none;">{{newViewData.personal_ranking_team.user_count ||
+            0}}&nbsp;位组员<img
+              src="build/assets/img/indexPage/icon_spread.png"/></div>
           <div class="auto-height"></div>
         </div>
         <div class="rank-list">
@@ -140,9 +153,9 @@
             </div>
             <div class="auto-height"></div>
           </div>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_ranking_company.user_list.length>3" ng-click="showPartOrAll('class_address')">
-            {{config.status.class_address?'收起':'查看全部'}}
-          </a>
+          <!--<a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_ranking_company.user_list.length>3" ng-click="showPartOrAll('class_address')">-->
+          <!--{{config.status.class_address?'收起':'查看全部'}}-->
+          <!--</a>-->
         </div>
       </div>
 
