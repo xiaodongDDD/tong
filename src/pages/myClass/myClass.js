@@ -6,7 +6,7 @@ angular.module('myClassModule')
   .controller('myClassCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', '$ionicScrollDelegate','SettingsService',
     function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, $ionicScrollDelegate,SettingsService) {
       $scope.data = {
-        type: '',
+        type: SettingsService.get('timeType').type || 'day',
         names: ["class_address", "class_type", "class_member", "class_message", "class_found"],
       }
       $scope.config = {
@@ -23,13 +23,13 @@ angular.module('myClassModule')
       $scope.newViewData =  {};
       $scope.newViewDataSp = {};
       $scope.operating = indexPageService.operating;
-      for (var i = 0; i < $scope.operating.length; i++) {
-        if ($scope.operating[i].id == $scope.data.type) {
-          $scope.operating[i].selected = true;
-        } else {
-          $scope.operating[i].selected = false;
-        }
-      }
+      // for (var i = 0; i < $scope.operating.length; i++) {
+      //   if ($scope.operating[i].id == $scope.data.type) {
+      //     $scope.operating[i].selected = true;
+      //   } else {
+      //     $scope.operating[i].selected = false;
+      //   }
+      // }
       $scope.goPage = function () {
       }
 
@@ -64,7 +64,6 @@ angular.module('myClassModule')
           ;
         }
         ;
-        console.log($scope.newViewDataSp);
       }
       //下拉刷新
       $scope.doRefresh = function () {
@@ -108,6 +107,7 @@ angular.module('myClassModule')
         }
         $scope.data.type = x.id;
         $scope.config = angular.copy($scope.configSp);
+        SettingsService.set('timeType', x);
         initPageData();
         x.selected = !x.selected;
         $scope.popover.hide();

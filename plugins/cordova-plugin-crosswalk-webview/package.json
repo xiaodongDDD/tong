@@ -45,5 +45,7 @@
   "bugs": {
     "url": "https://crosswalk-project.org/jira"
   },
-  "homepage": "https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview"
+  "homepage": "https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview",
+  "_from": "cordova-plugin-crosswalk-webview@2.3.0",
+  "_resolved": "http://registry.npm.taobao.org/cordova-plugin-crosswalk-webview/download/cordova-plugin-crosswalk-webview-2.3.0.tgz"
 }

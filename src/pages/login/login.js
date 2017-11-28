@@ -46,8 +46,8 @@
       $scope.lockScroll(true);
     }, 300);
     $scope.loginInfo = {
-      username: "",
-      password: ""
+      username: "15000836854",
+      password: "@@@@@@"
     };//登录信息
     //配置信息
     $scope.config = {
@@ -217,7 +217,7 @@
       }
       return $http.post(url, {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
         }
       })
     }
@@ -292,8 +292,8 @@
         console.log('loginCtrl.$ionicView.enter');
       }
       $scope.loginInfo = {
-        username: "",
-        password: ""
+        username: "15000836854",
+        password: "@@@@@@"
       };//登录信息
       $scope.rememberPassword = false;//是否记住密码
       if (window.localStorage.empno) {

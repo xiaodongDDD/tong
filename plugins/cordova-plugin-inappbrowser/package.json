@@ -51,5 +51,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "jshint": "^2.6.0"
-  }
+  },
+  "_from": "cordova-plugin-inappbrowser@1.4.0",
+  "_resolved": "http://registry.npm.taobao.org/cordova-plugin-inappbrowser/download/cordova-plugin-inappbrowser-1.4.0.tgz"
 }

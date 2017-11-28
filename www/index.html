@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="format-detection" content="telephone=no">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src *;style-src 'self' 'unsafe-inline';script-src http://localhost:8080 http://192.168.1.119:8100 http://school-test.xiaoheiban.cn 'unsafe-inline' 'self' 'unsafe-eval'">
+  <meta name="viewport"
+        content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width，viewport-fit=cover">
   <title></title>
   <link href="build/lib/ionic/release/css/ionic.min.css" rel="stylesheet">
   <link href="build/css/app.core.css" rel="stylesheet">

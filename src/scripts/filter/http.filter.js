@@ -18,7 +18,7 @@
         if (window.localStorage.userToken && window.localStorage.empno) {
           config.headers.authorization = 'Bearer ' + window.localStorage.userToken
           config.headers.appVersion = baseConfig.version.currentVersion + '.' + baseConfig.version.currentSubVersion;
-          config.headers["Content-Type"] = 'indexPage/json;charset=UTF-8';
+          config.headers["Content-Type"] = 'application/json;charset=UTF-8';
           config.headers['X-Requested-With'] = 'XMLHttpRequest';
           config.headers['X-hmapfront-client'] = 'APP';
           config.headers['X-hmapfront-version'] = baseConfig.version.currentVersion + '.' + baseConfig.version.currentSubVersion;

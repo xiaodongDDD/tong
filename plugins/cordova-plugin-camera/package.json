@@ -59,5 +59,7 @@
     "husky": "^0.10.1",
     "jsdoc-to-markdown": "^1.2.0",
     "jshint": "^2.6.0"
-  }
+  },
+  "_from": "cordova-plugin-camera@2.4.1",
+  "_resolved": "http://registry.npm.taobao.org/cordova-plugin-camera/download/cordova-plugin-camera-2.4.1.tgz"
 }

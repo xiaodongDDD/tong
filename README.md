@@ -27,8 +27,8 @@
 
 ## 如何开始
 
-* 安装cordova `npm -g install cordova@6.3.1`.
-* 安装ionic `npm -g install ionic@1.7.16`.
+* 安装cordova `npm -g install cordova`.
+* 安装ionic `npm -g install ionic`.
 * 安装gulp `npm install`.
 * 克隆地址: `git clone https://github.com/driftyco/ionic-conference-app.git`.
 * gulp构建环境 `npm install`.
@@ -92,3 +92,10 @@ hand-portal-app/
 ├── package.json                        * Defines our JavaScript dependencies
 ```
 //常见问题 hooks   ionic add hooks
+解决ios11的兼容问题
+cordova platform add ios@4.5.1
+ios打包之后冲突删掉cdvlogger这个文件   cdvlogger
+
+切图  icon  splash  ionic resources
+
+

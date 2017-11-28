@@ -22,7 +22,7 @@
     "appRootPath":"",
     "serverPath":"https://10.211.96.173:8080/bts",
     "appRootFile": "helloCordova",
-    "appUpId":"com.hand-china.hrms",
+    "appUpId":"com.xinkb",
     "version":{
       "currentVersion": "2.5.0",
       "currentversionName": "此版本为正式版本2.5.0",

@@ -7,7 +7,7 @@
     </div>
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
-  <ion-content class="content-style">
+  <ion-content class="content-style" delegate-handle="mainScroll">
     <!-- 1.添加下拉刷新的组件 -->
     <ion-refresher
       pulling-text="正在刷新页面数据..."
@@ -21,7 +21,7 @@
       <div class="new-data-statistics">
         <div class="new-data-statistics-bg"></div>
         <div class="data-box">
-          <div class="title">今日APP新增数据统计</div>
+          <div class="title">{{data.typeDesc}}APP新增数据统计</div>
           <div class="data-list">
             <div class="data-item register-item" ng-click="goOtherTab('2')">
               <img src="build/assets/img/indexPage/icon_user.png"/>
@@ -71,7 +71,7 @@
           <div class="auto-height"></div>
         </div>
         <div class="rank-list">
-          <div class="rank-item" ng-repeat="item in newViewData.personal_ranking_team.user_list">
+          <div class="rank-item" ng-repeat="item in newViewDataSp.personal_ranking_team.user_list">
             <div class="rank-num"></div>
             <img ng-src="{{item.avatar}}" class="head"/>
             <div class="person-info">
@@ -87,8 +87,8 @@
             </div>
             <div class="auto-height"></div>
           </div>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_address.length>3"
-             ng-click="showPartOrAll('class_address')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.personal_ranking_team.user_count.length>3"
+             ng-click="showPartOrAll('personal_ranking_team')">
             {{config.status.class_address?'收起':'查看全部'}}
           </a>
         </div>
@@ -104,7 +104,7 @@
           <div class="auto-height"></div>
         </div>
         <div class="rank-list">
-          <div class="rank-item" ng-repeat="item in newViewData.leading_ranking_company.leading_list">
+          <div class="rank-item" ng-repeat="item in newViewDataSp.leading_ranking_company.leading_list">
             <div class="rank-num"></div>
             <img ng-src="{{item.avatar}}" class="head"/>
             <div class="person-info">
@@ -120,9 +120,9 @@
             </div>
             <div class="auto-height"></div>
           </div>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.class_address.length>3"
-             ng-click="showPartOrAll('class_address')">
-            {{config.status.class_address?'收起':'查看全部'}}
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.leading_ranking_company.leading_list.length>3"
+             ng-click="showPartOrAll('leading_ranking_company')">
+            {{config.status.leading_ranking_company?'收起':'查看全部'}}
           </a>
         </div>
       </div>
@@ -137,7 +137,7 @@
           <div class="auto-height"></div>
         </div>
         <div class="rank-list">
-          <div class="rank-item" ng-repeat="item in newViewData.user_ranking_company.user_list">
+          <div class="rank-item" ng-repeat="item in newViewDataSp.user_ranking_company.user_list">
             <div class="rank-num"></div>
             <img ng-src="{{item.avatar}}" class="head"/>
             <div class="person-info">
@@ -153,9 +153,9 @@
             </div>
             <div class="auto-height"></div>
           </div>
-          <!--<a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_ranking_company.user_list.length>3" ng-click="showPartOrAll('class_address')">-->
-          <!--{{config.status.class_address?'收起':'查看全部'}}-->
-          <!--</a>-->
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_ranking_company.user_list.length>3" ng-click="showPartOrAll('user_ranking_company')">
+          {{config.status.user_ranking_company?'收起':'查看全部'}}
+          </a>
         </div>
       </div>
 

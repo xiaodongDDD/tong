@@ -66,7 +66,7 @@
             var destUrl = url + "&yitong_token=" + window.localStorage.token;
             var startTime = new Date().getTime();
             var post = $http.post(destUrl, paramter, {
-              headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer '}
+              headers: {'Content-Type': 'application/x-www-form-application;charset=utf-8'}
             }, {'timeout': '30000'}).success(function (response) {
               if (baseConfig.debug) {
                 console.log(postName + " success");
@@ -115,7 +115,7 @@
             }
             var destUrl = url + "&yitong_token=" + window.localStorage.token;
             var get = $http.get(destUrl, {
-              headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer '}
+              headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
             }).success(function (response) {
               if (baseConfig.debug) {
                 console.log(getName + " success");
@@ -203,6 +203,16 @@
     };
   })
     .controller("AppSpCtrl", ["$scope", "$timeout", function ($scope, $timeout) {
+      if (ionic.Platform.isAndroid()) {
+        $scope.bodyHeight = {
+          "height": screen.height - 18 + "px"
+        };
+      } else {
+        $scope.bodyHeight = {
+          "height": screen.height + "px"
+        };
+      }
+      console.log($scope.bodyHeight);
       var ToastFlag = false;
       $scope.Toast = {
         show: function (msg, time) {

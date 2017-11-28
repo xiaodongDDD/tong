@@ -5,7 +5,7 @@ angular.module('schoolModule')
   .controller('schoolCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout','SettingsService',
     function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout,SettingsService) {
       $scope.data = {
-        type: '',
+        type: SettingsService.get('timeType').type || 'day',
         names: ['distinct_list', 'arc_percent', 'join_school', 'message_use', 'school_property', 'school_ranges', 'study_section', 'trainer_lists'],
       }
       $scope.config = {
@@ -25,13 +25,13 @@ angular.module('schoolModule')
       $scope.newViewData = {};
       $scope.newViewDataSp = {};
       $scope.operating = indexPageService.operating;
-      for (var i = 0; i < $scope.operating.length; i++) {
-        if ($scope.operating[i].id == $scope.data.type) {
-          $scope.operating[i].selected = true;
-        } else {
-          $scope.operating[i].selected = false;
-        }
-      }
+      // for (var i = 0; i < $scope.operating.length; i++) {
+      //   if ($scope.operating[i].id == $scope.data.type) {
+      //     $scope.operating[i].selected = true;
+      //   } else {
+      //     $scope.operating[i].selected = false;
+      //   }
+      // }
       $scope.goPage = function () {
       }
 
@@ -77,7 +77,6 @@ angular.module('schoolModule')
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.schoolData&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
-            // console.log(JSON.stringify(response));
             $scope.newViewData = response.response;
             sliceThreeData(response.response);
             SettingsService.set('schoolData', $scope.newViewData);
@@ -111,6 +110,7 @@ angular.module('schoolModule')
         x.selected = !x.selected;
         $scope.data.type = x.id;
         $scope.config = angular.copy($scope.configSp);
+        SettingsService.set('timeType', x);
         initPageData();
         $scope.popover.hide();
       }

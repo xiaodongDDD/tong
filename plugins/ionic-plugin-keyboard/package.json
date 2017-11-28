@@ -26,5 +26,7 @@
     "cordova-windows"
   ],
   "author": "Ionic",
-  "license": "Apache 2.0"
+  "license": "Apache 2.0",
+  "_from": "ionic-plugin-keyboard@2.2.1",
+  "_resolved": "http://registry.npm.taobao.org/ionic-plugin-keyboard/download/ionic-plugin-keyboard-2.2.1.tgz"
 }

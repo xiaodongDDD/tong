@@ -39,5 +39,7 @@
   "bugs": {
     "url": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin/issues"
   },
-  "homepage": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin#readme"
+  "homepage": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin#readme",
+  "_from": "cordova-plugin-x-toast@2.6.0",
+  "_resolved": "http://registry.npm.taobao.org/cordova-plugin-x-toast/download/cordova-plugin-x-toast-2.6.0.tgz"
 }

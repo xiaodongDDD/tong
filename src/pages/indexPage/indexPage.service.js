@@ -12,7 +12,7 @@ angular.module('indexPageModule')
           id: 'day',
           text: '今日',
           style: {'border-bottom-width': '2px', 'border-bottom-style': 'solid', 'border-bottom-color': '#DCDCDC'},
-          selected: false,
+          selected: true,
         },
         {
           id: 'week',

@@ -45,5 +45,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "jshint": "^2.6.0"
-  }
+  },
+  "_from": "cordova-plugin-statusbar@2.2.3",
+  "_resolved": "http://registry.npm.taobao.org/cordova-plugin-statusbar/download/cordova-plugin-statusbar-2.2.3.tgz"
 }

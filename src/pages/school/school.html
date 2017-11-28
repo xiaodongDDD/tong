@@ -1,5 +1,5 @@
 <ion-view view-title="学校情况统计" class="mylass myInfo indexPage" cache-view='true'>
-  <ion-header-bar align-title="center" class="bar-stable">
+  <ion-header-bar align-title="center"  class="head-bg">
     <div class="title titleStyle">
       学校情况统计
     </div>
@@ -29,7 +29,7 @@
           <div class="numbers" >{{newViewData.school_yes_data.school_count || 0}}</div>
           <div class="auto-height"></div>
         </div>
-        <div class="explain-box-hide school" ng-show="config.explainFlag">以【学校】为单位的用户统计数</div>
+        <div class="explain-box-hide school" ng-show="config.explainFlag">以「学校」为单位的用户统计数</div>
       </div>
       <!--teacher-regional-district-->
       <div class="common-regional-district teacher-regional-district" ng-show="newViewData.distinct_list.length>0">

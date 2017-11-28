@@ -1,7 +1,8 @@
 {
   "name": "cordova-plugin-splashscreen",
-  "version": "4.0.1-dev",
+  "version": "4.0.3",
   "description": "Cordova Splashscreen Plugin",
+  "types": "./types/index.d.ts",
   "cordova": {
     "id": "cordova-plugin-splashscreen",
     "platforms": [
@@ -56,5 +57,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "jshint": "^2.6.0"
-  }
+  },
+  "_from": "cordova-plugin-splashscreen@4.0.3",
+  "_resolved": "http://registry.npm.taobao.org/cordova-plugin-splashscreen/download/cordova-plugin-splashscreen-4.0.3.tgz"
 }

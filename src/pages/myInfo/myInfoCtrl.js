@@ -7,7 +7,7 @@ angular.module('myInfoModule')
     '$ionicSlideBoxDelegate', '$ionicPlatform','$ionicPopover','hmsHttp','baseConfig','indexPageService','SettingsService',
     function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform,$ionicPopover,hmsHttp,baseConfig,indexPageService,SettingsService) {
       $scope.data = {
-        type : '',
+        type : SettingsService.get('timeType').type || 'day',
         names:["teacher_address","user_role","user_type"],
       };
       $scope.config = {
@@ -21,13 +21,13 @@ angular.module('myInfoModule')
       $scope.newViewData = {};
       $scope.newViewDataSp = {};
       $scope.operating = indexPageService.operating;
-      for(var i=0;i<$scope.operating.length;i++){
-        if($scope.operating[i].id == $scope.data.type){
-          $scope.operating[i].selected = true;
-        }else{
-          $scope.operating[i].selected = false;
-        }
-      }
+      // for(var i=0;i<$scope.operating.length;i++){
+      //   if($scope.operating[i].id == $scope.data.type){
+      //     $scope.operating[i].selected = true;
+      //   }else{
+      //     $scope.operating[i].selected = false;
+      //   }
+      // }
       $scope.goPage = function () {
       }
       //接口
@@ -35,7 +35,6 @@ angular.module('myInfoModule')
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.userData&type="+$scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
-            // console.log(JSON.stringify(response));
             $scope.newViewData = response.response;
             sliceThreeData(response.response);
             SettingsService.set('useData',$scope.newViewData);
@@ -70,7 +69,6 @@ angular.module('myInfoModule')
           }else{
           };
         };
-        console.log($scope.newViewDataSp);
       }
 
       //右上角popover
@@ -97,6 +95,7 @@ angular.module('myInfoModule')
         x.selected = !x.selected;
         $scope.data.type = x.id;
         $scope.config = angular.copy($scope.configSp);
+        SettingsService.set('timeType', x);
         initPageData();
         $scope.popover.hide();
       }
