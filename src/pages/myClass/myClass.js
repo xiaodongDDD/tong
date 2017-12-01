@@ -3,10 +3,10 @@
  */
 
 angular.module('myClassModule')
-  .controller('myClassCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', '$ionicScrollDelegate','SettingsService',
-    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, $ionicScrollDelegate,SettingsService) {
+  .controller('myClassCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', '$ionicScrollDelegate','SettingsService','hmsPopup',
+    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, $ionicScrollDelegate,SettingsService,hmsPopup) {
       $scope.data = {
-        type: SettingsService.get('timeType').type || 'day',
+        type: SettingsService.get('timeType').id || 'day',
         names: ["class_address", "class_type", "class_member", "class_message", "class_found"],
       }
       $scope.config = {
@@ -67,11 +67,15 @@ angular.module('myClassModule')
       }
       //下拉刷新
       $scope.doRefresh = function () {
-        initPageData();
+        initPageData('1');
         $scope.$broadcast("scroll.refreshComplete");
       }
       //接口
-      function initPageData() {
+      function initPageData(item) {
+        if(item == '1'){
+        }else{
+          hmsPopup.showLoadingWithoutBackdrop('正在加载...');
+        }
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.classData&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {

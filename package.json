@@ -20,8 +20,11 @@
     "cordova-android": "^6.3.0",
     "cordova-ios": "^4.5.4",
     "cordova-plugin-compat": "^1.2.0",
+    "cordova-plugin-datepicker": "^0.9.3",
     "cordova-plugin-file-transfer": "^1.7.0",
-    "cordova-plugin-whitelist": "1"
+    "cordova-plugin-jcore": "^1.1.10",
+    "cordova-plugin-whitelist": "1",
+    "jpush-phonegap-plugin": "file:///Users/daidongdong/Desktop/项目信息/plugin/jpush-phonegap-plugin"
   },
   "devDependencies": {
     "angular-translate": "^2.13.1",
@@ -60,7 +63,13 @@
     "fs": "",
     "path": ""
   },
-  "cordovaPlugins": [],
+  "cordovaPlugins": [
+    "cordova-plugin-datepicker",
+    {
+      "id": "jpush-phonegap-plugin",
+      "locator": "/Users/daidongdong/Desktop/项目信息/plugin/jpush-phonegap-plugin"
+    }
+  ],
   "cordovaPlatforms": [
     "android"
   ],
@@ -70,7 +79,11 @@
       "ios"
     ],
     "plugins": {
-      "cordova-plugin-whitelist": {}
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-datepicker": {},
+      "jpush-phonegap-plugin": {
+        "APP_KEY": "422ec4e43143367e10a3cf79"
+      }
     }
   }
 }

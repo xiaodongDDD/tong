@@ -4,10 +4,10 @@
 
 angular.module('myInfoModule')
   .controller('myInfoCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-    '$ionicSlideBoxDelegate', '$ionicPlatform','$ionicPopover','hmsHttp','baseConfig','indexPageService','SettingsService',
-    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform,$ionicPopover,hmsHttp,baseConfig,indexPageService,SettingsService) {
+    '$ionicSlideBoxDelegate', '$ionicPlatform','$ionicPopover','hmsHttp','baseConfig','indexPageService','SettingsService','hmsPopup',
+    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform,$ionicPopover,hmsHttp,baseConfig,indexPageService,SettingsService,hmsPopup) {
       $scope.data = {
-        type : SettingsService.get('timeType').type || 'day',
+        type : SettingsService.get('timeType').id || 'day',
         names:["teacher_address","user_role","user_type"],
       };
       $scope.config = {
@@ -31,7 +31,11 @@ angular.module('myInfoModule')
       $scope.goPage = function () {
       }
       //接口
-      function initPageData(){
+      function initPageData(item){
+        if(item == '1'){
+        }else{
+          hmsPopup.showLoadingWithoutBackdrop('正在加载...');
+        }
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.userData&type="+$scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
@@ -46,7 +50,7 @@ angular.module('myInfoModule')
       }
       //下拉刷新
       $scope.doRefresh=function () {
-        initPageData();
+        initPageData('1');
         $scope.$broadcast("scroll.refreshComplete");
       }
       //查看更多

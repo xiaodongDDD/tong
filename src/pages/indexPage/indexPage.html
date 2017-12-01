@@ -10,7 +10,7 @@
   <ion-content class="content-style" delegate-handle="mainScroll">
     <!-- 1.添加下拉刷新的组件 -->
     <ion-refresher
-      pulling-text="正在刷新页面数据..."
+      pulling-text="下拉刷新页面数据..."
       on-refresh="doRefresh()">
     </ion-refresher>
 
@@ -128,7 +128,8 @@
       </div>
 
 
-      <div class="common-rank">
+      <div class="common-rank"
+           ng-if="newViewData.user_ranking_company && newViewData.user_ranking_company.user_count != 0">
         <div class="rank-title">
           <div class="left company">个人排行榜-公司</div>
           <div class="people-num" style="display:none;">{{newViewData.personal_ranking_team.user_count ||

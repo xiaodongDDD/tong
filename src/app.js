@@ -15,15 +15,16 @@
     'myInfoModule',
     'utilModule',
     'hmsModule',
-    'settingModule'
+    'settingModule',
+    'jpushModule'
   ]);
 
   angular.module('myApp')
     .run(angularRun);
 
-  angularRun.$inject = ['$ionicPlatform','checkVersionService'];
+  angularRun.$inject = ['$ionicPlatform', 'checkVersionService', 'jpushService','hmsPopup'];
 
-  function angularRun($ionicPlatform,checkVersionService) {
+  function angularRun($ionicPlatform, checkVersionService, jpushService,hmsPopup) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -43,6 +44,60 @@
       }
 
       checkVersionService.checkAppVersion();
+
+
+      if (ionic.Platform.isWebView()) {
+        //推送初始化
+        var setTagsWithAliasCallback = function (event) {
+          window.alert('result code:' + event.resultCode + ' tags:' + event.tags + ' alias:' + event.alias);
+        }
+        var openNotificationInAndroidCallback = function (data) {
+          var json = data;
+          if (typeof data === 'string') {
+            json = JSON.parse(data);
+          }
+          var id = json.extras['cn.jpush.android.EXTRA'].id;
+          var alertInfo = json.extras['cn.jpush.android.ALERT'];
+          // alert(alertInfo);
+          var insertInfo = {time: new Date(), name: alertInfo}
+          storedb('normalInfo').insert(insertInfo);
+          // alert(angular.toJson(storedb('normalInfo').find()));
+        }
+        var config = {
+          stac: setTagsWithAliasCallback,
+          oniac: openNotificationInAndroidCallback
+        };
+
+        jpushService.init(config);
+        jpushService.resetBadge();
+        //启动极光推送服务
+        window.plugins.jPushPlugin.init();
+        window.plugins.jPushPlugin.setDebugMode(true);
+        document.addEventListener("jpush.openNotification", onOpenNotification, false)
+        var onOpenNotification = function (event) {
+          window.plugins.jPushPlugin.resetBadge()
+        }
+      } else {
+        console.log('网页情况下不开启推送！');
+      }
+
+      /*
+      * 事件说明：
+      * 1.第一次页面加载成功触发 online或offline
+      * 2.网络切换 会触发online或offline
+      */
+      //网络连接
+      document.addEventListener('online', function () {
+        hmsPopup.showPopup('网络连接成功!');
+        // if (navigator.connection.type == Connection.WIFI) {
+        //   hmsPopup.showPopup('已经切换到Wifi网络');
+        // }
+      }, false);
+      //网络断开
+      document.addEventListener('offline', function () {
+        hmsPopup.showPopup('网络已经断开!');
+      }, false);
+
 
     });
   }
@@ -120,7 +175,7 @@
         templateUrl: 'build/pages/setting/setting.html',
         controller: 'settingCtrl'
       })
-;
+    ;
 
     if (!window.localStorage.needGuid || window.localStorage.needGuid == "true") {
       //if (baseConfig.debug) {

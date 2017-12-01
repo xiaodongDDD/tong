@@ -2,10 +2,10 @@
  * Created by daidongdong on 2017/11/14.
  */
 angular.module('schoolModule')
-  .controller('schoolCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout','SettingsService',
-    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout,SettingsService) {
+  .controller('schoolCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout','SettingsService','hmsPopup',
+    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout,SettingsService,hmsPopup) {
       $scope.data = {
-        type: SettingsService.get('timeType').type || 'day',
+        type: SettingsService.get('timeType').id || 'day',
         names: ['distinct_list', 'arc_percent', 'join_school', 'message_use', 'school_property', 'school_ranges', 'study_section', 'trainer_lists'],
       }
       $scope.config = {
@@ -68,12 +68,16 @@ angular.module('schoolModule')
       }
       //下拉刷新
       $scope.doRefresh = function () {
-        initPageData();
+        initPageData('1');
         $scope.$broadcast("scroll.refreshComplete");
       }
 
       //接口
-      function initPageData() {
+      function initPageData(item) {
+        if(item == '1'){
+        }else{
+          hmsPopup.showLoadingWithoutBackdrop('正在加载...');
+        }
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.schoolData&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {

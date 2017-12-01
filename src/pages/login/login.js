@@ -19,7 +19,7 @@
     '$ionicScrollDelegate',
     'checkVersionService',
     'hmsPopup',
-    '$rootScope'];
+    '$rootScope','$ionicBackdrop'];
 
   function loginCtrl($scope,
                      $state,
@@ -40,14 +40,14 @@
       }
     });
 
-    /////////////////////////////////////
+      /////////////////////////////////////
     $timeout(function () {
       $scope.loginScroll = $ionicScrollDelegate.$getByHandle('loginScroll');
       $scope.lockScroll(true);
     }, 300);
     $scope.loginInfo = {
-      username: "15000836854",
-      password: "@@@@@@"
+      username: "",
+      password: ""
     };//登录信息
     //配置信息
     $scope.config = {
@@ -231,9 +231,7 @@
       }
       hmsPopup.showLoading('登录中...');
       $timeout(function () {
-        // $state.go("tab");
-        // hmsPopup.hideLoading();
-        // return;
+
         window.localStorage.empno = $scope.loginInfo.username;
         window.localStorage.password = $scope.loginInfo.password;
         if ($scope.rememberPassword == true) {
@@ -241,7 +239,6 @@
         } else if ($scope.rememberPassword == false) {
           window.localStorage.password = "";
         }
-        console.log(phoneNumber($scope.loginInfo.username));
         if (!$scope.loginInfo.username || $scope.loginInfo.username == '' || !phoneNumber($scope.loginInfo.username)) {
           hmsPopup.hideLoading();
           $scope.config.accountPointFlag = false;
@@ -254,9 +251,6 @@
           return;
         }
 
-        //var url = baseConfig.loginPath;
-        //var phoneNumber = "PC";
-        //var params = "username=" + encodeURIComponent($scope.loginInfo.username) + "&password=" + encodeURIComponent($scope.loginInfo.password) + "&p_phone_no=" + phoneNumber;
 
 
         loginPost().success(function (result) {
@@ -292,8 +286,8 @@
         console.log('loginCtrl.$ionicView.enter');
       }
       $scope.loginInfo = {
-        username: "15000836854",
-        password: "@@@@@@"
+        username: "",
+        password: ""
       };//登录信息
       $scope.rememberPassword = false;//是否记住密码
       if (window.localStorage.empno) {

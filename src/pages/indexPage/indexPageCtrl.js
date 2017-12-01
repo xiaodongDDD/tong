@@ -6,7 +6,7 @@ angular.module('indexPageModule')
   .controller('indexPageCtrl', ['$scope', '$rootScope', '$state', '$ionicPopover', 'indexPageService', 'hmsHttp', 'baseConfig', 'tabService', 'hmsPopup', 'SettingsService','$ionicScrollDelegate',
     function ($scope, $rootScope, $state, $ionicPopover, indexPageService, hmsHttp, baseConfig, tabService, hmsPopup, SettingsService,$ionicScrollDelegate) {
       $scope.data = {
-        type: SettingsService.get('timeType').type || 'day',
+        type: SettingsService.get('timeType').id || 'day',
         names: ["personal_ranking_team", "leading_ranking_company", "user_ranking_company"],
         typeDesc : SettingsService.get('timeType').text || '今日'
       }
@@ -20,6 +20,7 @@ angular.module('indexPageModule')
           user_ranking_company: false,
         }
       };
+      $scope.configSp = angular.copy($scope.config);
       $scope.tabs = tabService.tabs;
 
       $scope.goPage = function () {
@@ -89,11 +90,15 @@ angular.module('indexPageModule')
 
       //下拉刷新
       $scope.doRefresh = function () {
-        initPageData();
+        initPageData('1');
         $scope.$broadcast("scroll.refreshComplete");
       }
       //接口
-      function initPageData() {
+      function initPageData(item) {
+        if(item == '1'){
+        }else{
+          hmsPopup.showLoadingWithoutBackdrop('正在加载...');
+        }
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.index&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
@@ -130,6 +135,7 @@ angular.module('indexPageModule')
         x.selected = !x.selected;
         $scope.data.type = x.id;
         $scope.data.typeDesc = x.text;
+        $scope.config = angular.copy($scope.configSp);
         SettingsService.set('timeType', x);
         initPageData();
         $scope.popover.hide();

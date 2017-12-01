@@ -110,7 +110,7 @@
         });
         $timeout(function () {
           $ionicLoading.hide();
-        },15000);
+        },30000);
 
       }, function (progress) {
         console.log(progress);

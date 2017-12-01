@@ -12,4 +12,5 @@
   angular.module('myInfoModule', []);
   angular.module('settingModule', []);
   angular.module('utilsModule', []);
+  angular.module('jpushModule', []);
 })();

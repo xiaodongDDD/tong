@@ -73,6 +73,7 @@
                 // console.log(postName + " response " + angular.toJson(response));
                 console.log(postName + " End!");
               }
+              hmsPopup.hideLoading();
             }).error(function (response, status, header, config) {
               var respTime = new Date().getTime() - startTime;
               //超时之后返回的方法
@@ -114,20 +115,48 @@
               console.log(getName + " url " + url);
             }
             var destUrl = url + "&yitong_token=" + window.localStorage.token;
+            var startTime = new Date().getTime();
             var get = $http.get(destUrl, {
               headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
-            }).success(function (response) {
+            },{'timeout': '30000'}).success(function (response) {
               if (baseConfig.debug) {
                 console.log(getName + " success");
                 // console.log(getName + " response " + angular.toJson(response));
                 console.log(getName + " End!");
               }
-            }).error(function (response, status) {
+              hmsPopup.hideLoading()
+            }).error(function (response, status,header, config) {
+              console.log('-----------');
+              var respTime = new Date().getTime() - startTime;
+              //超时之后返回的方法
+              if (respTime >= config.timeout) {
+                console.log('HTTP timeout');
+                if (ionic.Platform.isWebView()) {
+                  hmsPopup.showShortCenterToast('请求超时, 请重试!');
+                }
+              }
               if (baseConfig.debug) {
                 console.log(getName + " error");
                 console.log(getName + " response " + response);
                 console.log(getName + " status " + status);
                 console.log(getName + " End!");
+              }
+              hmsPopup.hideLoading();
+              if (status == '401') {
+                window.localStorage.token = '';
+                goBackLogin($state);
+                hmsPopup.showShortCenterToast('另一个设备在登陆你的账号,请重新登陆!');
+              }
+              else if (status == '403') {
+                window.localStorage.token = '';
+                goBackLogin($state);
+                hmsPopup.showShortCenterToast('用户令牌失效,请重新登陆!');
+              }
+              else if (status == '404') {
+                hmsPopup.showShortCenterToast('后端服务器请求失败,请联系管理员!');
+              }
+              else {
+                hmsPopup.showShortCenterToast('处理请求失败,请确认网络连接是否正常,或者联系管理员!');
               }
             });
             return get;
