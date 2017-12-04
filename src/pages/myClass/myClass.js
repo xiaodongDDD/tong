@@ -79,6 +79,7 @@ angular.module('myClassModule')
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.classData&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
+            $scope.config = angular.copy($scope.configSp);
             $scope.newViewData = response.response;
             sliceThreeData($scope.newViewData);
             SettingsService.set('classData',$scope.newViewData);
@@ -110,7 +111,6 @@ angular.module('myClassModule')
           $scope.operating[i].selected = false;
         }
         $scope.data.type = x.id;
-        $scope.config = angular.copy($scope.configSp);
         SettingsService.set('timeType', x);
         initPageData();
         x.selected = !x.selected;

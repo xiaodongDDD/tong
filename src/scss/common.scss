@@ -31,8 +31,18 @@
 //    z-index: 5;
 //  }
 //}
+.head{
+  .titleStyle{
+    font-family: PingFangSC-Light;
+    font-size: 17px;
+    color: #000000;
+    letter-spacing: -0.41px;
+  }
+}
 
-
+.button-none{
+  display: none !important;
+}
 //弹窗
 .popup-body {
   padding: 10px;

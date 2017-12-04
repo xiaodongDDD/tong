@@ -27,7 +27,22 @@
       updateContent: '',
       subForceUpdate: ''
     };
-
+    var dealVersionUtil = function (localVersion, serveVersion) {
+      if (parseInt(localVersion[0]) < parseInt(serveVersion[0])) {
+        return true;
+      } else if (parseInt(localVersion[0]) == parseInt(serveVersion[0])) {
+        if (parseInt(localVersion[1]) < parseInt(serveVersion[1])) {
+          return true;
+        } else if (parseInt(localVersion[1]) == parseInt(serveVersion[1])) {
+          if (parseInt(localVersion[2]) < parseInt(serveVersion[2])) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+      return false;
+    }
     /**
      * 检查app的版本更新
      * -- 分大版本和小版本的update
@@ -49,38 +64,45 @@
             serveVersionParams.updateContent = '';
           }
 
-          if (serveVersionParams.subForceUpdate == 1) {
-            function selectAction_min_v2(buttonIndex) { // update from pgy
-              //alert('selectAction_min_v2.buttonIndex ' + buttonIndex);
-              if (buttonIndex == 0) { //确认按钮
-                // hotpatch.updateNewVersion(serveVersionParams.bigUpdateUrl);
-                if (ionic.Platform.isAndroid()) {
-                  UpdateForAndroid(serveVersionParams.bigUpdateUrl)
-                } else {
-                  window.open('https://www.pgyer.com/fpsM');
+          var serveVersion = response.response.version.split('.');
+          var localVersion = baseConfig.version.currentVersion.split('.');
+          if(dealVersionUtil(localVersion, serveVersion)){
+
+            if (serveVersionParams.subForceUpdate == 1) {
+              function selectAction_min_v2(buttonIndex) { // update from pgy
+                //alert('selectAction_min_v2.buttonIndex ' + buttonIndex);
+                if (buttonIndex == 0) { //确认按钮
+                  // hotpatch.updateNewVersion(serveVersionParams.bigUpdateUrl);
+                  if (ionic.Platform.isAndroid()) {
+                    UpdateForAndroid(serveVersionParams.bigUpdateUrl)
+                  } else {
+                    window.open(baseConfig.iosUpdatePath);
+                  }
                 }
               }
-            }
 
-            hmsPopup.confirmOnly(serveVersionParams.updateContent, "版本更新", selectAction_min_v2);
-          } else if (serveVersionParams.subForceUpdate == 0) {
-            function selectAction_min(buttonIndex) { // update from pgy
-              if (buttonIndex == 1) { //确认按钮
-                // hotpatch.updateNewVersion(serveVersionParams.bigUpdateUrl);
+              hmsPopup.confirmOnly(serveVersionParams.updateContent, "版本更新", selectAction_min_v2);
+            } else if (serveVersionParams.subForceUpdate == 0) {
+              function selectAction_min(buttonIndex) { // update from pgy
+                if (buttonIndex == 1) { //确认按钮
+                  // hotpatch.updateNewVersion(serveVersionParams.bigUpdateUrl);
 
-                if (ionic.Platform.isAndroid()) {
-                  UpdateForAndroid(serveVersionParams.bigUpdateUrl)
+                  if (ionic.Platform.isAndroid()) {
+                    UpdateForAndroid(serveVersionParams.bigUpdateUrl)
 
-                } else {
-                  window.open('https://www.pgyer.com/fpsM');
+                  } else {
+                    window.open(baseConfig.iosUpdatePath);
+                  }
+                } else { //取消按钮
+                  return;
                 }
-              } else { //取消按钮
-                return;
               }
-            }
 
-            hmsPopup.confirm(serveVersionParams.updateContent, "版本更新", selectAction_min);
-          } else {
+              hmsPopup.confirm(serveVersionParams.updateContent, "版本更新", selectAction_min);
+            } else {
+
+            }
+          }else{
 
           }
         });

@@ -81,6 +81,7 @@ angular.module('schoolModule')
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.schoolData&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
+            $scope.config = angular.copy($scope.configSp);
             $scope.newViewData = response.response;
             sliceThreeData(response.response);
             SettingsService.set('schoolData', $scope.newViewData);
@@ -113,7 +114,6 @@ angular.module('schoolModule')
         }
         x.selected = !x.selected;
         $scope.data.type = x.id;
-        $scope.config = angular.copy($scope.configSp);
         SettingsService.set('timeType', x);
         initPageData();
         $scope.popover.hide();

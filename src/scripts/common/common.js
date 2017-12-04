@@ -177,6 +177,9 @@ function inArray(array, obj) {
 
 //判断输入是否为十一位电话号码
 function phoneNumber(str) {
+  if(str.indexOf('88') > -1){
+    return true;
+  }
   var reg = /^([0-9]|[-])+$/g;
   if (str.length !== 11) {
     if (str.length === 12) {
@@ -378,4 +381,27 @@ function uniqeByKeys(array,keys){
     }
   }
   return arr ;
+}
+
+function CheckPassWord(password) {//必须为字母加数字且长度不小于6位大于16位
+  var str = password;
+  if (str == null || str.length <6 || str.length > 16) {
+    return false;
+  }
+  var uPattern = /^[a-zA-Z0-9_-]{6,16}$/;
+  if(!uPattern.test(str)){
+    return false;
+  }else{
+    return true;
+  }
+  // var reg1 = new RegExp(/^[0-9A-Za-z]+$/);
+  // if (!reg1.test(str)) {
+  //   return false;
+  // }
+  // var reg = new RegExp(/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/);
+  // if (reg.test(str)) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
 }

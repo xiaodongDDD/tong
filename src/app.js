@@ -16,7 +16,8 @@
     'utilModule',
     'hmsModule',
     'settingModule',
-    'jpushModule'
+    'jpushModule',
+    'passwordModule'
   ]);
 
   angular.module('myApp')
@@ -174,6 +175,12 @@
         url: '/setting',
         templateUrl: 'build/pages/setting/setting.html',
         controller: 'settingCtrl'
+      })
+      //修改密码
+      .state('changePassword', {
+        url: '/changePassword',
+        templateUrl: 'build/pages/password/changePassword/changePassword.html',
+        controller: 'changePasswordCtrl'
       })
     ;
 

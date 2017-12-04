@@ -118,14 +118,14 @@
             var startTime = new Date().getTime();
             var get = $http.get(destUrl, {
               headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
-            },{'timeout': '30000'}).success(function (response) {
+            }, {'timeout': '30000'}).success(function (response) {
               if (baseConfig.debug) {
                 console.log(getName + " success");
                 // console.log(getName + " response " + angular.toJson(response));
                 console.log(getName + " End!");
               }
               hmsPopup.hideLoading()
-            }).error(function (response, status,header, config) {
+            }).error(function (response, status, header, config) {
               console.log('-----------');
               var respTime = new Date().getTime() - startTime;
               //超时之后返回的方法
@@ -501,8 +501,10 @@
         var confirmPopup = $ionicPopup.confirm({
           title: (angular.isDefined(title) ? title : "提示"),
           template: message,
-          okText: '确定',
-          okType: 'button-cux-popup-confirm'
+          okText: '取消',
+          okType: 'button-none',
+          cancelText: '确定',
+          cancelType: ''
         });
         confirmPopup.then(function (res) {
           if (baseConfig.debug) {

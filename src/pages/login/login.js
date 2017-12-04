@@ -59,7 +59,8 @@
       psdPointFlag: false
     }
     $scope.data = {
-      accountPointText: ''
+      accountPointText: '',
+      version : baseConfig.version.currentVersion
     }
     //获取焦点
     $scope.inputFocus = function (item) {
@@ -259,6 +260,7 @@
           }
           if (result.response.yitong_token && result.response.yitong_token != '') {
             window.localStorage.token = result.response.yitong_token;
+            window.localStorage.xhbtoken = result.response.xhb_user_token;
             window.localStorage.empno = $scope.loginInfo.username;
             window.localStorage.checkboxSavePwd = $scope.rememberPassword;
             $state.go("tab");

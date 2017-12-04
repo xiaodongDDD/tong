@@ -4,8 +4,8 @@
 
 'use strict';
 angular.module('loginModule').controller('tabsCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-  '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicActionSheet', 'hmsPopup','tabService',
-  function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicActionSheet, hmsPopup,tabService) {
+  '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicActionSheet', 'hmsPopup','tabService','$ionicBackdrop',
+  function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicActionSheet, hmsPopup,tabService,$ionicBackdrop) {
     $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam) {
       if (fromState && toState && (fromState.name == 'login') && toState.name == 'tab') {
         $ionicHistory.clearCache();
@@ -43,7 +43,21 @@ angular.module('loginModule').controller('tabsCtrl', ['$scope', '$rootScope', '$
         tab.isActive = true;
       }
     }
+
     $scope.exitAccount = function(){
-      $state.go('login');
+      function loginOut(buttonIndex) {
+        console.log(buttonIndex)
+        if (buttonIndex == 1) { //确认按钮
+          $state.go('login');
+        } else { //取消按钮
+          return;
+        }
+      }
+      hmsPopup.confirm('是否确认要退出一统？','提示信息',loginOut)
+    }
+    //修改密码
+    $scope.goChangePassword = function(){
+      $scope.config.showSettingModal = false;
+      $state.go('changePassword');
     }
   }]);

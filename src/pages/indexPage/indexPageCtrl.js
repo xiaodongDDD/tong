@@ -102,6 +102,7 @@ angular.module('indexPageModule')
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.index&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
+            $scope.config = angular.copy($scope.configSp);
             $scope.newViewData = response.response;
             sliceThreeData(response.response);
             // SettingsService.set('indexData',$scope.newViewData);
@@ -135,7 +136,6 @@ angular.module('indexPageModule')
         x.selected = !x.selected;
         $scope.data.type = x.id;
         $scope.data.typeDesc = x.text;
-        $scope.config = angular.copy($scope.configSp);
         SettingsService.set('timeType', x);
         initPageData();
         $scope.popover.hide();
