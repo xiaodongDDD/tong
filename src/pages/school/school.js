@@ -2,8 +2,8 @@
  * Created by daidongdong on 2017/11/14.
  */
 angular.module('schoolModule')
-  .controller('schoolCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout','SettingsService','hmsPopup',
-    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout,SettingsService,hmsPopup) {
+  .controller('schoolCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout','SettingsService','hmsPopup','$ionicScrollDelegate',
+    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout,SettingsService,hmsPopup,$ionicScrollDelegate) {
       $scope.data = {
         type: SettingsService.get('timeType').id || 'day',
         names: ['distinct_list', 'arc_percent', 'join_school', 'message_use', 'school_property', 'school_ranges', 'study_section', 'trainer_lists'],
@@ -121,4 +121,16 @@ angular.module('schoolModule')
 
       //初始化
       initPageData();
+      $scope.vo = {
+        startDate:'2010-01-01',
+        endDate:'2017-12-12',
+        startTime:'14:00',
+        endTime:'16:43',
+        startDatetime:'2010-01-01 14:00',
+        endDatetime:'2017-12-12 16:43',
+
+        selectData:[{code:'1',value:'java'},{code:'2',value:'C++'},{code:'3',value:'Android'},{code:'4',value:'iOS'},{code:'5',value:'PHP'},{code:'6',value:'.NET'}],
+        selector:'2'
+      };
+
     }]);

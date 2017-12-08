@@ -17,7 +17,9 @@
     'hmsModule',
     'settingModule',
     'jpushModule',
-    'passwordModule'
+    'passwordModule',
+    'directiveModule',
+    'oc.lazyLoad'
   ]);
 
   angular.module('myApp')
@@ -184,27 +186,30 @@
       })
     ;
 
-    if (!window.localStorage.needGuid || window.localStorage.needGuid == "true") {
-      //if (baseConfig.debug) {
-      console.log('app.js into guide ');
-      //}
-      // $urlRouterProvider.otherwise('/guide');
-      $urlRouterProvider.otherwise('/login');
+    // if (!window.localStorage.needGuid || window.localStorage.needGuid == "true") {
+    //   //if (baseConfig.debug) {
+    //   console.log('app.js into guide ');
+    //   //}
+    //   // $urlRouterProvider.otherwise('/guide');
+    //   $urlRouterProvider.otherwise('/login');
+    //
+    // } else {
 
-    } else {
+    console.log('window.localStorage.token ' + window.localStorage.token);
 
-      console.log('window.localStorage.userToken ' + window.localStorage.userToken);
+      if (window.localStorage.token && window.localStorage.token != "") {
+        console.log('window.localStorage.token ' + window.localStorage.token);
 
-      if (window.localStorage.userToken && window.localStorage.userToken != "") {
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/tab');
         /*if (window.localStorage.getItem('gesturePassword') && window.localStorage.getItem('gesturePassword') != '') {
          $urlRouterProvider.otherwise('/gesture-lock');
          } else {
          $urlRouterProvider.otherwise('/tab/myClass');
          }*/
       } else {
+        console.log('window.localStorage.token------ ' + window.localStorage.token);
         $urlRouterProvider.otherwise('/login');
       }
-    }
+    // }
   }
 })();

@@ -48,12 +48,13 @@ angular.module('loginModule').controller('tabsCtrl', ['$scope', '$rootScope', '$
       function loginOut(buttonIndex) {
         console.log(buttonIndex)
         if (buttonIndex == 1) { //确认按钮
+          window.localStorage.token = '';
           $state.go('login');
         } else { //取消按钮
           return;
         }
       }
-      hmsPopup.confirm('是否确认要退出一统？','提示信息',loginOut)
+      hmsPopup.confirm('是否确认要退出一统？','提示信息',loginOut);
     }
     //修改密码
     $scope.goChangePassword = function(){

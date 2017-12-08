@@ -10,7 +10,6 @@ angular.module('indexPageModule')
         names: ["personal_ranking_team", "leading_ranking_company", "user_ranking_company"],
         typeDesc : SettingsService.get('timeType').text || '今日'
       }
-      console.log(SettingsService.get('timeType'));
       $scope.newViewData = {};
       $scope.newViewDataSp = {};
       $scope.config = {

@@ -197,7 +197,7 @@ function phoneNumber(str) {
 //邮件格式
 function isEmailAddress(obj) {
   var pattern = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  flag = pattern.test(obj);
+  var flag = pattern.test(obj);
   console.log(flag);
   return flag;
 }

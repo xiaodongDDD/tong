@@ -4,17 +4,18 @@
 
 angular.module('myInfoModule')
   .controller('myInfoCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-    '$ionicSlideBoxDelegate', '$ionicPlatform','$ionicPopover','hmsHttp','baseConfig','indexPageService','SettingsService','hmsPopup',
-    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform,$ionicPopover,hmsHttp,baseConfig,indexPageService,SettingsService,hmsPopup) {
+    '$ionicSlideBoxDelegate', '$ionicPlatform','$ionicPopover','hmsHttp','baseConfig','indexPageService','SettingsService','hmsPopup','$ionicScrollDelegate',
+    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform,$ionicPopover,hmsHttp,baseConfig,indexPageService,SettingsService,hmsPopup,$ionicScrollDelegate) {
       $scope.data = {
         type : SettingsService.get('timeType').id || 'day',
-        names:["teacher_address","user_role","user_type"],
+        names:["teacher_address","user_address","user_role","user_type"]
       };
       $scope.config = {
         status : {
           teacher_address : false,
+          user_address : false,
           user_role : false,
-          user_type : false,
+          user_type : false
         }
       };
       $scope.configSp = angular.copy($scope.config);

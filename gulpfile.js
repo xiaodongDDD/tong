@@ -38,7 +38,8 @@ var cssFilePath = [
   'src/theme/src.core.scss',
   'src/pages/**/*.scss',
   'src/pages/**/**/*.scss',
-  'src/pages/**/**/**/*.scss'];
+  'src/pages/**/**/**/*.scss',
+  'src/scss/*.scss'];
 
 var htmlFilePath = [
   'src/pages/**/*.html',
@@ -67,7 +68,10 @@ var libPublishFilePath = [
   'src/lib/**/angular-translate.js',
   'src/lib/**/angular-translate-loader-static-files.js',
   'src/lib/**/dist/ionic-datepicker.bundle.min.js',
-  'src/lib/**/dist/pouchdb.min.js'
+  'src/lib/**/dist/pouchdb.min.js',
+  'src/lib/**/dist/ocLazyLoad.min.js',
+  'src/lib/**/css/*.*',
+  'src/lib/**/js/mobiscroll.custom-3.0.0-beta6.min.js'
 ];
 
 var imgFilePath = [
@@ -408,7 +412,7 @@ gulp.task('watch', function () {
       copyPages(e);
     });
 
-    gulp.watch('src/img/**/**/**/**', function (e) {
+    gulp.watch('src/assets/img/**/**/**/**', function (e) {
       console.log('有变动的文件为 oldPath ' + e.path);
       copyPages(e);
     });
@@ -417,6 +421,12 @@ gulp.task('watch', function () {
     gulp.watch(cssFilePath, function (e) {
       console.log('有变动的文件为 oldPath ' + e.path);
       gulp.run('sass');
+    });
+
+    // 监听config
+    gulp.watch('src/config/devConfig.json', function (e) {
+      console.log('有变动的文件为 oldPath ' + e.path);
+      gulp.run('config-dev');
     });
 
     // 监听js

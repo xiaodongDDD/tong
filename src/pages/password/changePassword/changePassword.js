@@ -85,7 +85,6 @@ angular.module('passwordModule')
           default:
             $scope.config.isfocusT = true;
         }
-        console.log($scope.config);
       }
       //失去焦点
       $scope.blurInput = function (item) {
@@ -99,7 +98,5 @@ angular.module('passwordModule')
           default:
             $scope.config.isfocusT = false;
         }
-        console.log($scope.config);
-
       }
     }]);

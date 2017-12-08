@@ -69,7 +69,7 @@
           if(dealVersionUtil(localVersion, serveVersion)){
 
             if (serveVersionParams.subForceUpdate == 1) {
-              function selectAction_min_v2(buttonIndex) { // update from pgy
+              var selectAction_min_v2 = function(buttonIndex) { // update from pgy
                 //alert('selectAction_min_v2.buttonIndex ' + buttonIndex);
                 if (buttonIndex == 0) { //确认按钮
                   // hotpatch.updateNewVersion(serveVersionParams.bigUpdateUrl);
@@ -80,10 +80,9 @@
                   }
                 }
               }
-
               hmsPopup.confirmOnly(serveVersionParams.updateContent, "版本更新", selectAction_min_v2);
             } else if (serveVersionParams.subForceUpdate == 0) {
-              function selectAction_min(buttonIndex) { // update from pgy
+              var selectAction_min = function(buttonIndex) { // update from pgy
                 if (buttonIndex == 1) { //确认按钮
                   // hotpatch.updateNewVersion(serveVersionParams.bigUpdateUrl);
 
@@ -120,7 +119,7 @@
       $cordovaFileTransfer.download(downloadUrl, targetPath, options, trustHosts).then(function (result) {
         $cordovaFileOpener2.open(targetPath, 'application/vnd.android.package-archive'
         ).then(function () {
-          console.log('chenggongle');
+          // console.log('chenggongle');
           // 成功/Users/daidongdong/Desktop/项目信息
         }, function (err) {
           console.log(err);

@@ -14,5 +14,6 @@
   angular.module('utilsModule', []);
   angular.module('jpushModule', []);
   angular.module('passwordModule', []);
+  angular.module('directiveModule', []);
 
 })();

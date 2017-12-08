@@ -31,7 +31,11 @@
 //    z-index: 5;
 //  }
 //}
-.head{
+//带有返回按钮的头部
+html,body{
+  height: 100%;
+}
+.header{
   .titleStyle{
     font-family: PingFangSC-Light;
     font-size: 17px;
@@ -51,7 +55,7 @@
 }
 
 .popup {
-  border-radius: 20px !important;
+  border-radius: 10px !important;
   overflow: hidden !important;
   background: #f8f8f8 !important;
   h3 {
@@ -72,13 +76,23 @@
     min-height: 0 !important;
     padding: 0 !important;
     height: 50px !important;
-    border-top: 1px solid #e5e5e5 !important;
+    border-top: 1px solid #0775F5 !important;
     button {
-      color: #32A4EC !important;
+      color: #0775F5 !important;
       border-left: 1px solid #e5e5e5;
+      margin-right: 0;
     }
     button:first-child {
       border: none;
+    }
+    button:last-child {
+      background: #3E7EF6;
+      color: white !important;
+    }
+    .buttonCancle{
+      background: #3E7EF6;
+      margin-right: 0;
+      color: white !important;
     }
   }
 }

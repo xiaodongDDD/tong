@@ -32,8 +32,38 @@
       </div>
       <!--new-data-statistics-->
 
+
+      <!--user-regional-district-->
+      <div class="common-regional-district teacher-regional-district" ng-if="newViewData.user_address.length>0">
+        <div class="top">
+          <img src="build/assets/img/myInfo/icon_teacher_regional_district.png"/>
+          <div class="info">
+            <div class="title">注册用户区域分布</div>
+            <div class="point">晓黑板注册用户所用手机号码所属地区分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in  newViewDataSp.user_address">
+              <td width="34%" class="first" ng-bind="item.city">未知</td>
+              <td width="33%" class="middle">{{item.percent}}</td>
+              <td width="33%" class="last">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_address.length>3"
+             ng-click="showPartOrAll('user_address')">
+            {{config.status.user_address?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--user-regional-district-->
+
+
       <!--teacher-regional-district-->
-      <div class="common-regional-district teacher-regional-district" ng-if="userViewData.teacher_address.length>0">
+      <div class="common-regional-district teacher-regional-district" ng-if="newViewData.teacher_address.length>0">
         <div class="top">
           <img src="build/assets/img/myInfo/icon_teacher_regional_district.png"/>
           <div class="info">
@@ -60,8 +90,10 @@
       </div>
       <!--teacher-regional-district-->
 
+
+
       <!--user-role-district-->
-      <div class="common-regional-district user-role-district" ng-if="userViewData.user_role.length>0">
+      <div class="common-regional-district user-role-district" ng-if="newViewData.user_role.length>0">
         <div class="top">
           <img src="build/assets/img/myInfo/icon_user_role_district.png"/>
           <div class="info">
