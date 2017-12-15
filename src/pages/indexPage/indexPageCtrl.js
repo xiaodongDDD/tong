@@ -136,6 +136,11 @@ angular.module('indexPageModule')
         $scope.data.type = x.id;
         $scope.data.typeDesc = x.text;
         SettingsService.set('timeType', x);
+        if(x.id == 'time'){
+          $state.go('timeSelect');
+          $scope.popover.hide();
+          return;
+        }
         initPageData();
         $scope.popover.hide();
       }

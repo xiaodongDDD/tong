@@ -241,7 +241,6 @@
           "height": screen.height + "px"
         };
       }
-      console.log($scope.bodyHeight);
       var ToastFlag = false;
       $scope.Toast = {
         show: function (msg, time) {

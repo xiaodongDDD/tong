@@ -17,17 +17,13 @@ angular.module('directiveModule').directive('inputDatetime', ['$compile', '$ocLa
 				if(!attr.format || attr.format == 'yyyy-MM-dd'){
 					var dateInstance;
 					var options = {
-						theme: 'android-holo-light',
+						theme: 'ios',
             lang: 'zh',
 						display:'bottom',
 						buttons:[{
 							text:'取消',
 							handler:'cancel',
 							icon:'close'
-						},{
-							text:'清空',
-							handler:'clear',
-							icon:'loop2'
 						},{
 							text:'确定',
 							handler:'set',

@@ -1,0 +1,55 @@
+<ion-view view-title="学校情况统计" class="schoolDetail indexPage myInfo school schoolDetail">
+
+  <div class="row rowHead" id="the-head-id">
+    <div class="col-25">
+      <button class="button button-icon icon ion-ios-arrow-left rowHeadButton" ng-click="goBack()"></button>
+    </div>
+    <div class="col-50 rowHeadTitle">学校名称</div>
+    <div class="col-25">
+      <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
+    </div>
+  </div>
+  <div id="the-image-id" class="elastic-image">
+    <div class="backimg"></div>
+    <div class="contentText">
+      <button class="button button-icon icon ion-ios-arrow-left imgButton" ng-click="goBack()"></button>
+      <div class="row schoolName">上海长风小学{{config.headStyleActive}}</div>
+      <div class="row schoolAdress">
+        金沙江路长风二村100号
+      </div>
+      <div class="row schoolNum">实际人数 100&nbsp;&nbsp;&nbsp;架构 100&nbsp;&nbsp;&nbsp;扫码 10</div>
+    </div>
+  </div>
+
+
+  <ion-content elastic-image="the-image-id">
+    <div class="the-content ">
+      <div class="row rowStyle">
+        <div class="col-50" ng-class="{'headStyle': config.headStyleActive}" ng-click="selectModules('class')">班级</div>
+        <div class="col-50" ng-class="{'headStyle': !config.headStyleActive}" ng-click="selectModules('architecture')">
+          架构人员
+        </div>
+      </div>
+      <div class="padding content-style">
+        <div ng-repeat="i in [1,23]">
+          <div class="listDesc">一年级</div>
+          <div class="list">
+            <a class="item item-avatar itemStyle" ng-repeat="i in [1,2,7]" ng-click="goSchoolDetail()">
+              <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle">
+              <div class="row rowStyleDetail">
+                <div class="col-50 schoolName">一班</div>
+                <div class="col-50 schoolTime">2017/01/01</div>
+              </div>
+              <div class="row rowStyleDetail">
+                <div class="col-50 personName">创建者&nbsp;王老师</div>
+                <div class="col-50 personName">班级号&nbsp;3030303</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </ion-content>
+</ion-view>

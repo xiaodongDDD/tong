@@ -1,6 +1,6 @@
 angular.module('passwordModule')
-  .controller('changePasswordCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'baseConfig', 'hmsHttp', '$timeout', '$ionicScrollDelegate', 'SettingsService', 'hmsPopup', '$ionicHistory', '$http',
-    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, baseConfig, hmsHttp, $timeout, $ionicScrollDelegate, SettingsService, hmsPopup, $ionicHistory, $http) {
+  .controller('changePasswordCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'baseConfig', 'hmsHttp', '$timeout', '$ionicScrollDelegate', 'SettingsService', 'hmsPopup', '$ionicHistory', '$http','publicMethod',
+    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, baseConfig, hmsHttp, $timeout, $ionicScrollDelegate, SettingsService, hmsPopup, $ionicHistory, $http,publicMethod) {
       $scope.data = {
         nowPassword: '',
         newPassword: '',
@@ -14,7 +14,7 @@ angular.module('passwordModule')
       }
       //返回
       $scope.goBack = function () {
-        $ionicHistory.goBack();
+        publicMethod.goBack();
       }
       //改变密码的输入框
       $scope.changePassword = function () {

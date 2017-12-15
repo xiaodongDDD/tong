@@ -101,6 +101,11 @@ angular.module('myInfoModule')
         x.selected = !x.selected;
         $scope.data.type = x.id;
         SettingsService.set('timeType', x);
+        if(x.id == 'time'){
+          $state.go('timeSelect');
+          $scope.popover.hide();
+          return;
+        }
         initPageData();
         $scope.popover.hide();
       }

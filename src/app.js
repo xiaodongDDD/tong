@@ -25,9 +25,9 @@
   angular.module('myApp')
     .run(angularRun);
 
-  angularRun.$inject = ['$ionicPlatform', 'checkVersionService', 'jpushService','hmsPopup'];
+  angularRun.$inject = ['$ionicPlatform', 'checkVersionService', 'jpushService', 'hmsPopup'];
 
-  function angularRun($ionicPlatform, checkVersionService, jpushService,hmsPopup) {
+  function angularRun($ionicPlatform, checkVersionService, jpushService, hmsPopup) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -184,8 +184,27 @@
         templateUrl: 'build/pages/password/changePassword/changePassword.html',
         controller: 'changePasswordCtrl'
       })
-    ;
-
+      //时间选择
+      .state('timeSelect', {
+        url: '/timeSelect',
+        templateUrl: 'build/pages/timeSelect/timeSelect.html',
+        controller: 'timeSelectCtrl'
+      })
+      .state('schoolClass', {
+        url: '/schoolClass',
+        templateUrl: 'build/pages/school/schoolClass/schoolClass.html',
+        controller: 'schoolClassCtrl'
+      })
+      .state('schoolDetail', {
+        url: '/schoolDetail',
+        templateUrl: 'build/pages/school/schoolDetail/schoolDetail.html',
+        controller: 'schoolDetailCtrl'
+      })
+      .state('schoolItemList', {
+        url: '/schoolItemList',
+        templateUrl: 'build/pages/school/schoolItemList/schoolItemList.html',
+        controller: 'schoolItemListCtrl'
+      })
     // if (!window.localStorage.needGuid || window.localStorage.needGuid == "true") {
     //   //if (baseConfig.debug) {
     //   console.log('app.js into guide ');
@@ -197,19 +216,19 @@
 
     console.log('window.localStorage.token ' + window.localStorage.token);
 
-      if (window.localStorage.token && window.localStorage.token != "") {
-        console.log('window.localStorage.token ' + window.localStorage.token);
+    if (window.localStorage.token && window.localStorage.token != "") {
+      console.log('window.localStorage.token ' + window.localStorage.token);
 
-        $urlRouterProvider.otherwise('/tab');
-        /*if (window.localStorage.getItem('gesturePassword') && window.localStorage.getItem('gesturePassword') != '') {
-         $urlRouterProvider.otherwise('/gesture-lock');
-         } else {
-         $urlRouterProvider.otherwise('/tab/myClass');
-         }*/
-      } else {
-        console.log('window.localStorage.token------ ' + window.localStorage.token);
-        $urlRouterProvider.otherwise('/login');
-      }
+      $urlRouterProvider.otherwise('/tab');
+      /*if (window.localStorage.getItem('gesturePassword') && window.localStorage.getItem('gesturePassword') != '') {
+       $urlRouterProvider.otherwise('/gesture-lock');
+       } else {
+       $urlRouterProvider.otherwise('/tab/myClass');
+       }*/
+    } else {
+      console.log('window.localStorage.token------ ' + window.localStorage.token);
+      $urlRouterProvider.otherwise('/login');
+    }
     // }
   }
 })();

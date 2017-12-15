@@ -1,0 +1,86 @@
+.timeSelect{
+  .password-btn {
+    display: block;
+    width: 250px;
+    height: 48px;
+    background-color: #3E7EF6;
+    box-shadow: 0 10px 15px 0 rgba(57, 120, 255, 0.29);
+    border-radius: 60px;
+    font-size: 16px;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 48px;
+    margin: 0 auto;
+    border: 0;
+    margin-top: 50px;
+
+  }
+  .password-btn-sp {
+    display: block;
+    width: 250px;
+    height: 48px;
+    font-size: 16px;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 48px;
+    margin: 0 auto;
+    border: 0;
+    margin-top: 50px;
+    background: #B2B3B3;
+    box-shadow: 0 10px 15px 0 rgba(170,170,170,0.29);
+    border-radius: 60px;
+  }
+  .passwordNow{
+    background: #FFFFFF;
+    box-shadow: 0 1px 0 0 #E3E3E3;
+    border-radius: 2px;
+    height: 44px;
+    width: 335px;
+    text-align: center;
+    line-height: 44px;
+    margin: 0 auto;
+    -webkit-appearance: none
+  }
+  .passwordNew{
+
+  }
+  .passwordContent{
+    input{
+      background-color: white;
+      font-family: PingFangSC-Regular;
+      font-size: 20px;
+      color: #63A8F5;
+      letter-spacing: -0.48px;
+    }
+    label{
+      width: 90%;
+      margin: 0 auto;
+    }
+    .input-label{
+      font-family: PingFangSC-Regular;
+      font-size: 17px;
+      color: #000000;
+      letter-spacing: -0.41px;
+      padding: 7px 10px 7px 10px
+    }
+    .timeDesc{
+      font-family: PingFangSC-Regular;
+      font-size: 14px;
+      color: #A7A7A7;
+      letter-spacing: -0.34px;
+      margin-top: 37px;
+      text-align: center;
+    }
+
+  }
+  .blockLine{
+    height: 20px;
+    width: 100%;
+  }
+  .lineColor{
+    background: #FFFFFF;
+    box-shadow: 0 1px 0 0 #9FB7EE;
+    border-radius: 2px;
+    -webkit-appearance: none
+  }
+}

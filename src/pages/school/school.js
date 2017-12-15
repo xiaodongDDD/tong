@@ -21,6 +21,9 @@ angular.module('schoolModule')
           trainer_lists: false
         },
       }
+      $scope.configList = {
+        showPageList : false
+      }
       $scope.configSp = angular.copy($scope.config);
       $scope.newViewData = {};
       $scope.newViewDataSp = {};
@@ -115,22 +118,24 @@ angular.module('schoolModule')
         x.selected = !x.selected;
         $scope.data.type = x.id;
         SettingsService.set('timeType', x);
+        if(x.id == 'time'){
+          $state.go('timeSelect');
+          $scope.popover.hide();
+          return;
+        }
         initPageData();
         $scope.popover.hide();
       }
 
       //初始化
       initPageData();
-      $scope.vo = {
-        startDate:'2010-01-01',
-        endDate:'2017-12-12',
-        startTime:'14:00',
-        endTime:'16:43',
-        startDatetime:'2010-01-01 14:00',
-        endDatetime:'2017-12-12 16:43',
 
-        selectData:[{code:'1',value:'java'},{code:'2',value:'C++'},{code:'3',value:'Android'},{code:'4',value:'iOS'},{code:'5',value:'PHP'},{code:'6',value:'.NET'}],
-        selector:'2'
-      };
+      $scope.changePage = function(){
+        $scope.configList.showPageList = !$scope.configList.showPageList;
+      }
 
+      $scope.goSchoolDetail = function(){
+        console.log('---');
+        $state.go('schoolDetail');
+      }
     }]);

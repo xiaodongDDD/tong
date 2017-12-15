@@ -1,5 +1,5 @@
 .popovers-indexPage{
-  height: 120px!important;
+  height: 160px!important;
   width: 121px!important;
   .item{
     height: 40px;
@@ -31,13 +31,18 @@
       top: 15px;
       left: 10px;
     }
+    img:last-child{
+      position: absolute;
+      top: 15px;
+      left: 0;
+    }
     .activeSelect{
       color: #3E7EF6;
     }
   }
 
   .popover{
-    height: 120px!important;
+    height: 160px!important;
     top: 187px;
     //left: 179px!important;
     margin-left: 0px;

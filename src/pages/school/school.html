@@ -1,9 +1,9 @@
-<ion-view view-title="学校情况统计" class="mylass myInfo indexPage" cache-view='true'>
-  <ion-header-bar align-title="center"  class="head-bg">
+<ion-view view-title="学校情况统计" class="mylass myInfo indexPage school" cache-view='true'>
+  <ion-header-bar align-title="center" class="head-bg">
     <div class="title titleStyle">
       学校情况统计
     </div>
-    <!--<img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="openPopover($event)"/>-->
+    <img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="changePage()"/>
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
@@ -14,19 +14,20 @@
     </ion-refresher>
 
     <!--global-container-->
-    <div class="global-container">
+    <div class="global-container" ng-show="!configList.showPageList">
       <!--new-data-statistics-->
-      <div class="statistics-time" >统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}</div>
+      <div class="statistics-time">统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}</div>
       <!--new-data-statistics-->
       <div class="new-data-statistics registered-users-num">
         <div class="new-data-statistics-bg"></div>
         <div class="data-box">
           <img src="build/assets/img/school/icon_zhengxiao.png"/>
           <div class="registered-users">
-            <div class="total">整校用户<img src="build/assets/img/school/icon_explain.png" class="explain" ng-click="bindClickExplain()"/></div>
-            <div class="yesterday-added" >昨日新增：{{newViewData.school_yes_data.yes_data || 0}}</div>
+            <div class="total">整校用户<img src="build/assets/img/school/icon_explain.png" class="explain"
+                                        ng-click="bindClickExplain()"/></div>
+            <div class="yesterday-added">昨日新增：{{newViewData.school_yes_data.yes_data || 0}}</div>
           </div>
-          <div class="numbers" >{{newViewData.school_yes_data.school_count || 0}}</div>
+          <div class="numbers">{{newViewData.school_yes_data.school_count || 0}}</div>
           <div class="auto-height"></div>
         </div>
         <div class="explain-box-hide school" ng-show="config.explainFlag">以「学校」为单位的用户统计数</div>
@@ -44,14 +45,15 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in newViewDataSp.distinct_list" >
+            <tr ng-repeat="item in newViewDataSp.distinct_list">
               <td width="34%" class="first" ng-bind="item.province"></td>
               <td width="33%" class="middle">{{item.percent}}</td>
               <td width="33%" class="last">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.distinct_list.length>3" ng-click="showPartOrAll('distinct_list')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.distinct_list.length>3"
+             ng-click="showPartOrAll('distinct_list')">
             {{config.status.distinct_list?'收起':'查看全部'}}
           </a>
         </div>
@@ -64,7 +66,7 @@
           <img src="build/assets/img/school/icon_school_scale_statistics.png"/>
           <div class="info">
             <div class="title">学校规模统计</div>
-            <div class="point">统计整校人数（实际教职工人、在读学生）的学校数量分布</div>
+            <div class="point">统计学校实际人数（教职工 + 在读学生）的学校数量分布</div>
           </div>
           <div class="auto-height"></div>
         </div>
@@ -78,7 +80,8 @@
             </tr>
             </tbody>
           </table>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.school_ranges.length>3" ng-click="showPartOrAll('school_ranges')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.school_ranges.length>3"
+             ng-click="showPartOrAll('school_ranges')">
             {{config.status.school_ranges?'收起':'查看全部'}}
           </a>
         </div>
@@ -90,7 +93,7 @@
         <div class="top">
           <img src="build/assets/img/school/icon_framing_proportion_statistics.png"/>
           <div class="info">
-            <div class="title">构架人数占比统计</div>
+            <div class="title">架构教师人数占比统计</div>
             <div class="point">架构内教师人数与实际教职工人数所占比率的学校数量分布</div>
           </div>
           <div class="auto-height"></div>
@@ -98,14 +101,15 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in newViewDataSp.arc_percent" >
+            <tr ng-repeat="item in newViewDataSp.arc_percent">
               <td width="50%" class="first" ng-bind="item.range"></td>
               <td width="25%" class="middle">{{item.percent}}</td>
               <td width="25%" class="last">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.arc_percent.length>3" ng-click="showPartOrAll('arc_percent')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.arc_percent.length>3"
+             ng-click="showPartOrAll('arc_percent')">
             {{config.status.arc_percent?'收起':'查看全部'}}
           </a>
         </div>
@@ -113,7 +117,8 @@
       <!--framing-proportion-statistics-->
 
       <!--code-framing-proportion-statistics-->
-      <div class="common-regional-district code-framing-proportion-statistics" ng-show="newViewData.join_school.length>0">
+      <div class="common-regional-district code-framing-proportion-statistics"
+           ng-show="newViewData.join_school.length>0">
         <div class="top">
           <img src="build/assets/img/school/icon_framing_proportion_statistics.png"/>
           <div class="info">
@@ -125,14 +130,15 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in newViewDataSp.join_school" >
+            <tr ng-repeat="item in newViewDataSp.join_school">
               <td width="50%" class="first" ng-bind="item.range"></td>
               <td width="25%" class="middle">{{item.percent}}</td>
               <td width="25%" class="last">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.join_school.length>3" ng-click="showPartOrAll('join_school')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.join_school.length>3"
+             ng-click="showPartOrAll('join_school')">
             {{config.status.join_school?'收起':'查看全部'}}
           </a>
         </div>
@@ -152,14 +158,15 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in newViewDataSp.message_use" >
+            <tr ng-repeat="item in newViewDataSp.message_use">
               <td width="50%" class="first" ng-bind="item.range"></td>
               <td width="25%" class="middle">{{item.percent}}</td>
               <td width="25%" class="last">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.message_use.length>3" ng-click="showPartOrAll('message_use')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.message_use.length>3"
+             ng-click="showPartOrAll('message_use')">
             {{config.status.message_use?'收起':'查看全部'}}
           </a>
         </div>
@@ -179,14 +186,15 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in newViewDataSp.school_property" >
+            <tr ng-repeat="item in newViewDataSp.school_property">
               <td width="34%" class="first" ng-bind="item.key"></td>
               <td width="33%" class="middle">{{item.percent}}</td>
               <td width="33%" class="last">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.school_property.length>3" ng-click="showPartOrAll('school_property')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.school_property.length>3"
+             ng-click="showPartOrAll('school_property')">
             {{config.status.school_property?'收起':'查看全部'}}
           </a>
         </div>
@@ -206,14 +214,15 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in newViewDataSp.study_section" >
+            <tr ng-repeat="item in newViewDataSp.study_section">
               <td width="50%" class="first" ng-bind="item.key">十二年一贯制</td>
               <td width="25%" class="middle">{{item.percent}}</td>
               <td width="25%" class="last">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.study_section.length>3" ng-click="showPartOrAll('study_section')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.study_section.length>3"
+             ng-click="showPartOrAll('study_section')">
             {{config.status.study_section?'收起':'查看全部'}}
           </a>
         </div>
@@ -233,14 +242,15 @@
         <div class="bottom">
           <table>
             <tbody>
-            <tr ng-repeat="item in newViewDataSp.trainer_lists" >
+            <tr ng-repeat="item in newViewDataSp.trainer_lists">
               <td width="34%" class="first" ng-bind="item.user_name"></td>
               <td width="33%" class="middle">{{item.percent}}</td>
               <td width="33%" class="last">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.trainer_lists.length>3" ng-click="showPartOrAll('trainer_lists')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.trainer_lists.length>3"
+             ng-click="showPartOrAll('trainer_lists')">
             {{config.status.trainer_lists?'收起':'查看全部'}}
           </a>
         </div>
@@ -248,17 +258,36 @@
       <!--academic-section-statistics-->
 
     </div>
-
-    <!--<label class="item item-input item-icon-right">-->
-      <!--<span class="input-label">开始日期时间</span>-->
-      <!--<input input-datetime format="yyyy-MM-dd HH:mm" type="text" max="vo.endDatetime" ng-model="vo.startDatetime">-->
-      <!--<i class="icon fa fa-calendar"></i>-->
-    <!--</label>-->
-    <!--<label class="item item-input item-icon-right">-->
-      <!--<span class="input-label">选择框</span>-->
-      <!--<select class="ng-hide" input-select ng-model="vo.selector" select-data="vo.selectData" option-text="value" option-value="code" prefix="想学 " suffix=" 语言" circular="true"></select>-->
-      <!--<i class="icon ion-ios-arrow-down"></i>-->
-    <!--</label>-->
     <!--global-container-->
+
+    <div ng-show="configList.showPageList">
+      <div class="row rowStyle">
+        <div class="col-33">上海市&nbsp;&nbsp;<i class="ion-ios-arrow-down iconStyle"></i></div>
+        <div class="col-33">用户类型&nbsp;&nbsp;<i class="ion-ios-arrow-down iconStyle"></i></div>
+        <div class="col-33">更多筛选&nbsp;&nbsp;<i class="ion-ios-arrow-down iconStyle"></i></div>
+      </div>
+      <div class="global-container">
+        <div class="listDesc">共3个</div>
+        <div class="list">
+          <a class="item item-avatar itemStyle"  ng-repeat="i in [1,2,3,4,5,6,7]" ng-click="goSchoolDetail()">
+            <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle">
+            <div class="row rowStyleDetail">
+              <div class="col-50 schoolName">某某小学</div>
+              <div class="col-50 schoolTime">2017/01/01</div>
+            </div>
+            <div class="row rowStyleDetail">
+              <div class="col-33 personName">实际人数&nbsp;30</div>
+              <div class="col-33 personName">架构人数&nbsp;30</div>
+              <div class="col-33 personName">扫码&nbsp;30</div>
+            </div>
+            <div class="row rowStyleDetail">
+              <div class="col-50 principal">吴校长</div>
+              <div class="col-50 saleName">张某某</div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

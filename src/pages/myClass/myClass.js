@@ -112,8 +112,13 @@ angular.module('myClassModule')
         }
         $scope.data.type = x.id;
         SettingsService.set('timeType', x);
-        initPageData();
         x.selected = !x.selected;
+        if(x.id == 'time'){
+          $state.go('timeSelect');
+          $scope.popover.hide();
+          return;
+        }
+        initPageData();
         $scope.popover.hide();
       }
 

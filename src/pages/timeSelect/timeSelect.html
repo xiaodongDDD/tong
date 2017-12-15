@@ -1,0 +1,27 @@
+<ion-view view-title="时间" class="timeSelect">
+  <ion-header-bar align-title="center" class="head-bg haed header">
+    <button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>
+    <div class="title titleStyle">
+      选择日期
+    </div>
+  </ion-header-bar>
+  <ion-content class="content-style passwordContent">
+    <div class="blockLine"></div>
+    <label class="item item-input item-icon-right">
+      <span class="input-label">起始时间</span>
+      <input input-datetime format="yyyy-MM-dd" type="text" max="data.nowDatetime" min="data.updateDatetime" ng-model="data.startDatetime">
+      <i class="icon fa fa-calendar"></i>
+    </label>
+    <div class="blockLine"></div>
+    <label class="item item-input item-icon-right">
+      <span class="input-label">截止时间</span>
+      <input input-datetime format="yyyy-MM-dd" type="text" max="data.nowDatetime"  min="data.updateDatetime" ng-model="data.endDatetime">
+      <i class="icon fa fa-calendar"></i>
+    </label>
+    <div class="blockLine"></div>
+    <button ng-class="{true: 'password-btn-sp', false: 'password-btn'}[config.isActive]" type="button"
+            ng-click="confirmChange()">查询
+    </button>
+    <div class="timeDesc">系统支持查询最早日期：2016年4月1日</div>
+  </ion-content>
+</ion-view>
