@@ -3,12 +3,12 @@
  */
 
 angular.module('indexPageModule')
-  .controller('indexPageCtrl', ['$scope', '$rootScope', '$state', '$ionicPopover', 'indexPageService', 'hmsHttp', 'baseConfig', 'tabService', 'hmsPopup', 'SettingsService','$ionicScrollDelegate',
-    function ($scope, $rootScope, $state, $ionicPopover, indexPageService, hmsHttp, baseConfig, tabService, hmsPopup, SettingsService,$ionicScrollDelegate) {
+  .controller('indexPageCtrl', ['$scope', '$rootScope', '$state', '$ionicPopover', 'indexPageService', 'hmsHttp', 'baseConfig', 'tabService', 'hmsPopup', 'SettingsService', '$ionicScrollDelegate',
+    function ($scope, $rootScope, $state, $ionicPopover, indexPageService, hmsHttp, baseConfig, tabService, hmsPopup, SettingsService, $ionicScrollDelegate) {
       $scope.data = {
         type: SettingsService.get('timeType').id || 'day',
         names: ["personal_ranking_team", "leading_ranking_company", "user_ranking_company"],
-        typeDesc : SettingsService.get('timeType').text || '今日'
+        typeDesc: SettingsService.get('timeType').text || '今日'
       }
       $scope.newViewData = {};
       $scope.newViewDataSp = {};
@@ -33,8 +33,17 @@ angular.module('indexPageModule')
         $scope.tabs[item - 1].isActive = true;
         $state.go("tab");
       }
+      $scope.operating = angular.copy(indexPageService.operating)
+      console.log(indexPageService.operating);
 
-      $scope.operating = indexPageService.operating;
+      $scope.operating.push({
+        id: 'time',
+        text: '按日期查询',
+        selected: false
+      });
+      console.log($scope.operating);
+      $scope.operating[2].style = {'border-bottom-width': '2px', 'border-bottom-style': 'solid', 'border-bottom-color': '#DCDCDC'},
+
       // var type;
       // for (var i = 0; i < $scope.operating.length; i++) {
       //   if ($scope.operating[i].id == SettingsService.get('indexType')) {
@@ -47,18 +56,18 @@ angular.module('indexPageModule')
       //查看更多
       $scope.showPartOrAll = function (name) {
         if ($scope.config.status[name]) {
-          if(name == 'leading_ranking_company'){
+          if (name == 'leading_ranking_company') {
             $scope.newViewDataSp[name].leading_list = this.newViewData[name].leading_list.slice(0, 3);
             $scope.config.status[name] = false;
-          }else{
+          } else {
             $scope.newViewDataSp[name].user_list = this.newViewData[name].user_list.slice(0, 3);
             $scope.config.status[name] = false;
           }
         } else {
-          if(name == 'leading_ranking_company'){
+          if (name == 'leading_ranking_company') {
             $scope.newViewDataSp[name].leading_list = this.newViewData[name].leading_list;
             $scope.config.status[name] = true;
-          }else{
+          } else {
             $scope.newViewDataSp[name].user_list = this.newViewData[name].user_list;
             $scope.config.status[name] = true;
           }
@@ -69,13 +78,13 @@ angular.module('indexPageModule')
       var sliceThreeData = function (data) {
         for (var i = 0; i < $scope.data.names.length; i++) {
           $scope.newViewDataSp[$scope.data.names[i]] = {};
-          if($scope.data.names[i] == 'leading_ranking_company') {
+          if ($scope.data.names[i] == 'leading_ranking_company') {
             $scope.newViewDataSp[$scope.data.names[i]].leading_list = [];
             if (typeof data[$scope.data.names[i]].leading_list != undefined) {
               $scope.newViewDataSp[$scope.data.names[i]].leading_list = data[$scope.data.names[i]].leading_list.length > 3 ? data[$scope.data.names[i]].leading_list.slice(0, 3) : data[$scope.data.names[i].leading_list];
             } else {
             }
-          }else{
+          } else {
             $scope.newViewDataSp[$scope.data.names[i]].user_list = [];
             if (typeof data[$scope.data.names[i]].user_list != undefined) {
               $scope.newViewDataSp[$scope.data.names[i]].user_list = data[$scope.data.names[i]].user_list.length > 3 ? data[$scope.data.names[i]].user_list.slice(0, 3) : data[$scope.data.names[i]].user_list;
@@ -92,10 +101,11 @@ angular.module('indexPageModule')
         initPageData('1');
         $scope.$broadcast("scroll.refreshComplete");
       }
+
       //接口
       function initPageData(item) {
-        if(item == '1'){
-        }else{
+        if (item == '1') {
+        } else {
           hmsPopup.showLoadingWithoutBackdrop('正在加载...');
         }
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.index&type=" + $scope.data.type;
@@ -129,6 +139,11 @@ angular.module('indexPageModule')
       };
 
       $scope.selectPopover = function (x) {
+        if (x.id == 'time') {
+          $state.go('timeSelect');
+          $scope.popover.hide();
+          return;
+        }
         for (var i = 0; i < $scope.operating.length; i++) {
           $scope.operating[i].selected = false;
         }
@@ -136,11 +151,6 @@ angular.module('indexPageModule')
         $scope.data.type = x.id;
         $scope.data.typeDesc = x.text;
         SettingsService.set('timeType', x);
-        if(x.id == 'time'){
-          $state.go('timeSelect');
-          $scope.popover.hide();
-          return;
-        }
         initPageData();
         $scope.popover.hide();
       }

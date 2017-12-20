@@ -24,7 +24,8 @@
     "cordova-plugin-file-transfer": "^1.7.0",
     "cordova-plugin-jcore": "^1.1.10",
     "cordova-plugin-whitelist": "1",
-    "jpush-phonegap-plugin": "file:///Users/daidongdong/Desktop/项目信息/plugin/jpush-phonegap-plugin"
+    "jpush-phonegap-plugin": "file:///Users/daidongdong/Desktop/项目信息/plugin/jpush-phonegap-plugin",
+    "tiny-lr": "^1.0.5"
   },
   "devDependencies": {
     "angular-translate": "^2.13.1",
@@ -32,6 +33,7 @@
     "css-loader": "^0.23.1",
     "del": "^2.2.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "fs": "",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.0",
@@ -53,15 +55,14 @@
     "jshint": "^2.9.1",
     "lazypipe": "^1.0.1",
     "opn": "^4.0.1",
+    "path": "",
     "raw-loader": "^0.5.1",
     "run-sequence": "^1.1.5",
     "style-loader": "^0.13.1",
+    "tiny-lr": "",
     "ts-loader": "^0.8.1",
     "typescript": "^1.8.9",
-    "webpack": "^1.12.14",
-    "tiny-lr": "",
-    "fs": "",
-    "path": ""
+    "webpack": "^1.12.14"
   },
   "cordovaPlugins": [
     "cordova-plugin-datepicker",

@@ -1,11 +1,24 @@
-<ion-view view-title="学校情况统计" class="schoolDetail">
-  <ion-header-bar align-title="center"  class="head-bg">
+<ion-view view-title="学校情况统计" class="schoolDetail school schoolItemList">
+  <ion-header-bar align-title="center" class="head-bg header">
+    <button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>
     <div class="title titleStyle">
-      学校名称
+      组名
     </div>
-    <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
-
+    <div class="padding ">
+      <div class="list">
+        <a class="item item-avatar itemStyle" ng-repeat="i in [3,1,5]" ng-click="goSchoolClass()">
+          <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle" style="border-radius: 50%">
+          <div class="row rowStyleDetail">
+            <div class="col-50 schoolName">一班</div>
+            <div class="col-50 schoolTime">2017/01/01</div>
+          </div>
+          <div class="row rowStyleDetail">
+            <div class="col-50 personName">语文 数学</div>
+            <div class="col-50 " style="text-align: right" ng-class="{'fontColor':config.font,'personName' :!config.font}">王老师</div>
+          </div>
+        </a>
+      </div>
   </ion-content>
 </ion-view>

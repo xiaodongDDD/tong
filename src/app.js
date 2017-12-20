@@ -190,6 +190,13 @@
         templateUrl: 'build/pages/timeSelect/timeSelect.html',
         controller: 'timeSelectCtrl'
       })
+      .state('timeSelectData', {
+        url: '/timeSelectData',
+        templateUrl: 'build/pages/timeSelect/timeSelectData/timeSelectData.html',
+        controller: 'timeSelectDataCtrl'
+      })
+
+
       .state('schoolClass', {
         url: '/schoolClass',
         templateUrl: 'build/pages/school/schoolClass/schoolClass.html',

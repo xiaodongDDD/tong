@@ -6,7 +6,7 @@
     <img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="changePage()"/>
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
-  <ion-content class="content-style" delegate-handle="mainScroll">
+  <ion-content class="content-style" delegate-handle="mainScroll" ng-show="!configList.showPageList">
     <!-- 1.添加下拉刷新的组件 -->
     <ion-refresher
       pulling-text="下拉刷新页面数据..."
@@ -14,7 +14,7 @@
     </ion-refresher>
 
     <!--global-container-->
-    <div class="global-container" ng-show="!configList.showPageList">
+    <div class="global-container">
       <!--new-data-statistics-->
       <div class="statistics-time">统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}</div>
       <!--new-data-statistics-->
@@ -259,34 +259,43 @@
 
     </div>
     <!--global-container-->
-
-    <div ng-show="configList.showPageList">
-      <div class="row rowStyle">
-        <div class="col-33">上海市&nbsp;&nbsp;<i class="ion-ios-arrow-down iconStyle"></i></div>
-        <div class="col-33">用户类型&nbsp;&nbsp;<i class="ion-ios-arrow-down iconStyle"></i></div>
-        <div class="col-33">更多筛选&nbsp;&nbsp;<i class="ion-ios-arrow-down iconStyle"></i></div>
+  </ion-content>
+  <div class="bar bar-subheader" ng-show="configList.showPageList">
+    <div class="row rowStyle">
+      <div class="col-33" ng-repeat="item in configList.selectList" ng-click="selectAny(item)">{{item.name}}&nbsp;&nbsp;
+        <i ng-show="!item.select" class="ion-ios-arrow-down iconStyle"></i>
+        <i ng-show="item.select" class="ion-ios-arrow-up iconStyle"></i>
       </div>
-      <div class="global-container">
-        <div class="listDesc">共3个</div>
-        <div class="list">
-          <a class="item item-avatar itemStyle"  ng-repeat="i in [1,2,3,4,5,6,7]" ng-click="goSchoolDetail()">
-            <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle">
-            <div class="row rowStyleDetail">
-              <div class="col-50 schoolName">某某小学</div>
-              <div class="col-50 schoolTime">2017/01/01</div>
-            </div>
-            <div class="row rowStyleDetail">
-              <div class="col-33 personName">实际人数&nbsp;30</div>
-              <div class="col-33 personName">架构人数&nbsp;30</div>
-              <div class="col-33 personName">扫码&nbsp;30</div>
-            </div>
-            <div class="row rowStyleDetail">
-              <div class="col-50 principal">吴校长</div>
-              <div class="col-50 saleName">张某某</div>
-            </div>
-          </a>
+    </div>
+    <div class="listSelectDetail" ng-if="item2.select" ng-repeat="item2 in configList.selectList">
+      <div class="listSelect" ng-repeat="i in item2.list" ng-click="selectConfirm(i,item2)">
+        <div class="lineClass" ></div>
+        <img ng-src="build/assets/img/indexPage/icon_choose.png" ng-show="">
+        <span ng-class="{'fontStyle':true,'fontSp':false}">测试{{i}}</span>
+      </div>
+    </div>
+  </div>
+  <ion-content ng-show="configList.showPageList" class="content-style" style="margin-top: 44px">
+    <div class="global-container" delegate-handle="scrollList">
+      <div class="listDesc">共3个</div>
+      <div class="list">
+        <a class="item item-avatar itemStyle" ng-repeat="i in [1,2,3,4,5,6,7]" ng-click="goSchoolDetail()">
+          <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle">
+          <div class="row rowStyleDetail">
+            <div class="col-50 schoolName">某某小学{{i}}</div>
+            <div class="col-50 schoolTime">2017/01/01</div>
+          </div>
+          <div class="row rowStyleDetail">
+            <div class="col-33 personName">实际人数&nbsp;30</div>
+            <div class="col-33 personName">架构人数&nbsp;30</div>
+            <div class="col-33 personName">扫码&nbsp;30</div>
+          </div>
+          <div class="row rowStyleDetail">
+            <div class="col-50 principal">吴校长</div>
+            <div class="col-50 saleName">张某某</div>
+          </div>
+        </a>
 
-        </div>
       </div>
     </div>
   </ion-content>

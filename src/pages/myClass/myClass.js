@@ -90,12 +90,12 @@ angular.module('myClassModule')
         );
       }
 
-      $scope.popover = $ionicPopover.fromTemplateUrl('build/pages/indexPage/modal/popover.html', {
+      $scope.popover = $ionicPopover.fromTemplateUrl('build/pages/myClass/modal/popover.html', {
         scope: $scope
       });
 
       // .fromTemplateUrl() 方法
-      $ionicPopover.fromTemplateUrl('build/pages/indexPage/modal/popover.html', {
+      $ionicPopover.fromTemplateUrl('build/pages/myClass/modal/popover.html', {
         scope: $scope
       }).then(function (popover) {
         $scope.popover = popover;

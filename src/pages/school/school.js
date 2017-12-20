@@ -2,8 +2,8 @@
  * Created by daidongdong on 2017/11/14.
  */
 angular.module('schoolModule')
-  .controller('schoolCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout','SettingsService','hmsPopup','$ionicScrollDelegate',
-    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout,SettingsService,hmsPopup,$ionicScrollDelegate) {
+  .controller('schoolCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', 'SettingsService', 'hmsPopup', '$ionicScrollDelegate',
+    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, SettingsService, hmsPopup, $ionicScrollDelegate) {
       $scope.data = {
         type: SettingsService.get('timeType').id || 'day',
         names: ['distinct_list', 'arc_percent', 'join_school', 'message_use', 'school_property', 'school_ranges', 'study_section', 'trainer_lists'],
@@ -22,7 +22,24 @@ angular.module('schoolModule')
         },
       }
       $scope.configList = {
-        showPageList : false
+        showPageList: false,
+        selectList: [{
+          name: "全部地区",
+          select: false,
+          id: 1,
+          list :[1,2,3]
+        },
+          {
+            name: "担当人员",
+            select: false,
+            id: 2,
+            list :[1,2,3,4,5,7,8]
+          }, {
+            name: "学段",
+            select: false,
+            id: 3,
+            list :[1,2,3,4,5,6]
+          }]
       }
       $scope.configSp = angular.copy($scope.config);
       $scope.newViewData = {};
@@ -77,8 +94,8 @@ angular.module('schoolModule')
 
       //接口
       function initPageData(item) {
-        if(item == '1'){
-        }else{
+        if (item == '1') {
+        } else {
           hmsPopup.showLoadingWithoutBackdrop('正在加载...');
         }
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.schoolData&type=" + $scope.data.type;
@@ -95,12 +112,12 @@ angular.module('schoolModule')
         );
       }
 
-      $scope.popover = $ionicPopover.fromTemplateUrl('build/pages/indexPage/modal/popover.html', {
+      $scope.popover = $ionicPopover.fromTemplateUrl('build/pages/myClass/modal/popover.html', {
         scope: $scope
       });
 
       // .fromTemplateUrl() 方法
-      $ionicPopover.fromTemplateUrl('build/pages/indexPage/modal/popover.html', {
+      $ionicPopover.fromTemplateUrl('build/pages/myClass/modal/popover.html', {
         scope: $scope
       }).then(function (popover) {
         $scope.popover = popover;
@@ -118,7 +135,7 @@ angular.module('schoolModule')
         x.selected = !x.selected;
         $scope.data.type = x.id;
         SettingsService.set('timeType', x);
-        if(x.id == 'time'){
+        if (x.id == 'time') {
           $state.go('timeSelect');
           $scope.popover.hide();
           return;
@@ -130,12 +147,29 @@ angular.module('schoolModule')
       //初始化
       initPageData();
 
-      $scope.changePage = function(){
+      $scope.changePage = function () {
         $scope.configList.showPageList = !$scope.configList.showPageList;
       }
 
-      $scope.goSchoolDetail = function(){
+      $scope.goSchoolDetail = function () {
         console.log('---');
         $state.go('schoolDetail');
+      }
+      //筛选条件
+      $scope.selectAny = function(item){
+        for(var i=0;i<$scope.configList.selectList.length;i++){
+          $scope.configList.selectList[i].select = false;
+          if(item.id == $scope.configList.selectList[i].id){
+           $scope.configList.selectList[i].select = true;
+         }
+        }
+      }
+      //选择成功
+      $scope.selectConfirm = function(item1,item2){
+        console.log(item1);
+        console.log(item2);
+        for(var i=0;i<$scope.configList.selectList.length;i++){
+          $scope.configList.selectList[i].select = false;
+        }
       }
     }]);

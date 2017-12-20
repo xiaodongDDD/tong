@@ -13,7 +13,7 @@ angular.module('directiveModule').directive('inputDatetime', ['$compile', '$ocLa
                 '/build/lib/mobiscroll/js/mobiscroll.custom-3.0.0-beta6.min.js'
 			]).then(function() {
 				element = $(element[0]);
-
+          console.log('-----------');
 				if(!attr.format || attr.format == 'yyyy-MM-dd'){
 					var dateInstance;
 					var options = {

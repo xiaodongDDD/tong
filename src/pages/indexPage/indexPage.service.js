@@ -23,13 +23,8 @@ angular.module('indexPageModule')
         {
           id: 'month',
           text: '本月',
-          style: {'border-bottom-width': '2px', 'border-bottom-style': 'solid', 'border-bottom-color': '#DCDCDC'},
+          style:'',
           selected: false,
-        },
-        {
-          id: 'time',
-          text: '按日期查询',
-          selected: false
         }
       ];
     }]);

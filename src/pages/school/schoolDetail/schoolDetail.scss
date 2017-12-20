@@ -1,4 +1,24 @@
+.platform-ios{
+  .elastic-image{
+    padding-top: 10px;
+  }
+  .rowHeadSp{
+    height: 64px !important;
+    padding-top: 20px !important;
+  }
+}
 .schoolDetail{
+  .rowStyleTop {
+    text-align: center;
+    background: white;
+    height: 44px;
+    line-height: 44px;
+    padding: 0;
+    font-family: PingFangSC-Regular;
+    font-size: 15px;
+    color: #000000;
+    letter-spacing: -0.36px;
+  }
   .rowHead{
     padding: 0;
     height: 44px;
@@ -7,6 +27,7 @@
     border-bottom:1px solid $global-Line-bg ;
     position: absolute;
     z-index: 5;
+    display: none;
     .rowHeadButton{
       padding-left: 15px;
     }
@@ -16,6 +37,12 @@
       font-size: 17px;
       color: #000000;
       letter-spacing: -0.41px;
+      display: inline-block;
+      width: 50%;
+    }
+    .spanWidth{
+      width: 25%;
+      display: inline-block;
     }
   }
 
@@ -27,18 +54,52 @@
     border-bottom:2px solid  #0775F5;
   }
   .elastic-image {
+    //position: absolute;
+    //z-index: 9;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     //margin-top: 44px;
     /* Initial image height: */
     height: 180px;
+    width: 100%;
     background-image: linear-gradient(-200deg, #2073D7 12%, #58B9FE 100%);
-    position: relative;
+    .schoolNameHead{
+      font-family: PingFangSC-Regular;
+      font-size: 24px;
+      color: #FFFFFF;
+      letter-spacing: -0.58px;
+      height: 44px;
+      line-height: 44px;
+      margin-left: 40px;
+    }
   }
   .contentText{
-    //position: absolute;
     z-index: 99;
+    .imgButton{
+      margin-left: 12px;
+      color: #ffffff;
+    }
+    .schoolAdress{
+      height: 33px;
+      line-height: 33px;
+      font-family: PingFangSC-Regular;
+      font-size: 13px;
+      color: #B6E7FF;
+      letter-spacing: -0.31px;
+      margin-left: 40px;
+      margin-top:5px;
+    }
+    .schoolNum{
+      height: 22px;
+      line-height: 22px;
+      font-family: PingFangSC-Regular;
+      font-size: 13px;
+      color: #B6E7FF;
+      letter-spacing: -0.31px;
+      margin-left: 40px;
+      margin-top:5px;
+    }
   }
   .backimg{
     width: 100%;
@@ -46,7 +107,7 @@
     background: url(../assets/img/school/icon_school_head@3x.png) 0 0 no-repeat;
     background-size: 100% 100%;
     position: absolute;
-    bottom: 0;
+    top: 50px;
     left: 0;
   }
 
@@ -54,38 +115,19 @@
     /* Same as initial image height: */
     padding-top: 180px;
   }
-  .imgButton{
-    margin-left: 12px;
-    color: #ffffff;
-  }
-  .schoolName{
-    font-family: PingFangSC-Regular;
-    font-size: 24px;
-    color: #FFFFFF;
-    letter-spacing: -0.58px;
-    height: 44px;
-    line-height: 44px;
-    margin-left: 40px;
-  }
-  .schoolAdress{
-    height: 33px;
-    line-height: 33px;
-    font-family: PingFangSC-Regular;
-    font-size: 13px;
-    color: #B6E7FF;
-    letter-spacing: -0.31px;
-    margin-left: 40px;
-    margin-top:5px;
-  }
-  .schoolNum{
-    height: 22px;
-    line-height: 22px;
-    font-family: PingFangSC-Regular;
-    font-size: 13px;
-    color: #B6E7FF;
-    letter-spacing: -0.31px;
-    margin-left: 40px;
-    margin-top:5px;
-  }
 
+  .headClassNum{
+    padding: 7px 0;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #888888;
+    letter-spacing: -0.34px;
+    text-align: left;
+  }
+  .completionDegree{
+    font-family: PingFangSC-Regular;
+    font-size: 13px;
+    color: #A7A7A7;
+    letter-spacing: -0.31px;
+  }
 }

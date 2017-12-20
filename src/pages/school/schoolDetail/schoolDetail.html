@@ -1,19 +1,21 @@
-<ion-view view-title="学校情况统计" class="schoolDetail indexPage myInfo school schoolDetail">
+<ion-view view-title="学校情况统计" class="schoolDetail indexPage myInfo school schoolDetail timeSelectData"
+          style="background: #f5f5f5">
 
-  <div class="row rowHead" id="the-head-id">
-    <div class="col-25">
+  <div class="row rowHead fadeIn rowHeadSp" id="the-head-id">
+    <span class="col-25 spanWidth">
       <button class="button button-icon icon ion-ios-arrow-left rowHeadButton" ng-click="goBack()"></button>
-    </div>
-    <div class="col-50 rowHeadTitle">学校名称</div>
-    <div class="col-25">
-      <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
-    </div>
+    </span>
+    <span class="col-50 rowHeadTitle">学校名称</span>
+    <span class="col-25">
+      <!--<img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>-->
+    </span>
   </div>
-  <div id="the-image-id" class="elastic-image">
+  <div style="position: absolute;z-index: 90;height: 60px;width: 70px" ng-click="goBack()"></div>
+  <div id="the-image-id" class="elastic-image ">
     <div class="backimg"></div>
     <div class="contentText">
       <button class="button button-icon icon ion-ios-arrow-left imgButton" ng-click="goBack()"></button>
-      <div class="row schoolName">上海长风小学{{config.headStyleActive}}</div>
+      <div class="row schoolNameHead">上海长风小学</div>
       <div class="row schoolAdress">
         金沙江路长风二村100号
       </div>
@@ -22,19 +24,19 @@
   </div>
 
 
-  <ion-content elastic-image="the-image-id">
-    <div class="the-content ">
-      <div class="row rowStyle">
+  <ion-content elastic-image="the-image-id,the-head-id,contentAll" id="contentAll">
+    <div class="the-content">
+      <div class="row rowStyleTop">
         <div class="col-50" ng-class="{'headStyle': config.headStyleActive}" ng-click="selectModules('class')">班级</div>
         <div class="col-50" ng-class="{'headStyle': !config.headStyleActive}" ng-click="selectModules('architecture')">
           架构人员
         </div>
       </div>
-      <div class="padding content-style">
-        <div ng-repeat="i in [1,23]">
+      <div class="padding content-style" ng-show="config.headStyleActive" style="min-height: 800px">
+        <div ng-repeat="i in [1]">
           <div class="listDesc">一年级</div>
           <div class="list">
-            <a class="item item-avatar itemStyle" ng-repeat="i in [1,2,7]" ng-click="goSchoolDetail()">
+            <a class="item item-avatar itemStyle" ng-repeat="i in [3]" ng-click="goSchoolClass()">
               <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle">
               <div class="row rowStyleDetail">
                 <div class="col-50 schoolName">一班</div>
@@ -48,7 +50,31 @@
           </div>
         </div>
       </div>
-    </div>
+
+      <div ng-show="!config.headStyleActive" style="min-height: 800px">
+        <div class="global-container content-style">
+          <div class="headClassNum">
+            共xx位，xx位未加入
+          </div>
+          <div class="listColor">
+            <div ng-repeat="i in [1,2]" ng-click="goSchoolList()">
+              <div class="row itemClass" >
+                <div class="col-50 imageClass">
+                  办公室&nbsp;&nbsp;<span class="completionDegree">(1/2)</span>
+                </div>
+                <div class="col-50 numClass">
+                  2233
+                  <span>
+              <i class="ion-ios-arrow-right rightGo"></i>
+            </span>
+                </div>
+              </div>
+              <div class="line"></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
 
     </div>
   </ion-content>

@@ -1,6 +1,14 @@
 {
   "name": "ionic-conference-app",
   "app_id": "",
-  "typescript": false,
-  "v2": true
+  "integrations": {
+    "gulp": {}
+  },
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
 }
