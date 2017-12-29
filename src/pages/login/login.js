@@ -69,7 +69,7 @@
       } else {
         $scope.config.inputFocusPwd = true;
       }
-      $ionicScrollDelegate.$getByHandle('login-contianer').resize();
+      // $ionicScrollDelegate.$getByHandle('login-contianer').resize();
     }
     //失去焦点
     $scope.inputBlur = function (item) {
@@ -263,7 +263,12 @@
             window.localStorage.xhbtoken = result.response.xhb_user_token;
             window.localStorage.empno = $scope.loginInfo.username;
             window.localStorage.checkboxSavePwd = $scope.rememberPassword;
-            $state.go("tab");
+            window.localStorage.identity = result.response.is_agent;
+            if(result.response.is_agent == 0){
+              $state.go("tab");
+            }else{
+              $state.go("agentInfo");
+            }
           } else {
             $scope.config.accountPointFlag = false;
             $scope.data.accountPointText = result.response.msg;

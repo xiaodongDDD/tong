@@ -180,6 +180,9 @@ function phoneNumber(str) {
   if(str.indexOf('88') > -1){
     return true;
   }
+  if(str.length == 6){
+    return true;
+  }
   var reg = /^([0-9]|[-])+$/g;
   if (str.length !== 11) {
     if (str.length === 12) {

@@ -1,4 +1,16 @@
-.myInfo {
+.agentInfo {
+  .out-image {
+    left: 15px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    border: 10px solid transparent;
+    border-right: 0;
+    box-sizing: content-box;
+    z-index: 5;
+    transform: rotate(180deg);
+  }
   .right-image {
     right: 15px;
     width: 20px;
@@ -26,7 +38,7 @@
     height: 14px;
     line-height: 14px;
   }
-  .titleStyle{
+  .titleStyle {
     font-family: PingFangSC-Light;
     font-size: 17px;
     color: #000000;
@@ -143,12 +155,10 @@
     font-size: 17px;
     color: #000000;
     margin-bottom: 6px;
-    font-family: PingFangSC-Regular;
   }
   .common-regional-district .top .info .point {
     font-size: 12px;
     color: #888888;
-    font-family: PingFangSC-Light;
   }
   .common-regional-district .bottom table {
     width: 100%;
@@ -161,7 +171,6 @@
     font-size: 15px;
     color: #000000;
     line-height: 40px;
-    font-family: PingFangSC-Light;
   }
   .common-regional-district .bottom table tr td.first {
     padding-left: 4px;
@@ -184,5 +193,68 @@
     line-height: 40px;
     text-decoration: none;
   }
+  .groupList {
+    background-color: #ffffff;
+    border: 0;
+    padding: 0;
+    height: 44px;
+    line-height: 44px;
+    font-family: PingFangSC-Medium;
+    font-size: 15px;
+    color: #000000;
+  }
+  .groupListSp {
+    background-color: #ffffff;
+    border: 0;
+    padding: 0;
+    height: 44px;
+    line-height: 44px;
+    font-family: PingFangSC-Light;
+    font-size: 15px;
+    color: #000000;
+  }
 
+  .lineClass {
+    background: #EFEFEF;
+    height: 1px;
+  }
+  .groupListItem {
+    border: 0;
+    padding: 0;
+    height: 44px;
+    line-height: 44px;
+
+  }
+  .iBack {
+    color: #AAAAAA;
+    font-size: 20px;
+  }
+  .iBackActive {
+    color: #0775F5;;
+    font-size: 20px;
+  }
+  .detailGroup {
+    max-height: 220px;
+    overflow-y: auto;
+    //-webkit-overflow-scrolling: touch;
+  }
+
+  //.item-accordion {
+  //  line-height: 44px;
+  //  padding-top: 0;
+  //  padding-bottom: 0;
+  //  transition: 0.9s all linear;
+  //}
+  //.item-accordion.ng-hide {
+  //  line-height: 0px;
+  //}
+  //.item-accordion.ng-hide-add,
+  //.item-accordion.ng-hide-remove {
+  //  display: block !important;
+  //}
+  .bar button.button-icon:before {
+    vertical-align: top;
+    font-size: 27px;
+    line-height: 32px;
+  }
 }

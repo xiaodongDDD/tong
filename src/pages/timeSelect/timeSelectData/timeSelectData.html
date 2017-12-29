@@ -11,52 +11,52 @@
         统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}
       </div>
       <div class="listColor">
-        <div class="row itemClass">
+        <div class="row itemClass" ng-click="goList('2')">
           <div class="col-50 imageClass">
             <img src="build/assets/img/selectTime/zhuce@3x.png">
             注册用户
           </div>
           <div class="col-50 numClass">
-            2233
+            {{newViewData.new_data.new_register_user || 0}}
             <span>
               <i class="ion-ios-arrow-right rightGo"></i>
             </span>
           </div>
         </div>
         <div class="line"></div>
-        <div class="row itemClass">
+        <div class="row itemClass" ng-click="goList('3')">
           <div class="col-50 imageClass">
             <img src="build/assets/img/selectTime/addClass@3x.png">
             新增班级
           </div>
           <div class="col-50 numClass">
-            2233
+            {{newViewData.new_data.new_classes || 0}}
             <span>
                <i class="ion-ios-arrow-right rightGo"></i>
             </span>
           </div>
         </div>
         <div class="line"></div>
-        <div class="row itemClass">
+        <div class="row itemClass"  ng-if="config.startShow">
           <div class="col-50 imageClass">
             <img src="build/assets/img/selectTime/qidongshu@3x.png">
-            客户端启动数
+            账户启动
           </div>
           <div class="col-50 numClass">
-            2233
+            {{newViewData.new_data.trigger || 0}}
             <span>
-             <i class="ion-ios-arrow-right rightGo"></i>
+             <!--<i class="ion-ios-arrow-right rightGo"></i>-->
             </span>
           </div>
         </div>
-        <div class="line"></div>
-        <div class="row itemClass">
+        <div class="line" ng-if="config.startShow"></div>
+        <div class="row itemClass" ng-click="goList('4')">
           <div class="col-50 imageClass">
             <img src="build/assets/img/selectTime/zhengxiao@3x.png">
             整校用户
           </div>
           <div class="col-50 numClass">
-            2233
+            {{newViewData.new_data.new_school || 0}}
             <span>
               <i class="ion-ios-arrow-right rightGo"></i>
             </span>
@@ -64,5 +64,20 @@
         </div>
       </div>
     </div>
+
+    <!--<div class="global-container">-->
+      <!--<div class="statistics-time">-->
+        <!--统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}-->
+      <!--</div>-->
+      <!--<div class="imgClass">-->
+        <!--<img ng-src="build/assets/img/selectTime/blockPage.png">-->
+      <!--</div>-->
+      <!--<div class="imgDesc">-->
+        <!--此期间没有数据-->
+      <!--</div>-->
+      <!--<div class="imgDesc">-->
+        <!--请调整日期重新查询-->
+      <!--</div>-->
+    <!--</div>-->
   </ion-content>
 </ion-view>

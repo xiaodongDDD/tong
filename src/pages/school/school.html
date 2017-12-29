@@ -3,7 +3,7 @@
     <div class="title titleStyle">
       学校情况统计
     </div>
-    <img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="changePage()"/>
+    <!--<img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="changePage()"/>-->
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll" ng-show="!configList.showPageList">
@@ -102,7 +102,9 @@
           <table>
             <tbody>
             <tr ng-repeat="item in newViewDataSp.arc_percent">
-              <td width="50%" class="first" ng-bind="item.range"></td>
+              <td width="50%" class="first" >
+                <span>{{item.range}}</span>
+              </td>
               <td width="25%" class="middle">{{item.percent}}</td>
               <td width="25%" class="last">{{item.count}}</td>
             </tr>
@@ -262,41 +264,48 @@
   </ion-content>
   <div class="bar bar-subheader" ng-show="configList.showPageList">
     <div class="row rowStyle">
-      <div class="col-33" ng-repeat="item in configList.selectList" ng-click="selectAny(item)">{{item.name}}&nbsp;&nbsp;
+      <div class="col-33" ng-repeat="item in data.selectList" ng-click="selectAny(item)">{{item.name}}&nbsp;&nbsp;
         <i ng-show="!item.select" class="ion-ios-arrow-down iconStyle"></i>
         <i ng-show="item.select" class="ion-ios-arrow-up iconStyle"></i>
       </div>
     </div>
-    <div class="listSelectDetail" ng-if="item2.select" ng-repeat="item2 in configList.selectList">
-      <div class="listSelect" ng-repeat="i in item2.list" ng-click="selectConfirm(i,item2)">
+    <div class="listSelectDetail" ng-if="item2.select" ng-repeat="item2 in data.selectList">
+      <div class="listSelect" ng-repeat="i in item2.list" ng-click="selectConfirm(i,item2)" ng-if="item2.select">
         <div class="lineClass" ></div>
         <img ng-src="build/assets/img/indexPage/icon_choose.png" ng-show="">
-        <span ng-class="{'fontStyle':true,'fontSp':false}">测试{{i}}</span>
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[0].select">{{i}}</span>
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[1].select">{{i.user_name}}</span>
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[2].select">{{i.section_name}}</span>
       </div>
     </div>
   </div>
-  <ion-content ng-show="configList.showPageList" class="content-style" style="margin-top: 44px">
-    <div class="global-container" delegate-handle="scrollList">
-      <div class="listDesc">共3个</div>
+  <ion-content ng-show="configList.showPageList" class="content-style" style="margin-top: 44px;">
+    <div class="padding" delegate-handle="scrollList">
+      <div class="listDesc">共{{data.schoolList.length}}个</div>
       <div class="list">
-        <a class="item item-avatar itemStyle" ng-repeat="i in [1,2,3,4,5,6,7]" ng-click="goSchoolDetail()">
-          <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle">
+        <a class="item item-avatar itemStyle" ng-repeat="school in data.schoolList" ng-click="goSchoolDetail()">
+          <img ng-src="{{school.school_img}}" class="imgStyle">
           <div class="row rowStyleDetail">
-            <div class="col-50 schoolName">某某小学{{i}}</div>
-            <div class="col-50 schoolTime">2017/01/01</div>
+            <div class="col-50 schoolName" ng-bind="school.school_name"></div>
+            <div class="col-50 schoolTime" ng-bind="school.create_time"></div>
           </div>
           <div class="row rowStyleDetail">
-            <div class="col-33 personName">实际人数&nbsp;30</div>
-            <div class="col-33 personName">架构人数&nbsp;30</div>
-            <div class="col-33 personName">扫码&nbsp;30</div>
+            <div class="col-33 personName">实际人数&nbsp;{{school.teacher_num}}</div>
+            <div class="col-33 personName">架构人数&nbsp;{{school.arc_count}}</div>
+            <div class="col-33 personName">扫码&nbsp;{{school.scan_count}}</div>
           </div>
           <div class="row rowStyleDetail">
-            <div class="col-50 principal">吴校长</div>
-            <div class="col-50 saleName">张某某</div>
+            <div class="col-50 principal" ng-bind="school.teacher_name"></div>
+            <div class="col-50 saleName" ng-bind="school.user_name"></div>
           </div>
         </a>
 
       </div>
+      <ion-infinite-scroll ng-if="true" on-infinite="" distance="1%"  class="spinnerClass" ng-show="configList.nextPage"></ion-infinite-scroll>
+      <div class="text-center spinnerClass" ng-show="configList.nextPage">正在加载..</div>
+      <div class="text-center spinnerClassSp" ng-show="!configList.nextPage && data.schoolList.length>0">暂无更多数据</div>
+
     </div>
+
   </ion-content>
 </ion-view>

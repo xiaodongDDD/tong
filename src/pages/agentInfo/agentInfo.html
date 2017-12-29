@@ -1,0 +1,90 @@
+<ion-view view-title="我的" class="agentInfo indexPage" cache-view='true'>
+  <ion-header-bar class="head-bg">
+    <img class="out-image" src="build/assets/img/agentInfo/outPage.png" ng-click="loginOut()">
+    <div class="title ">
+      <div class="titleName" ng-bind="newViewData.trainer_info.user_name"></div>
+      <div class="titleNum" ng-bind="newViewData.trainer_info.invited_code"></div>
+    </div>
+    <!--<img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="openPopover($event)"/>-->
+    <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
+  </ion-header-bar>
+  <ion-content class="content-style" delegate-handle="mainScroll">
+    <!-- 1.添加下拉刷新的组件 -->
+    <ion-refresher
+      pulling-text="下拉刷新页面数据..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+
+    <div class="global-container">
+      <div class="statistics-time">统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}
+      </div>
+      <!--new-data-statistics-->
+      <div class="new-data-statistics registered-users-num">
+        <div class="new-data-statistics-bg"></div>
+        <div class="data-box">
+          <img src="build/assets/img/myInfo/icon_user.png"/>
+          <div class="registered-users">
+            <div class="total">注册用户总数</div>
+            <div class="yesterday-added">昨日新增：{{newViewData.user_data.yes_user_count}}</div>
+          </div>
+          <div class="numbers">{{newViewData.user_data.user_count}}</div>
+          <div class="auto-height"></div>
+        </div>
+      </div>
+      <div class="common-regional-district teacher-regional-district">
+
+        <div class="top">
+          <img src="build/assets/img/myInfo/icon_teacher_regional_district.png"/>
+          <div class="info">
+            <div class="title">注册用户区域分布</div>
+            <div class="point">晓黑板注册用户所用手机号码所属地区分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div ng-repeat="group in  newViewData.region_list">
+
+          <div class="lineClass"></div>
+          <div class="row  row-no-padding " ng-class="{'groupList': group.show,'groupListSp': !group.show}" ng-click="toggleGroup(group)">
+            <div class="col-3"></div>
+            <div class="col-30 text-left">{{group.province}}</div>
+            <div class="col-30 text-center">{{group.percent}}</div>
+            <div class="col-25 text-right">{{group.count}}</div>
+            <div class="col-11 text-right">
+              <i class="iBack ion-android-arrow-dropdown" ng-if="!isGroupShown(group) && group.city_list.length>0"></i>
+              <i class="iBackActive ion-android-arrow-dropup"
+                 ng-if="isGroupShown(group) && group.city_list.length>0"></i>
+            </div>
+            <div class="col-3"></div>
+          </div>
+          <!--<ion-scroll overflow-scroll="false" direction="y" has-bouncing="false" style="max-height: 240px" ng-if="group.city_list.length>6">-->
+          <!--<div class="groupListItem row row-no-padding item-accordion"-->
+          <!--ng-repeat="item in group.city_list"-->
+          <!--ng-show="isGroupShown(group)">-->
+          <!--<div class="col-15"></div>-->
+          <!--<div class="col-40 text-left" style="border-bottom: 1px solid #DDDDDD">&nbsp;&nbsp;&nbsp;{{item.city}}</div>-->
+          <!--<div class="col-35 text-right" style="border-bottom: 1px solid #DDDDDD">{{item.count}}</div>-->
+          <!--<div class="col-10"></div>-->
+          <!--</div>-->
+          <!--</ion-scroll>-->
+          <div
+            style="box-shadow: inset 0 1px 6px 0 rgba(228, 228, 228, 0.50);background: #F6F6F6;">
+            <div class="groupListItem row row-no-padding item-accordion"
+                 ng-repeat="item in group.city_list"
+                 ng-show="isGroupShown(group)">
+              <div class="col-15"></div>
+              <div class="col-40 text-left" style="border-bottom: 1px solid #EFEFEF;">&nbsp;&nbsp;&nbsp;{{item.city}}
+              </div>
+              <div class="col-35 text-right" style="border-bottom: 1px solid #EFEFEF;">{{item.count}}</div>
+              <div class="col-10"></div>
+            </div>
+          </div>
+        </div>
+        <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_address.length>3"
+           ng-click="showPartOrAll('user_address')">
+          {{config.status.user_address?'收起':'查看全部'}}
+        </a>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

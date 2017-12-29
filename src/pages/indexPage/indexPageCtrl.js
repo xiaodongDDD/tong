@@ -34,24 +34,21 @@ angular.module('indexPageModule')
         $state.go("tab");
       }
       $scope.operating = angular.copy(indexPageService.operating)
-      console.log(indexPageService.operating);
 
       $scope.operating.push({
         id: 'time',
         text: '按日期查询',
         selected: false
       });
-      console.log($scope.operating);
-      $scope.operating[2].style = {'border-bottom-width': '2px', 'border-bottom-style': 'solid', 'border-bottom-color': '#DCDCDC'},
+      $scope.operating[2].style = {'border-bottom-width': '2px', 'border-bottom-style': 'solid', 'border-bottom-color': '#DCDCDC'};
 
-      // var type;
-      // for (var i = 0; i < $scope.operating.length; i++) {
-      //   if ($scope.operating[i].id == SettingsService.get('indexType')) {
-      //     $scope.operating[i].selected = true;
-      //   } else {
-      //     $scope.operating[i].selected = false;
-      //   }
-      // }
+      for (var i = 0; i < $scope.operating.length; i++) {
+        if ($scope.operating[i].id == $scope.data.type) {
+          $scope.operating[i].selected = true;
+        } else {
+          $scope.operating[i].selected = false;
+        }
+      }
 
       //查看更多
       $scope.showPartOrAll = function (name) {
@@ -151,11 +148,10 @@ angular.module('indexPageModule')
         $scope.data.type = x.id;
         $scope.data.typeDesc = x.text;
         SettingsService.set('timeType', x);
+        console.log(x);
         initPageData();
         $scope.popover.hide();
       }
-
-
       //初始化
       // if ($scope.tabs[0].cache == false) {
       initPageData();

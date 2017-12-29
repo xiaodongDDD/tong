@@ -7,6 +7,25 @@ angular.module('schoolModule')
       $scope.data = {
         type: SettingsService.get('timeType').id || 'day',
         names: ['distinct_list', 'arc_percent', 'join_school', 'message_use', 'school_property', 'school_ranges', 'study_section', 'trainer_lists'],
+        schoolList: [],
+        selectList: [
+          {
+            name: "全部地区",
+            select: false,
+            id: 1,
+            list: []
+          },
+          {
+            name: "担当人员",
+            select: false,
+            id: 2,
+            list: []
+          }, {
+            name: "学段",
+            select: false,
+            id: 3,
+            list: []
+          }]
       }
       $scope.config = {
         explainFlag: false,
@@ -23,35 +42,21 @@ angular.module('schoolModule')
       }
       $scope.configList = {
         showPageList: false,
-        selectList: [{
-          name: "全部地区",
-          select: false,
-          id: 1,
-          list :[1,2,3]
-        },
-          {
-            name: "担当人员",
-            select: false,
-            id: 2,
-            list :[1,2,3,4,5,7,8]
-          }, {
-            name: "学段",
-            select: false,
-            id: 3,
-            list :[1,2,3,4,5,6]
-          }]
+        nextPage: false,
+        nextId: '-1',
+
       }
       $scope.configSp = angular.copy($scope.config);
       $scope.newViewData = {};
       $scope.newViewDataSp = {};
       $scope.operating = indexPageService.operating;
-      // for (var i = 0; i < $scope.operating.length; i++) {
-      //   if ($scope.operating[i].id == $scope.data.type) {
-      //     $scope.operating[i].selected = true;
-      //   } else {
-      //     $scope.operating[i].selected = false;
-      //   }
-      // }
+      for (var i = 0; i < $scope.operating.length; i++) {
+        if ($scope.operating[i].id == $scope.data.type) {
+          $scope.operating[i].selected = true;
+        } else {
+          $scope.operating[i].selected = false;
+        }
+      }
       $scope.goPage = function () {
       }
 
@@ -98,6 +103,12 @@ angular.module('schoolModule')
         } else {
           hmsPopup.showLoadingWithoutBackdrop('正在加载...');
         }
+        if (SettingsService.get('timeSelect') && SettingsService.get('timeSelect') != '') {
+          $scope.data.type = SettingsService.get('timeSelect');
+          for (var i = 0; i < $scope.operating.length; i++) {
+            $scope.operating[i].selected = false;
+          }
+        }
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.schoolData&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
@@ -105,6 +116,7 @@ angular.module('schoolModule')
             $scope.newViewData = response.response;
             sliceThreeData(response.response);
             SettingsService.set('schoolData', $scope.newViewData);
+            SettingsService.set('timeSelect', '');
           }
         ).error(
           function (response, status, header, config) {
@@ -135,11 +147,6 @@ angular.module('schoolModule')
         x.selected = !x.selected;
         $scope.data.type = x.id;
         SettingsService.set('timeType', x);
-        if (x.id == 'time') {
-          $state.go('timeSelect');
-          $scope.popover.hide();
-          return;
-        }
         initPageData();
         $scope.popover.hide();
       }
@@ -149,27 +156,76 @@ angular.module('schoolModule')
 
       $scope.changePage = function () {
         $scope.configList.showPageList = !$scope.configList.showPageList;
+        if ($scope.configList.showPageList == true) {
+          initPageDataList();
+        }
       }
+
 
       $scope.goSchoolDetail = function () {
         console.log('---');
         $state.go('schoolDetail');
       }
       //筛选条件
-      $scope.selectAny = function(item){
-        for(var i=0;i<$scope.configList.selectList.length;i++){
-          $scope.configList.selectList[i].select = false;
-          if(item.id == $scope.configList.selectList[i].id){
-           $scope.configList.selectList[i].select = true;
-         }
+      $scope.selectAny = function (item) {
+        for (var i = 0; i < $scope.data.selectList.length; i++) {
+          $scope.data.selectList[i].select = false;
+          if (item.id == $scope.data.selectList[i].id) {
+            $scope.data.selectList[i].select = true;
+          }
         }
       }
       //选择成功
-      $scope.selectConfirm = function(item1,item2){
+      $scope.selectConfirm = function (item1, item2) {
         console.log(item1);
         console.log(item2);
-        for(var i=0;i<$scope.configList.selectList.length;i++){
-          $scope.configList.selectList[i].select = false;
+        for (var i = 0; i < $scope.data.selectList.length; i++) {
+          $scope.data.selectList[i].select = false;
         }
       }
+
+
+      //列表接口
+      function initPageDataList(item) {
+        if (item == '1') {
+        } else {
+          hmsPopup.showLoadingWithoutBackdrop('正在加载...');
+        }
+
+        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.schoolLists";
+        var data = {
+          type: 'day',
+          province: '上海',
+          invited: '888888',
+          study_section: '1'
+        }
+        if ($scope.configList.nextId != '-1') {
+          data.next_id == scope.configList.nextId;
+        }
+        hmsHttp.post(indexUrl, data).success(
+          function (response) {
+            $scope.data.schoolList = response.response.school_list;
+            (response.response.next_id == '-1') ? $scope.configList.nextPage = false : $scope.configList.nextPage = true;
+            $scope.configList.nextId = response.response.next_id;
+            var selectUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.schoolContidion&type=" + $scope.data.type;
+            hmsHttp.get(selectUrl).success(
+              function (response) {
+                console.log(response);
+                $scope.data.selectListData = response.response;
+                $scope.data.selectList[0].list = response.response.school_address;
+                $scope.data.selectList[1].list = response.response.trainer_list;
+                $scope.data.selectList[2].list = response.response.section_list;
+              }
+            ).error(
+              function (response, status, header, config) {
+              }
+            );
+          }
+        ).error(
+          function (response, status, header, config) {
+          }
+        );
+      }
+
+
     }]);

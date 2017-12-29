@@ -91,7 +91,11 @@ hand-portal-app/
 ├── config.xml                          * Cordova configuration file
 ├── package.json                        * Defines our JavaScript dependencies
 ```
-//常见问题 hooks   ionic add hooks
+//常见问题 
+How to fix this Error: spawn EACCES
+hooks   ionic add hooks
+ionic cordova prepare android
+
 解决ios11的兼容问题
 cordova platform add ios@4.5.1
 ios打包之后冲突删掉cdvlogger这个文件   cdvlogger

@@ -154,11 +154,17 @@
         templateUrl: 'build/pages/indexPage/indexPage.html',
         controller: 'indexPageCtrl',
       })
-      //用戶
+      //注册用戶
       .state('myInfo', {
         url: '/myInfo',
         templateUrl: 'build/pages/myInfo/myInfo.html',
         controller: 'myInfoCtrl',
+      })
+      //代理商-注册用戶
+      .state('agentInfo', {
+        url: '/agentInfo',
+        templateUrl: 'build/pages/agentInfo/agentInfo.html',
+        controller: 'agentInfoCtrl',
       })
       //學校
       .state('school', {
@@ -190,23 +196,26 @@
         templateUrl: 'build/pages/timeSelect/timeSelect.html',
         controller: 'timeSelectCtrl'
       })
+      //选择时间的数据
       .state('timeSelectData', {
         url: '/timeSelectData',
         templateUrl: 'build/pages/timeSelect/timeSelectData/timeSelectData.html',
         controller: 'timeSelectDataCtrl'
       })
 
-
+      //学校班级
       .state('schoolClass', {
         url: '/schoolClass',
         templateUrl: 'build/pages/school/schoolClass/schoolClass.html',
         controller: 'schoolClassCtrl'
       })
+      //学校列表
       .state('schoolDetail', {
         url: '/schoolDetail',
         templateUrl: 'build/pages/school/schoolDetail/schoolDetail.html',
         controller: 'schoolDetailCtrl'
       })
+      //学校详细列表
       .state('schoolItemList', {
         url: '/schoolItemList',
         templateUrl: 'build/pages/school/schoolItemList/schoolItemList.html',
@@ -220,20 +229,14 @@
     //   $urlRouterProvider.otherwise('/login');
     //
     // } else {
-
     console.log('window.localStorage.token ' + window.localStorage.token);
-
     if (window.localStorage.token && window.localStorage.token != "") {
-      console.log('window.localStorage.token ' + window.localStorage.token);
-
-      $urlRouterProvider.otherwise('/tab');
-      /*if (window.localStorage.getItem('gesturePassword') && window.localStorage.getItem('gesturePassword') != '') {
-       $urlRouterProvider.otherwise('/gesture-lock');
-       } else {
-       $urlRouterProvider.otherwise('/tab/myClass');
-       }*/
+      if(window.localStorage.identity && window.localStorage.identity == '1'){
+        $urlRouterProvider.otherwise('/agentInfo');
+      }else{
+        $urlRouterProvider.otherwise('/tab');
+      }
     } else {
-      console.log('window.localStorage.token------ ' + window.localStorage.token);
       $urlRouterProvider.otherwise('/login');
     }
     // }

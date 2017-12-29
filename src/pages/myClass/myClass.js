@@ -23,13 +23,13 @@ angular.module('myClassModule')
       $scope.newViewData =  {};
       $scope.newViewDataSp = {};
       $scope.operating = indexPageService.operating;
-      // for (var i = 0; i < $scope.operating.length; i++) {
-      //   if ($scope.operating[i].id == $scope.data.type) {
-      //     $scope.operating[i].selected = true;
-      //   } else {
-      //     $scope.operating[i].selected = false;
-      //   }
-      // }
+      for (var i = 0; i < $scope.operating.length; i++) {
+        if ($scope.operating[i].id == $scope.data.type) {
+          $scope.operating[i].selected = true;
+        } else {
+          $scope.operating[i].selected = false;
+        }
+      }
       $scope.goPage = function () {
       }
 
@@ -76,6 +76,12 @@ angular.module('myClassModule')
         }else{
           hmsPopup.showLoadingWithoutBackdrop('正在加载...');
         }
+        if (SettingsService.get('timeSelect') && SettingsService.get('timeSelect') != '') {
+          $scope.data.type = SettingsService.get('timeSelect');
+          for (var i = 0; i < $scope.operating.length; i++) {
+            $scope.operating[i].selected = false;
+          }
+        }
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.classData&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
@@ -83,6 +89,7 @@ angular.module('myClassModule')
             $scope.newViewData = response.response;
             sliceThreeData($scope.newViewData);
             SettingsService.set('classData',$scope.newViewData);
+            SettingsService.set('timeSelect', '');
           }
         ).error(
           function (response, status, header, config) {
@@ -113,11 +120,6 @@ angular.module('myClassModule')
         $scope.data.type = x.id;
         SettingsService.set('timeType', x);
         x.selected = !x.selected;
-        if(x.id == 'time'){
-          $state.go('timeSelect');
-          $scope.popover.hide();
-          return;
-        }
         initPageData();
         $scope.popover.hide();
       }
