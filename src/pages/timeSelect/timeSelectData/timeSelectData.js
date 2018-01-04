@@ -40,6 +40,9 @@ angular.module('indexPageModule')
       //去往其他tab
       $scope.goList = function (item) {
         SettingsService.set('timeSelect',$scope.data.type);
+        if(item == '1'){
+          SettingsService.set('indexFlag','1');
+        }
         for (var i = 0; i < $scope.tabs.length; i++) {
           $scope.tabs[i].isActive = false;
         }

@@ -72,7 +72,9 @@
         </div>
         <div class="rank-list">
           <div class="rank-item" ng-repeat="item in newViewDataSp.personal_ranking_team.user_list">
-            <div class="rank-num"></div>
+            <div class="rank-num">
+              <span class="spanNum" ng-if="$index > 2">{{$index+1}}</span>
+            </div>
             <img ng-src="{{item.avatar}}" class="head"/>
             <div class="person-info">
               <div class="top">
@@ -87,9 +89,9 @@
             </div>
             <div class="auto-height"></div>
           </div>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.personal_ranking_team.user_count.length>3"
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.personal_ranking_team.user_count>10"
              ng-click="showPartOrAll('personal_ranking_team')">
-            {{config.status.class_address?'收起':'查看全部'}}
+            {{config.status.personal_ranking_team?'收起':'查看全部'}}
           </a>
         </div>
       </div>
@@ -105,7 +107,9 @@
         </div>
         <div class="rank-list">
           <div class="rank-item" ng-repeat="item in newViewDataSp.leading_ranking_company.leading_list">
-            <div class="rank-num"></div>
+            <div class="rank-num">
+              <span class="spanNum" ng-if="$index > 2">{{$index+1}}</span>
+            </div>
             <img ng-src="{{item.avatar}}" class="head"/>
             <div class="person-info">
               <div class="top">
@@ -120,7 +124,7 @@
             </div>
             <div class="auto-height"></div>
           </div>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.leading_ranking_company.leading_list.length>3"
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.leading_ranking_company.leading_list.length>10"
              ng-click="showPartOrAll('leading_ranking_company')">
             {{config.status.leading_ranking_company?'收起':'查看全部'}}
           </a>
@@ -139,7 +143,9 @@
         </div>
         <div class="rank-list">
           <div class="rank-item" ng-repeat="item in newViewDataSp.user_ranking_company.user_list">
-            <div class="rank-num"></div>
+            <div class="rank-num">
+              <span class="spanNum" ng-if="$index > 2">{{$index+1}}</span>
+            </div>
             <img ng-src="{{item.avatar}}" class="head"/>
             <div class="person-info">
               <div class="top">
@@ -154,7 +160,7 @@
             </div>
             <div class="auto-height"></div>
           </div>
-          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_ranking_company.user_list.length>3" ng-click="showPartOrAll('user_ranking_company')">
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_ranking_company.user_list.length>10" ng-click="showPartOrAll('user_ranking_company')">
           {{config.status.user_ranking_company?'收起':'查看全部'}}
           </a>
         </div>

@@ -49,15 +49,14 @@ angular.module('indexPageModule')
           $scope.operating[i].selected = false;
         }
       }
-
       //查看更多
       $scope.showPartOrAll = function (name) {
         if ($scope.config.status[name]) {
           if (name == 'leading_ranking_company') {
-            $scope.newViewDataSp[name].leading_list = this.newViewData[name].leading_list.slice(0, 3);
+            $scope.newViewDataSp[name].leading_list = this.newViewData[name].leading_list.slice(0, 10);
             $scope.config.status[name] = false;
           } else {
-            $scope.newViewDataSp[name].user_list = this.newViewData[name].user_list.slice(0, 3);
+            $scope.newViewDataSp[name].user_list = this.newViewData[name].user_list.slice(0, 10);
             $scope.config.status[name] = false;
           }
         } else {
@@ -78,13 +77,13 @@ angular.module('indexPageModule')
           if ($scope.data.names[i] == 'leading_ranking_company') {
             $scope.newViewDataSp[$scope.data.names[i]].leading_list = [];
             if (typeof data[$scope.data.names[i]].leading_list != undefined) {
-              $scope.newViewDataSp[$scope.data.names[i]].leading_list = data[$scope.data.names[i]].leading_list.length > 3 ? data[$scope.data.names[i]].leading_list.slice(0, 3) : data[$scope.data.names[i].leading_list];
+              $scope.newViewDataSp[$scope.data.names[i]].leading_list = data[$scope.data.names[i]].leading_list.length > 10 ? data[$scope.data.names[i]].leading_list.slice(0, 10) : data[$scope.data.names[i]].leading_list;
             } else {
             }
           } else {
             $scope.newViewDataSp[$scope.data.names[i]].user_list = [];
             if (typeof data[$scope.data.names[i]].user_list != undefined) {
-              $scope.newViewDataSp[$scope.data.names[i]].user_list = data[$scope.data.names[i]].user_list.length > 3 ? data[$scope.data.names[i]].user_list.slice(0, 3) : data[$scope.data.names[i]].user_list;
+              $scope.newViewDataSp[$scope.data.names[i]].user_list = data[$scope.data.names[i]].user_list.length > 10 ? data[$scope.data.names[i]].user_list.slice(0, 10) : data[$scope.data.names[i]].user_list;
             } else {
             }
           }
@@ -111,6 +110,8 @@ angular.module('indexPageModule')
             $scope.config = angular.copy($scope.configSp);
             $scope.newViewData = response.response;
             sliceThreeData(response.response);
+            SettingsService.set('timeSelect', '');
+            SettingsService.set('indexFlag','');
             // SettingsService.set('indexData',$scope.newViewData);
           }
         ).error(
@@ -157,4 +158,21 @@ angular.module('indexPageModule')
       initPageData();
       //   $scope.tabs[0].cache = true;
       // }
+
+      //路由监听事件
+      $scope.$on('$stateChangeSuccess',
+        function (event, toState, toParams, fromState, fromParams) {
+          if (fromState.name == "timeSelectData" && SettingsService.get('timeSelect') && SettingsService.get('timeSelect') != '' && SettingsService.get('indexFlag') == '1') {
+            $scope.data.type = SettingsService.get('timeSelect');
+            for (var i = 0; i < $scope.operating.length; i++) {
+              $scope.operating[i].selected = false;
+            }
+            $scope.operating[3].selected = true;
+              initPageData();
+            $ionicScrollDelegate.$getByHandle('mainScroll').scrollTo(0,230,true);
+
+
+          } else {
+          }
+        })
     }]);
