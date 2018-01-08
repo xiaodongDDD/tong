@@ -27,6 +27,9 @@
         color: #030303;
         line-height: 30px;
         text-align: left;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
       .schoolTime {
         text-align: right;

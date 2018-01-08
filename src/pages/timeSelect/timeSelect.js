@@ -37,6 +37,7 @@ angular.module('indexPageModule')
         typeTime.push(new Date($scope.data.startDatetime).getTime()/1000);
         typeTime.push(new Date($scope.data.endDatetime).getTime()/1000);
         typeTime = angular.toJson(typeTime);
+        console.log(typeTime);
         SettingsService.set('timeSelect', typeTime);
         if($scope.config.goPageFlag == true){
           if($scope.data.endDatetime == formatDate.formatDate(new Date(), 'yyyy-MM-dd')){

@@ -23,6 +23,7 @@ angular.module('indexPageModule')
           hmsPopup.showLoadingWithoutBackdrop('正在加载...');
         }
         $scope.data.type = SettingsService.get('timeSelect');
+        console.log($scope.data.type);
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.index&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
@@ -34,8 +35,13 @@ angular.module('indexPageModule')
         );
       }
 
-      //初始化
-      initPageData();
+
+      //路由监听事件
+      $scope.$on('$stateChangeSuccess',
+        function(event, toState, toParams, fromState, fromParams) {
+          //初始化
+          initPageData();
+        })
 
       //去往其他tab
       $scope.goList = function (item) {

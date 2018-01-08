@@ -178,6 +178,12 @@
         templateUrl: 'build/pages/myClass/myClass.html',
         controller: 'myClassCtrl'
       })
+      //学校列表
+      .state('classDetail', {
+        url: '/classDetail',
+        templateUrl: 'build/pages/myClass/classDetail/classDetail.html',
+        controller: 'classDetailCtrl'
+      })
       //设置
       .state('setting', {
         url: '/setting',
