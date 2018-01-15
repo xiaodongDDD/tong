@@ -194,7 +194,7 @@ angular.module('schoolModule')
 
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.schoolLists";
         var data = {
-          type: 'day',
+          type: 'mouth',
           province: '上海',
           invited: '888888',
           study_section: '1'

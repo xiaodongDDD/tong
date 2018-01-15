@@ -52,11 +52,21 @@
         line-height: 30px;
       }
       .saleName {
-        text-align: right;
         font-family: PingFangSC-Light;
         font-size: 14px;
         color: #888888;
         line-height: 30px;
+      }
+    }
+    .schoolXZheng{
+      font-family: PingFangSC-Light;
+      font-size: 14px;
+      color: #888888;
+      line-height: 14px;
+      img{
+        height: 16px;
+        width: 16px;
+        vertical-align: bottom;
       }
     }
   }
@@ -128,7 +138,20 @@
   .spinnerClassSp{
     position: relative;
     top: -40px;
-    height: 44px;
-    line-height: 44px;
+    height: 66px;
+    line-height: 66px;
+    color: #ccc;
+  }
+  .fontSelected{
+    font-family: PingFangSC-Light;
+    font-size: 15px;
+    color: #0775F5;
+    letter-spacing: -0.36px;
+  }
+  .fontSelectedSp{
+    font-family: PingFangSC-Light;
+    font-size: 15px;
+    color: #000000;
+    letter-spacing: -0.36px;
   }
 }

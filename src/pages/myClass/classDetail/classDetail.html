@@ -13,10 +13,10 @@
   <div id="the-image-class-id" class="elastic-image ">
     <button class="button button-icon icon ion-ios-arrow-left imgButton" ng-click="goBack()"></button>
     <div class="contentText">
-      <div class="imgDiv"><img src="build/assets/img/school/icon_explain.png"></div>
-      <div class="schoolNameHead">初三三班</div>
+      <div class="imgDiv"><img ng-src="{{data.classDetail.avatar}}"></div>
+      <div class="schoolNameHead">{{data.classDetail.class_name}}</div>
       <div class="schoolAdress">
-        <span>&nbsp;整&nbsp;</span>&nbsp;&nbsp;<span>上海武宁路小学</span>
+        <span ng-show="data.classDetail.in_school">&nbsp;整&nbsp;</span>&nbsp;&nbsp;<span>{{data.classDetail.school_name}}</span>
       </div>
     </div>
   </div>
@@ -31,22 +31,40 @@
         </div>
       </div>
       <div class="padding content-style" style="min-height: 800px">
-        <div ng-repeat="i in [1,23]">
-          <div class="listDesc">共3位</div>
-          <div class="list">
-            <a class="item item-avatar itemStyle" ng-repeat="i in [1,2,7]" ng-click="goSchoolDetail()">
-              <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle">
-              <div class="row rowStyleDetail">
-                <div class="col-50 schoolName">一班</div>
-                <div class="col-50 schoolTime">2017/01/01</div>
+        <div class="listDesc" ng-if="config.headStyleActive">共{{data.classListData.count}}位</div>
+        <div class="listDesc" ng-if="!config.headStyleActive">共{{data.userListData.count}}位</div>
+        <div class="list" ng-if="config.headStyleActive">
+          <a class="item item-avatar itemStyle" ng-repeat="i in data.classListData.member_list" ng-click="goSchoolDetail()">
+            <img ng-src="{{i.avatar}}" class="imgStyle">
+            <div class="row rowStyleDetail">
+              <div class="col-50 schoolName">{{i.display_name}}</div>
+              <div class="col-50 schoolTime">{{i.create_time}}</div>
+            </div>
+            <div class="row rowStyleDetail">
+              <div class="col-50 personName">{{i.subject_name}}</div>
+              <div class="col-50" style="text-align: right"
+                   ng-class="{'fontColor':config.font,'personName' :!config.font}">{{i.role}}
               </div>
-              <div class="row rowStyleDetail">
-                <div class="col-50 personName">数学</div>
-                <div class="col-50" style="text-align: right" ng-class="{'fontColor':config.font,'personName' :!config.font}">王老师</div>
-              </div>
-            </a>
-          </div>
+            </div>
+          </a>
         </div>
+
+        <div class="list" ng-if="!config.headStyleActive">
+          <a class="item item-avatar itemStyle" ng-repeat="i in data.userListData.member_list" ng-click="goSchoolDetail()">
+            <img ng-src="{{i.avatar}}" class="imgStyle">
+            <div class="row rowStyleDetail">
+              <div class="col-50 schoolName">{{i.display_name}}</div>
+              <div class="col-50 schoolTime">{{i.join_time}}</div>
+            </div>
+            <div class="row rowStyleDetail">
+              <div class="col-50 personName">{{i.role}}<span ng-if="i.relation">-</span>{{i.relation}}</div>
+              <div class="col-50" style="text-align: right"
+                   ng-class="{'fontColor':config.font,'personName' :!config.font}">{{i.speak_stype}}
+              </div>
+            </div>
+          </a>
+        </div>
+
       </div>
     </div>
 

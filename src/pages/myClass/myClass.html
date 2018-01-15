@@ -1,4 +1,4 @@
-<ion-view view-title="班级情况统计" class="myClass myInfo indexPage" cache-view='true'>
+<ion-view view-title="班级情况统计" class="myClass myInfo indexPage myTab" cache-view='true'>
   <ion-header-bar align-title="center" class="head-bg">
     <div class="title titleStyle">
       班级情况统计
@@ -178,9 +178,9 @@
   </ion-content>
 
 
-  <div class="bar bar-subheader" ng-show="configList.showPageList">
+  <div class="bar bar-subheader" ng-show="configList.showPageList" delegate-handle="mainScrollList">
     <div class="row rowStyle">
-      <div class="col-33" ng-repeat="item in data.selectList" ng-click="selectAny(item)">{{item.name}}&nbsp;&nbsp;
+      <div class="col-33" ng-repeat="item in data.selectList" ng-click="selectAny(item)" ng-class="{'fontSelected' : item.select,'fontSelectedSp' : !item.select}">{{item.name}}&nbsp;&nbsp;
         <i ng-show="!item.select" class="ion-ios-arrow-down iconStyle"></i>
         <i ng-show="item.select" class="ion-ios-arrow-up iconStyle"></i>
       </div>
@@ -190,40 +190,39 @@
         <div class="lineClass"></div>
         <img ng-src="build/assets/img/indexPage/icon_choose.png" ng-show="">
         <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[0].select">{{i}}</span>
-        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[1].select">{{i.user_name}}</span>
-        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[2].select">{{i.section_name}}</span>
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[1].select">{{i.project_name}}</span>
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[2].select">{{i.user_name}}</span>
       </div>
     </div>
   </div>
   <ion-content ng-show="configList.showPageList" class="content-style" style="margin-top: 44px;">
     <div class="padding" delegate-handle="scrollList">
-      <div class="listDesc">共{{data.schoolList.length}}个</div>
+      <div class="listDesc">共{{data.totle}}个</div>
       <div class="list">
-        <a class="item item-avatar itemStyle" ng-repeat="school in data.schoolList" ng-click="goSchoolDetail()">
-          <img ng-src="{{school.school_img}}" class="imgStyle">
+        <a class="item item-avatar itemStyle" ng-repeat="school in data.schoolList" ng-click="goSchoolDetail(school)">
+          <img ng-src="{{school.avatar}}" class="imgStyle" style="border-radius: 0 !important;">
           <div class="row rowStyleDetail">
-            <div class="col-60 schoolName">{{school.school_name}}<span>(20)</span></div>
+            <div class="col-60 schoolName">{{school.class_name}}<span>({{school.class_member}})</span></div>
             <div class="col-40 schoolTime" ng-bind="school.create_time"></div>
           </div>
           <div class="row rowStyleDetail">
-            <div class="col-50 principal" ng-bind="school.teacher_name"></div>
-            <div class="col-50 saleName" ng-bind="school.user_name"></div>
+            <div class="col-50 principal">创建者：{{school.user_name}}</div>
+            <div class="col-50 saleName">班级号：{{school.code}}</div>
           </div>
           <div class="row rowStyleDetail">
-            <div class="col-33 personName">实际人数&nbsp;{{school.teacher_num}}</div>
-            <div class="col-33 personName">架构人数&nbsp;{{school.arc_count}}</div>
-            <div class="col-33 personName">扫码&nbsp;{{school.scan_count}}</div>
+            <div class="col-33 personName">任课教师&nbsp;{{school.class_teacher}}</div>
+            <div class="col-66 personName">普通成员&nbsp;{{school.class_member}} (可发言&nbsp;{{school.class_speak}})</div>
           </div>
-          <div class="schoolXZheng"><img src="">{{school.school_name}}</div>
+          <div class="schoolXZheng"><img src="build/assets/img/myClass/zheng.png" ng-show="school.in_school"><span
+            ng-show="school.in_school">&nbsp;&nbsp;</span>{{school.school_name}}
+          </div>
         </a>
-
       </div>
-      <ion-infinite-scroll ng-if="true" on-infinite="" distance="1%" class="spinnerClass"
-                           ng-show="configList.nextPage"></ion-infinite-scroll>
-      <div class="text-center spinnerClass" ng-show="configList.nextPage">正在加载..</div>
-      <div class="text-center spinnerClassSp" ng-show="!configList.nextPage && data.schoolList.length>0">暂无更多数据</div>
 
     </div>
+    <ion-infinite-scroll ng-if="configList.nextPage" on-infinite="loadMore()" distance="1%" class="spinnerClass"></ion-infinite-scroll>
+    <div class="text-center spinnerClass" ng-show="configList.nextPage">正在加载..</div>
+    <div class="text-center spinnerClassSp" ng-show="!configList.nextPage && data.schoolList.length>0">暂无更多数据</div>
 
   </ion-content>
 </ion-view>
