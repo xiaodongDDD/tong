@@ -12,9 +12,9 @@
     "interfacePath": "http://school-test.xiaoheiban.cn",
     "iosUpdatePath": "https://fir.im/l915",
     "version": {
-      "currentVersion": "1.0.2",
-      "currentversionName": "此版本为正式版本1.0.2",
-      "currentSubVersion": "1",
+      "currentVersion": "1.1.0",
+      "currentversionName": "此版本为正式版本1.1.0",
+      "currentSubVersion": "1.1.0",
       "currentSubVersionName": "app包"
     }
   }

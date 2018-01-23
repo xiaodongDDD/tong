@@ -3,8 +3,8 @@
  */
 
 angular.module('myClassModule')
-  .controller('myClassCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', '$ionicScrollDelegate', 'SettingsService', 'hmsPopup',
-    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, $ionicScrollDelegate, SettingsService, hmsPopup) {
+  .controller('myClassCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', '$ionicScrollDelegate', 'SettingsService', 'hmsPopup', '$ionicBackdrop',
+    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, $ionicScrollDelegate, SettingsService, hmsPopup, $ionicBackdrop) {
       $scope.data = {
         type: SettingsService.get('timeType').id || 'day',
         names: ["class_address", "class_type", "class_member", "class_message", "class_found"],
@@ -30,7 +30,8 @@ angular.module('myClassModule')
             id: 2,
             invited_code: '',
             list: []
-          }]
+          }],
+        pageName: '班级情况统计'
       }
       $scope.config = {
         explainFlag: false,
@@ -45,7 +46,8 @@ angular.module('myClassModule')
       $scope.configList = {
         showPageList: false,
         nextPage: false,
-        nextId: '-1'
+        nextId: '-1',
+        showSelectList : false
       }
       $scope.configParam = {}
       $scope.configSp = angular.copy($scope.config);
@@ -150,7 +152,13 @@ angular.module('myClassModule')
         $scope.data.type = x.id;
         SettingsService.set('timeType', x);
         x.selected = !x.selected;
-        initPageData();
+        if ($scope.configList.showPageList) {
+          $scope.data.schoolList = [];
+          initPageDataList();
+          $scope.selectList();
+        } else {
+          initPageData();
+        }
         $scope.popover.hide();
       }
 
@@ -160,11 +168,15 @@ angular.module('myClassModule')
 
 
       $scope.changePage = function () {
+        $scope.configList.nextId = '';
         $scope.configList.showPageList = !$scope.configList.showPageList;
         if ($scope.configList.showPageList == true) {
           $scope.data.schoolList = [];
           initPageDataList();
-          // $scope.loadMore();
+          $scope.selectList();
+          $scope.data.pageName = '班级列表';
+        } else {
+          $scope.data.pageName = '班级情况统计';
         }
       }
 
@@ -175,18 +187,26 @@ angular.module('myClassModule')
       }
       //筛选条件
       $scope.selectAny = function (item) {
+        var num = 0;
         for (var i = 0; i < $scope.data.selectList.length; i++) {
           if (item.id == $scope.data.selectList[i].id) {
             $scope.data.selectList[i].select = !$scope.data.selectList[i].select;
+            $scope.configList.showSelectList = true;
           } else {
             $scope.data.selectList[i].select = false;
           }
+          if($scope.data.selectList[i].select == true){
+            num++;
+          }
+        }
+        if(num == 1){
+          $scope.configList.showSelectList = true;
+        }else{
+          $scope.configList.showSelectList = false;
         }
       }
       //选择成功
       $scope.selectConfirm = function (item1, item2) {
-        console.log(item1);
-        console.log(item2);
         switch (item2.id) {
           case 0:
             $scope.data.selectList[0].name = item1;
@@ -203,16 +223,18 @@ angular.module('myClassModule')
         for (var i = 0; i < $scope.data.selectList.length; i++) {
           $scope.data.selectList[i].select = false;
         }
-        $scope.classList(1);
+        $scope.configList.showSelectList = false;
+        $scope.configList.nextId = '';
+        $scope.data.schoolList = [];
+        initPageDataList();
       }
 
-
+      $scope.isLock = false;
       //列表接口
       function initPageDataList(item) {
-        if (item == '1') {
-        } else {
-          hmsPopup.showLoadingWithoutBackdrop('正在加载...');
-        }
+        if ($scope.isLock) return;
+        $scope.isLock = true;
+        // hmsPopup.showLoadingWithoutBackdrop('正在加载...');
 
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yiclass.classLists";
         var data = {
@@ -221,22 +243,28 @@ angular.module('myClassModule')
           project_id: $scope.data.selectList[1].project_id,
           invited_code: $scope.data.selectList[2].invited_code,
         }
-        if ($scope.configList.nextId > 0) {
+        if ($scope.configList.nextId > 0 && item == '1') {
           data.next_id = $scope.configList.nextId;
         }
         hmsHttp.post(indexUrl, data).success(
           function (response, status, header, config) {
-            $scope.data.totle = response.response.totle;
+            if (item != '1') {
+              $scope.data.totle = response.response.totle;
+            }
             $scope.data.schoolList = $scope.data.schoolList.concat(response.response.class_list);
-            (response.response.next_id < 0) ? $scope.configList.nextPage = false : $scope.configList.nextPage = true;
+            if(response.response.next_id < 0){
+              $scope.configList.nextPage = false
+            }else{
+              $scope.configList.nextPage = true;
+            }
+            $scope.isLock = false;
             $scope.configList.nextId = response.response.next_id;
-            console.log(response.response.next_id);
-            console.log($scope.configList.nextId);
             $ionicScrollDelegate.$getByHandle('mainScrollList').resize();
-            $scope.selectList();
+            $scope.$broadcast('scroll.infiniteScrollComplete');
           }
         ).error(
           function (response, status, header, config) {
+            $scope.isLock = false;
           }
         );
       }
@@ -256,38 +284,8 @@ angular.module('myClassModule')
           }
         );
       }
-      //列表
-      $scope.classList = function (item) {
-
-          hmsPopup.showLoadingWithoutBackdrop('正在加载...');
-
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yiclass.classLists";
-        var data = {
-          type: $scope.data.type,
-          province: $scope.data.selectList[0].province,
-          project_id: $scope.data.selectList[1].project_id,
-          invited_code: $scope.data.selectList[2].invited_code,
-        }
-        if ($scope.configList.nextId > 0 && item == 1) {
-          data.next_id = $scope.configList.nextId;
-        }
-        hmsHttp.post(indexUrl, data).success(
-          function (response) {
-            $scope.data.schoolList = $scope.data.schoolList.concat(response.response.class_list);
-            (response.response.next_id < 0) ? $scope.configList.nextPage = false : $scope.configList.nextPage = true;
-            $scope.configList.nextId = response.response.next_id;
-            $ionicScrollDelegate.$getByHandle('mainScrollList').resize();
-
-          }
-        ).error(
-          function (response, status, header, config) {
-          }
-        );
-      }
       $scope.loadMore = function () {
-        $scope.classList();
-        $scope.$broadcast('scroll.infiniteScrollComplete');
-
+        initPageDataList('1');
       }
 
     }]);

@@ -50,6 +50,9 @@
         font-size: 14px;
         color: #888888;
         line-height: 30px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
       }
       .saleName {
         font-family: PingFangSC-Light;
@@ -134,6 +137,9 @@
   .spinnerClass{
     position: relative;
     top: -40px;
+    height: 66px;
+    line-height: 66px;
+    color: #ccc;
   }
   .spinnerClassSp{
     position: relative;
@@ -143,15 +149,38 @@
     color: #ccc;
   }
   .fontSelected{
-    font-family: PingFangSC-Light;
-    font-size: 15px;
     color: #0775F5;
-    letter-spacing: -0.36px;
   }
   .fontSelectedSp{
     font-family: PingFangSC-Light;
     font-size: 15px;
-    color: #000000;
+    //color: #000000;
     letter-spacing: -0.36px;
+  }
+
+
+  /*modal*/
+  .modalClass {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1001;
+    background: rgba(0, 0, 0, 0.5);
+    //visibility: hidden;
+    display: none;
+  }
+  .md-show-class {
+    //visibility: visible;
+    display: block;
+  }
+  .modalClass .scroll {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: scroll;
   }
 }

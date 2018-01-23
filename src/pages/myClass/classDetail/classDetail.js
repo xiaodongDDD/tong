@@ -37,6 +37,11 @@ angular.module('myClassModule')
               $scope.data.classListData = response.response;
             }else{
               $scope.data.userListData = response.response;
+              for(var i=0;i<$scope.data.userListData.member_list.length;i++){
+                if($scope.data.userListData.member_list[i].speak_stype == '可发言'){
+                  $scope.data.userListData.member_list[i].font = true;
+                }
+              }
             }
           }
         ).error(

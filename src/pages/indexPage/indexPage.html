@@ -27,7 +27,7 @@
               <img src="build/assets/img/indexPage/icon_user.png"/>
               <div class="spe-info">
                 <div class="number">{{newViewData.new_data.new_register_user || 0}}</div>
-                <div class="data-type">注册新增</div>
+                <div class="data-type"><span ng-if='newViewData.user_info.position_level > 5'>团队</span>注册新增</div>
               </div>
               <div class="auto-height"></div>
             </div>
@@ -82,9 +82,9 @@
                 <span class="num" ng-bind="item.invited_code"></span>
               </div>
               <div class="bottom">
-                <span class="register">注册 {{item.new_register_user}}</span>
-                <span class="classes">班级 {{item.new_classes}}</span>
-                <span class="zhengxiao">整校 {{item.new_school}}</span>
+                <span class="register">注册用户 {{item.new_register_user}}</span>
+                <span class="classes">班级数 {{item.new_classes}}</span>
+                <span class="zhengxiao">整校数 {{item.new_school}}</span>
               </div>
             </div>
             <div class="auto-height"></div>
@@ -117,9 +117,9 @@
                 <span class="num" ng-bind="item.invited_code"></span>
               </div>
               <div class="bottom">
-                <span class="register">注册 {{item.new_register_user}}</span>
-                <span class="classes">班级 {{item.new_classes}}</span>
-                <span class="zhengxiao">整校 {{item.new_school}}</span>
+                <span class="register">注册用户 {{item.new_register_user}}</span>
+                <span class="classes">班级数 {{item.new_classes}}</span>
+                <span class="zhengxiao">整校数 {{item.new_school}}</span>
               </div>
             </div>
             <div class="auto-height"></div>
@@ -153,9 +153,9 @@
                 <span class="num" ng-bind="item.invited_code"></span>
               </div>
               <div class="bottom">
-                <span class="register">注册 {{item.new_register_user}}</span>
-                <span class="classes">班级 {{item.new_classes}}</span>
-                <span class="zhengxiao">整校 {{item.new_school}}</span>
+                <span class="register">注册用户 {{item.new_register_user}}</span>
+                <span class="classes">班级数 {{item.new_classes}}</span>
+                <span class="zhengxiao">整校数 {{item.new_school}}</span>
               </div>
             </div>
             <div class="auto-height"></div>
