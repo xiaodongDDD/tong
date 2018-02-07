@@ -91,14 +91,14 @@
       */
       //网络连接
       document.addEventListener('online', function () {
-        hmsPopup.showPopup('网络连接成功!');
+        // hmsPopup.showPopup('网络连接成功!');
         // if (navigator.connection.type == Connection.WIFI) {
         //   hmsPopup.showPopup('已经切换到Wifi网络');
         // }
       }, false);
       //网络断开
       document.addEventListener('offline', function () {
-        hmsPopup.showPopup('网络已经断开!');
+        // hmsPopup.showPopup('网络已经断开!');
       }, false);
 
 
@@ -238,7 +238,7 @@
     console.log('window.localStorage.token ' + window.localStorage.token);
     if (window.localStorage.token && window.localStorage.token != "") {
       if(window.localStorage.identity && window.localStorage.identity == '1'){
-        $urlRouterProvider.otherwise('/agentInfo');
+        // $urlRouterProvider.otherwise('/agentInfo');
       }else{
         $urlRouterProvider.otherwise('/tab');
       }

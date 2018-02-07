@@ -264,11 +264,11 @@
             window.localStorage.empno = $scope.loginInfo.username;
             window.localStorage.checkboxSavePwd = $scope.rememberPassword;
             window.localStorage.identity = result.response.is_agent;
-            if(result.response.is_agent == 0){
+            // if(result.response.is_agent == 0){
               $state.go("tab");
-            }else{
-              $state.go("agentInfo");
-            }
+            // }else{
+            //   $state.go("agentInfo");
+            // }
           } else {
             $scope.config.accountPointFlag = false;
             $scope.data.accountPointText = result.response.msg;

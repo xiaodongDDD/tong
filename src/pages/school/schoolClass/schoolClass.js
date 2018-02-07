@@ -19,6 +19,26 @@ angular.module('schoolModule')
       $scope.selectModules = function(item){
         (item == 'class') ? $scope.config.headStyleActive = true : $scope.config.headStyleActive = false;
       }
-
-
+      function init(item){
+        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.classInfo";
+        var data = {
+          class_id: SettingsService.get('schoolClass').class_id,
+          class_type: item
+        }
+        hmsHttp.post(indexUrl, data).success(
+          function (response) {
+            if(item == 0){
+              $scope.data.teacherList = response.response;
+            }else{
+              $scope.data.otherList = response.response;
+            }
+            $ionicScrollDelegate.$getByHandle('mainScroll').resize();
+          }
+        ).error(
+          function (response, status, header, config) {
+          }
+        );
+      }
+      init(0);
+      init(1);
     }]);

@@ -49,8 +49,10 @@ angular.module('myInfoModule')
           function (response) {
             $scope.config = angular.copy($scope.configSp);
             $scope.newViewData = response.response;
+            for (var i = 0; i < $scope.newViewData.user_address.length; i++) {
+              $scope.newViewData.user_address[i].show = false;
+            }
             sliceThreeData(response.response);
-            SettingsService.set('useData', $scope.newViewData);
             SettingsService.set('timeSelect', '');
           }
         ).error(
@@ -76,6 +78,17 @@ angular.module('myInfoModule')
         ;
         $ionicScrollDelegate.$getByHandle('mainScroll').resize();
       }
+
+      $scope.toggleGroup = function (group) {
+        console.log(group);
+        group.show = !group.show;
+        $ionicScrollDelegate.$getByHandle('mainScroll').resize();
+
+      };
+      $scope.isGroupShown = function (group) {
+        return group.show;
+      };
+
       // 截取3条数据
       var sliceThreeData = function (data) {
         for (var i = 0; i < $scope.data.names.length; i++) {

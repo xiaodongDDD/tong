@@ -34,7 +34,7 @@
         <div class="listDesc" ng-if="config.headStyleActive">共{{data.classListData.count}}位</div>
         <div class="listDesc" ng-if="!config.headStyleActive">共{{data.userListData.count}}位</div>
         <div class="list" ng-if="config.headStyleActive">
-          <a class="item item-avatar itemStyle" ng-repeat="i in data.classListData.member_list" ng-click="goSchoolDetail()">
+          <div class="item item-avatar itemStyle" style="background: #ffffff" ng-repeat="i in data.classListData.member_list" ng-click="goSchoolDetail()">
             <img ng-src="{{i.avatar}}" class="imgStyle">
             <div class="row rowStyleDetail">
               <div class="col-50 schoolName">{{i.display_name}}</div>
@@ -45,11 +45,11 @@
               <div class="col-50 fontColor text-right" >{{i.role}}
               </div>
             </div>
-          </a>
+          </div>
         </div>
 
         <div class="list" ng-if="!config.headStyleActive" style="height: 100%;overflow: scroll">
-          <a class="item item-avatar itemStyle" ng-repeat="i in data.userListData.member_list" ng-click="goSchoolDetail()">
+          <div class="item item-avatar itemStyle"  style="background: #ffffff" ng-repeat="i in data.userListData.member_list" ng-click="goSchoolDetail()">
             <img ng-src="{{i.avatar}}" class="imgStyle">
             <div class="row rowStyleDetail">
               <div class="col-50 schoolName">{{i.display_name}}</div>
@@ -61,7 +61,7 @@
                    ng-class="{'fontColor': i.font,'personName' : !i.font}">{{i.speak_stype}}
               </div>
             </div>
-          </a>
+          </div>
         </div>
 
       </div>

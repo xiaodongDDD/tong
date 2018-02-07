@@ -152,6 +152,7 @@ angular.module('myClassModule')
         $scope.data.type = x.id;
         SettingsService.set('timeType', x);
         x.selected = !x.selected;
+        $scope.popover.hide();
         if ($scope.configList.showPageList) {
           $scope.data.schoolList = [];
           initPageDataList();
@@ -159,7 +160,6 @@ angular.module('myClassModule')
         } else {
           initPageData();
         }
-        $scope.popover.hide();
       }
 
 
@@ -170,6 +170,10 @@ angular.module('myClassModule')
       $scope.changePage = function () {
         $scope.configList.nextId = '';
         $scope.configList.showPageList = !$scope.configList.showPageList;
+        $scope.configList.showSelectList = false;
+        for(var i=0;i<$scope.data.selectList.length;i++){
+          $scope.data.selectList[i].select = false;
+        }
         if ($scope.configList.showPageList == true) {
           $scope.data.schoolList = [];
           initPageDataList();

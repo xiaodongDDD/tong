@@ -67,14 +67,16 @@
     height: 44px;
     line-height: 44px;
     padding: 0;
-    font-family: PingFangSC-Regular;
-    font-size: 15px;
-    color: #000000;
     letter-spacing: -0.36px;
     position: absolute;
     border-top: 1px solid #E2DFDF;
     .iconStyle {
       color: #C6C6C6;
+    }
+    .colStyle{
+      font-family: PingFangSC-Regular;
+      font-size: 15px;
+      color: #000000;
     }
   }
   .listSelectDetail {
@@ -125,11 +127,50 @@
   .spinnerClass{
     position: relative;
     top: -40px;
+    height: 66px;
+    line-height: 66px;
+    color: #ccc;
   }
   .spinnerClassSp{
     position: relative;
     top: -40px;
-    height: 44px;
-    line-height: 44px;
+    height: 66px;
+    line-height: 66px;
+    color: #ccc;
+  }
+  /*modal*/
+  .modalClass {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1001;
+    background: rgba(0, 0, 0, 0.5);
+    //visibility: hidden;
+    display: none;
+  }
+  .md-show-class {
+    //visibility: visible;
+    display: block;
+  }
+  .modalClass .scroll {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: scroll;
+  }
+  .fontBlack{
+    color: black !important;
+  }
+  .fontRed{
+    color: red !important;
+
+  }
+  .fontGreen{
+    color: green !important;
+
   }
 }

@@ -1,4 +1,4 @@
-<ion-view view-title="我的" class="myInfo indexPage" cache-view='true'>
+<ion-view view-title="我的" class="myInfo indexPage agentInfo" cache-view='true'>
   <ion-header-bar class="head-bg">
     <div class="title titleStyle">
       注册用户情况统计
@@ -44,15 +44,35 @@
           <div class="auto-height"></div>
         </div>
         <div class="bottom">
-          <table>
-            <tbody>
-            <tr ng-repeat="item in  newViewDataSp.user_address">
-              <td width="34%" class="first" ng-bind="item.city">未知</td>
-              <td width="33%" class="middle">{{item.percent}}</td>
-              <td width="33%" class="last">{{item.count}}</td>
-            </tr>
-            </tbody>
-          </table>
+          <div ng-repeat="group in  newViewDataSp.user_address">
+            <div class="lineClass"></div>
+            <div class="row  row-no-padding " ng-class="{'groupList': group.show,'groupListSp': !group.show}" ng-click="toggleGroup(group)">
+              <div class="col-3"></div>
+              <div class="col-30 text-left">{{group.province}}</div>
+              <div class="col-30 text-center">{{group.percent}}</div>
+              <div class="col-25 text-right">{{group.count}}</div>
+              <div class="col-11 text-right">
+                <i class="iBack ion-android-arrow-dropdown" ng-if="!isGroupShown(group) && group.city_list.length>0"></i>
+                <i class="iBackActive ion-android-arrow-dropup"
+                   ng-if="isGroupShown(group) && group.city_list.length>0"></i>
+              </div>
+              <div class="col-3"></div>
+            </div>
+            <div
+              style="box-shadow: inset 0 1px 6px 0 rgba(228, 228, 228, 0.50);background: #F6F6F6;">
+              <div class="groupListItem row row-no-padding item-accordion"
+                   ng-repeat="item in group.city_list"
+                   ng-show="isGroupShown(group)">
+                <div class="col-15"></div>
+                <div class="col-40 text-left" style="border-bottom: 1px solid #EFEFEF;">&nbsp;&nbsp;&nbsp;{{item.city}}
+                </div>
+                <div class="col-35 text-right" style="border-bottom: 1px solid #EFEFEF;">{{item.count}}</div>
+                <div class="col-10"></div>
+              </div>
+            </div>
+          </div>
+
+
           <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_address.length>3"
              ng-click="showPartOrAll('user_address')">
             {{config.status.user_address?'收起':'查看全部'}}

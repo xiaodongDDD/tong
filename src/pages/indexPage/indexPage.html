@@ -115,6 +115,7 @@
               <div class="top">
                 <span class="name" ng-bind="item.user_name"></span>
                 <span class="num" ng-bind="item.invited_code"></span>
+                <span class="count">({{item.count}})</span>
               </div>
               <div class="bottom">
                 <span class="register">注册用户 {{item.new_register_user}}</span>
@@ -133,7 +134,7 @@
 
 
       <div class="common-rank"
-           ng-if="newViewData.user_ranking_company && newViewData.user_ranking_company.user_count != 0">
+           ng-if="newViewData.user_ranking_company && newViewData.user_ranking_company.length != 0">
         <div class="rank-title">
           <div class="left company">个人排行榜-公司</div>
           <div class="people-num" style="display:none;">{{newViewData.personal_ranking_team.user_count ||

@@ -15,16 +15,16 @@
     <div class="backimg"></div>
     <div class="contentText">
       <button class="button button-icon icon ion-ios-arrow-left imgButton" ng-click="goBack()"></button>
-      <div class="row schoolNameHead">上海长风小学</div>
+      <div class="row schoolNameHead">{{data.schoolInfo.school_name}}</div>
       <div class="row schoolAdress">
-        金沙江路长风二村100号
+        {{data.classList.school_info.address}}
       </div>
-      <div class="row schoolNum">实际人数 100&nbsp;&nbsp;&nbsp;架构 100&nbsp;&nbsp;&nbsp;扫码 10</div>
+      <div class="row schoolNum">实际人数 {{data.classList.school_info.teacher_num}}&nbsp;&nbsp;&nbsp;架构 {{data.classList.school_info.arc_teacher}}&nbsp;&nbsp;&nbsp;扫码 {{data.classList.school_info.scan_teacher}}</div>
     </div>
   </div>
 
 
-  <ion-content elastic-image="the-image-id,the-head-id,contentAll" id="contentAll">
+  <ion-content elastic-image="the-image-id,the-head-id,contentAll" id="contentAll" delegate-handle="mainScroll">
     <div class="the-content">
       <div class="row rowStyleTop">
         <div class="col-50" ng-class="{'headStyle': config.headStyleActive}" ng-click="selectModules('class')">班级</div>
@@ -33,18 +33,18 @@
         </div>
       </div>
       <div class="padding content-style" ng-show="config.headStyleActive" style="min-height: 800px">
-        <div ng-repeat="i in [1]">
-          <div class="listDesc">一年级</div>
+        <div ng-repeat="itemDetail in data.classList.class_list">
+          <div class="listDesc">{{itemDetail.grade_name}}</div>
           <div class="list">
-            <a class="item item-avatar itemStyle" ng-repeat="i in [3]" ng-click="goSchoolClass()">
-              <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle">
+            <a class="item item-avatar itemStyle" ng-repeat="item in itemDetail.class_list" ng-click="goSchoolClass(item)">
+              <img ng-src="{{item.avatar}}" class="imgStyle">
               <div class="row rowStyleDetail">
-                <div class="col-50 schoolName">一班</div>
-                <div class="col-50 schoolTime">2017/01/01</div>
+                <div class="col-50 schoolName">{{item.class_name}}</div>
+                <div class="col-50 schoolTime">{{}}</div>
               </div>
               <div class="row rowStyleDetail">
-                <div class="col-50 personName">创建者&nbsp;王老师</div>
-                <div class="col-50 personName">班级号&nbsp;3030303</div>
+                <div class="col-50 personName">创建者&nbsp;{{item.teacher_name}}</div>
+                <div class="col-50 personName">班级号&nbsp;{{item.class_id}}</div>
               </div>
             </a>
           </div>
@@ -54,16 +54,16 @@
       <div ng-show="!config.headStyleActive" style="min-height: 800px">
         <div class="global-container content-style">
           <div class="headClassNum">
-            共xx位，xx位未加入
+            共{{data.arcList.arc_teacher}}位，{{data.arcList.arc_teacher - data.arcList.scan_teacher}}位未加入
           </div>
           <div class="listColor">
-            <div ng-repeat="i in [1,2]" ng-click="goSchoolList()">
+            <div ng-repeat="item in data.arcList.arc_list" ng-click="goSchoolList(item)">
               <div class="row itemClass" >
                 <div class="col-50 imageClass">
-                  办公室&nbsp;&nbsp;<span class="completionDegree">(1/2)</span>
+                  {{item.s_a_name}}&nbsp;&nbsp;<span class="completionDegree">({{item.scan_teacher}}/{{item.arc_teacher}})</span>
                 </div>
                 <div class="col-50 numClass">
-                  2233
+
                   <span>
               <i class="ion-ios-arrow-right rightGo"></i>
             </span>

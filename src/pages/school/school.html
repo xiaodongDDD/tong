@@ -1,9 +1,9 @@
 <ion-view view-title="学校情况统计" class="myInfo indexPage school" cache-view='true'>
-  <ion-header-bar align-title="center" class="head-bg">
+  <ion-header-bar align-title="center" class="head-bg" style="z-index: 1002;">
     <div class="title titleStyle">
-      学校情况统计
+      {{data.pageName}}
     </div>
-    <!--<img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="changePage()"/>-->
+    <img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="changePage()"/>
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll" ng-show="!configList.showPageList">
@@ -87,6 +87,34 @@
         </div>
       </div>
       <!--school-scale-statistics-->
+
+
+      <div class="common-regional-district school-scale-statistics" ng-show="newViewData.reached_school.length>0">
+        <div class="top">
+          <img src="build/assets/img/school/icon_school_scale_statistics.png"/>
+          <div class="info">
+            <div class="title">整校人数达标率统计</div>
+            <div class="point">家长与学生数与实际在读学生数所占比的学校数量分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewDataSp.reached_school">
+              <td width="60%" class="first" ng-bind="item.range" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='red'}"></td>
+              <td width="20%" class="middle" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='red'}">{{item.percent}}</td>
+              <td width="20%" class="last" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='red'}">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.reached_school.length>3"
+             ng-click="showPartOrAll('reached_school')">
+            {{config.status.reached_school?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+
 
       <!--framing-proportion-statistics-->
       <div class="common-regional-district framing-proportion-statistics" ng-show="newViewData.arc_percent.length>0">
@@ -262,11 +290,13 @@
     </div>
     <!--global-container-->
   </ion-content>
-  <div class="bar bar-subheader" ng-show="configList.showPageList">
+  <div class="bar bar-subheader" ng-show="configList.showPageList" style="z-index: 1002;">
     <div class="row rowStyle">
-      <div class="col-33" ng-repeat="item in data.selectList" ng-click="selectAny(item)">{{item.name}}&nbsp;&nbsp;
-        <i ng-show="!item.select" class="ion-ios-arrow-down iconStyle"></i>
-        <i ng-show="item.select" class="ion-ios-arrow-up iconStyle"></i>
+      <div class="col-33 colStyle" ng-repeat="item in data.selectList" ng-click="selectAny(item)">&nbsp;
+        <span ng-bind="item.name" ng-if="!item.select"></span>
+        <span ng-bind="item.name" ng-if="item.select" style="color:#0775F5"></span>
+        <i ng-if="!item.select" class="ion-ios-arrow-down iconStyle ng-cloak"></i>
+        <i ng-if="item.select" class="ion-ios-arrow-up iconStyle ng-cloak" style="color: #0775F5"></i>
       </div>
     </div>
     <div class="listSelectDetail" ng-if="item2.select" ng-repeat="item2 in data.selectList">
@@ -279,11 +309,16 @@
       </div>
     </div>
   </div>
+
+
+  <!--设置弹窗modal-->
+  <div class="modalClass" ng-class="{'md-show-class':configList.showSelectList}" ng-click="selectAny({})">
+  </div>
   <ion-content ng-show="configList.showPageList" class="content-style" style="margin-top: 44px;">
     <div class="padding" delegate-handle="scrollList">
       <div class="listDesc">共{{data.schoolList.length}}个</div>
       <div class="list">
-        <a class="item item-avatar itemStyle" ng-repeat="school in data.schoolList" ng-click="goSchoolDetail()">
+        <a class="item item-avatar itemStyle" ng-repeat="school in data.schoolList" ng-click="goSchoolDetail(school)">
           <img ng-src="{{school.school_img}}" class="imgStyle">
           <div class="row rowStyleDetail">
             <div class="col-50 schoolName" ng-bind="school.school_name"></div>
@@ -301,7 +336,7 @@
         </a>
 
       </div>
-      <ion-infinite-scroll ng-if="true" on-infinite="" distance="1%"  class="spinnerClass" ng-show="configList.nextPage"></ion-infinite-scroll>
+      <ion-infinite-scroll ng-if="true" on-infinite="" distance="1%" on-infinite="loadMore()" ng-show="configList.nextPage"></ion-infinite-scroll>
       <div class="text-center spinnerClass" ng-show="configList.nextPage">正在加载..</div>
       <div class="text-center spinnerClassSp" ng-show="!configList.nextPage && data.schoolList.length>0">暂无更多数据</div>
 

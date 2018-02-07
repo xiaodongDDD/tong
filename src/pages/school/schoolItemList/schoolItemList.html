@@ -2,21 +2,21 @@
   <ion-header-bar align-title="center" class="head-bg header">
     <button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>
     <div class="title titleStyle">
-      组名
+      {{data.arc.s_a_name}}
     </div>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
     <div class="padding ">
       <div class="list">
-        <a class="item item-avatar itemStyle" ng-repeat="i in [3,1,5]" ng-click="goSchoolClass()">
+        <a class="item item-avatar itemStyle" ng-repeat="item in data.arcList" style="background: #ffffff">
           <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle" style="border-radius: 50%">
           <div class="row rowStyleDetail">
-            <div class="col-50 schoolName">一班</div>
-            <div class="col-50 schoolTime">2017/01/01</div>
+            <div class="col-50 schoolName">{{item.teacher_name}}</div>
+            <div class="col-50 schoolTime">{{}}</div>
           </div>
           <div class="row rowStyleDetail">
-            <div class="col-50 personName">语文 数学</div>
-            <div class="col-50 " style="text-align: right" ng-class="{'fontColor':config.font,'personName' :!config.font}">王老师</div>
+            <div class="col-50 personName">{{}}</div>
+            <div class="col-50 " style="text-align: right" ng-class="{'fontColor':config.font,'personName' :!config.font}">{{}}</div>
           </div>
         </a>
       </div>

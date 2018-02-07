@@ -30,22 +30,40 @@
           成员
         </div>
       </div>
-      <div class="padding content-style" style="min-height: 800px">
-        <div ng-repeat="i in [1,23]">
-          <div class="listDesc">共3位</div>
-          <div class="list">
-            <a class="item item-avatar itemStyle" ng-repeat="i in [1,2,7]" ng-click="goSchoolDetail()">
-              <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle">
-              <div class="row rowStyleDetail">
-                <div class="col-50 schoolName">一班</div>
-                <div class="col-50 schoolTime">2017/01/01</div>
+      <div class="padding content-style" style="min-height: 800px" ng-if="config.headStyleActive">
+        <div class="listDesc">共3位</div>
+        <div class="list">
+          <a class="item item-avatar itemStyle" ng-repeat="i in [1,2,7]" ng-click="goSchoolDetail()">
+            <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle">
+            <div class="row rowStyleDetail">
+              <div class="col-50 schoolName">一班</div>
+              <div class="col-50 schoolTime">2017/01/01</div>
+            </div>
+            <div class="row rowStyleDetail">
+              <div class="col-50 personName">数学</div>
+              <div class="col-50" style="text-align: right"
+                   ng-class="{'fontColor':config.font,'personName' :!config.font}">王老师
               </div>
-              <div class="row rowStyleDetail">
-                <div class="col-50 personName">数学</div>
-                <div class="col-50" style="text-align: right" ng-class="{'fontColor':config.font,'personName' :!config.font}">王老师</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="padding content-style" style="min-height: 800px" ng-if="!config.headStyleActive">
+        <div class="listDesc">共3位</div>
+        <div class="list">
+          <a class="item item-avatar itemStyle" ng-repeat="i in [1,2,7]" ng-click="goSchoolDetail()">
+            <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle">
+            <div class="row rowStyleDetail">
+              <div class="col-50 schoolName">一班</div>
+              <div class="col-50 schoolTime">2017/01/01</div>
+            </div>
+            <div class="row rowStyleDetail">
+              <div class="col-50 personName">数学</div>
+              <div class="col-50" style="text-align: right"
+                   ng-class="{'fontColor':config.font,'personName' :!config.font}">王老师
               </div>
-            </a>
-          </div>
+            </div>
+          </a>
         </div>
       </div>
     </div>

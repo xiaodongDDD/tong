@@ -5,25 +5,26 @@ angular.module('schoolModule')
   .controller('schoolCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', 'SettingsService', 'hmsPopup', '$ionicScrollDelegate',
     function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, SettingsService, hmsPopup, $ionicScrollDelegate) {
       $scope.data = {
+        pageName :'整校用户',
         type: SettingsService.get('timeType').id || 'day',
-        names: ['distinct_list', 'arc_percent', 'join_school', 'message_use', 'school_property', 'school_ranges', 'study_section', 'trainer_lists'],
+        names: ['distinct_list', 'arc_percent', 'join_school', 'message_use', 'school_property', 'school_ranges', 'study_section', 'trainer_lists','reached_school'],
         schoolList: [],
         selectList: [
           {
             name: "全部地区",
             select: false,
-            id: 1,
+            id: 0,
             list: []
           },
           {
-            name: "担当人员",
+            name: "达标情况",
             select: false,
-            id: 2,
+            id: 1,
             list: []
           }, {
-            name: "学段",
+            name: "负责人",
             select: false,
-            id: 3,
+            id: 2,
             list: []
           }]
       }
@@ -36,15 +37,16 @@ angular.module('schoolModule')
           message_use: false,
           school_property: false,
           school_ranges: false,
-          study_section: false,
-          trainer_lists: false
+          study_section: 0,
+          trainer_lists: false,
+          reached_school: false
         },
       }
       $scope.configList = {
         showPageList: false,
         nextPage: false,
         nextId: '-1',
-
+        showSelectList : false
       }
       $scope.configSp = angular.copy($scope.config);
       $scope.newViewData = {};
@@ -147,79 +149,120 @@ angular.module('schoolModule')
         x.selected = !x.selected;
         $scope.data.type = x.id;
         SettingsService.set('timeType', x);
-        initPageData();
         $scope.popover.hide();
+        if ($scope.configList.showPageList) {
+          $scope.data.schoolList = [];
+          initPageDataList();
+          $scope.selectList();
+        } else {
+          initPageData();
+        }
       }
 
       //初始化
       initPageData();
 
       $scope.changePage = function () {
+        $scope.configList.nextId = '';
         $scope.configList.showPageList = !$scope.configList.showPageList;
+        $scope.configList.showSelectList = false;
+        for(var i=0;i<$scope.data.selectList.length;i++){
+          $scope.data.selectList[i].select = false;
+        }
         if ($scope.configList.showPageList == true) {
+          $scope.data.schoolList = [];
           initPageDataList();
+          $scope.selectList();
+          $scope.data.pageName = '学校列表';
+        } else {
+          $scope.data.pageName = '整校用户';
         }
       }
 
 
-      $scope.goSchoolDetail = function () {
-        console.log('---');
+      $scope.goSchoolDetail = function (school) {
+        SettingsService.set('schoolInfo',school);
         $state.go('schoolDetail');
       }
       //筛选条件
       $scope.selectAny = function (item) {
+        var num = 0;
         for (var i = 0; i < $scope.data.selectList.length; i++) {
-          $scope.data.selectList[i].select = false;
           if (item.id == $scope.data.selectList[i].id) {
-            $scope.data.selectList[i].select = true;
+            $scope.data.selectList[i].select = !$scope.data.selectList[i].select;
+            $scope.configList.showSelectList = true;
+          } else {
+            $scope.data.selectList[i].select = false;
           }
+          if($scope.data.selectList[i].select == true){
+            num++;
+          }
+        }
+        if(num == 1){
+          $scope.configList.showSelectList = true;
+        }else{
+          $scope.configList.showSelectList = false;
         }
       }
       //选择成功
       $scope.selectConfirm = function (item1, item2) {
-        console.log(item1);
-        console.log(item2);
+        switch (item2.id) {
+          case 0:
+            $scope.data.selectList[0].name = item1;
+            $scope.data.selectList[0].province = item1;
+            break;
+          case 1:
+            $scope.data.selectList[1].name = item1.user_name;
+            $scope.data.selectList[1].invited_code = item1.invited_code;
+            break;
+          default:
+            $scope.data.selectList[2].name = item1.section_name;
+            $scope.data.selectList[2].study_section = item1.study_section;
+        }
         for (var i = 0; i < $scope.data.selectList.length; i++) {
           $scope.data.selectList[i].select = false;
         }
+        $scope.configList.showSelectList = false;
+        $scope.configList.nextId = '';
+        $scope.data.schoolList = [];
+        initPageDataList();
       }
 
+      $scope.isLock = false;
 
       //列表接口
       function initPageDataList(item) {
+        if ($scope.isLock) return;
+        $scope.isLock = true;
         if (item == '1') {
         } else {
           hmsPopup.showLoadingWithoutBackdrop('正在加载...');
         }
-
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.schoolLists";
         var data = {
-          type: 'mouth',
-          province: '上海',
-          invited: '888888',
-          study_section: '1'
+          type: $scope.data.type,
+          province: $scope.data.selectList[0].province,
+          invited_code: $scope.data.selectList[2].invited_code,
+          study_section: $scope.data.selectList[1].study_section
         }
-        if ($scope.configList.nextId != '-1') {
-          data.next_id == scope.configList.nextId;
+        if ($scope.configList.nextId > 0 && item == '1') {
+          data.next_id = $scope.configList.nextId;
         }
         hmsHttp.post(indexUrl, data).success(
           function (response) {
+            if (item != '1') {
+              $scope.data.totle = response.response.totle;
+            }
             $scope.data.schoolList = response.response.school_list;
-            (response.response.next_id == '-1') ? $scope.configList.nextPage = false : $scope.configList.nextPage = true;
+            if(response.response.next_id < 0){
+              $scope.configList.nextPage = false
+            }else{
+              $scope.configList.nextPage = true;
+            }
+            $scope.isLock = false;
             $scope.configList.nextId = response.response.next_id;
-            var selectUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.schoolContidion&type=" + $scope.data.type;
-            hmsHttp.get(selectUrl).success(
-              function (response) {
-                console.log(response);
-                $scope.data.selectListData = response.response;
-                $scope.data.selectList[0].list = response.response.school_address;
-                $scope.data.selectList[1].list = response.response.trainer_list;
-                $scope.data.selectList[2].list = response.response.section_list;
-              }
-            ).error(
-              function (response, status, header, config) {
-              }
-            );
+            $ionicScrollDelegate.$getByHandle('mainScrollList').resize();
+            $scope.$broadcast('scroll.infiniteScrollComplete');
           }
         ).error(
           function (response, status, header, config) {
@@ -227,5 +270,25 @@ angular.module('schoolModule')
         );
       }
 
+
+      //筛选
+      $scope.selectList = function () {
+        var selectUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.schoolContidion&type=" + $scope.data.type;
+        hmsHttp.get(selectUrl).success(
+          function (response) {
+            console.log(response);
+            $scope.data.selectListData = response.response;
+            $scope.data.selectList[0].list = response.response.school_address;
+            $scope.data.selectList[1].list = response.response.trainer_list;
+            $scope.data.selectList[2].list = response.response.section_list;
+          }
+        ).error(
+          function (response, status, header, config) {
+          }
+        );
+      }
+      $scope.loadMore = function () {
+        initPageDataList('1');
+      }
 
     }]);

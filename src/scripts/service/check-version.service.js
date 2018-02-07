@@ -11,11 +11,11 @@
   checkVersionService.$inject = [
     'hmsPopup',
     'baseConfig',
-    '$http', '$timeout', '$ionicLoading','$cordovaFileTransfer','$cordovaFileOpener2'];
+    '$http', '$timeout', '$ionicLoading', '$cordovaFileTransfer', '$cordovaFileOpener2'];
 
   function checkVersionService(hmsPopup,
                                baseConfig,
-                               $http, $timeout, $ionicLoading,$cordovaFileTransfer,$cordovaFileOpener2) {
+                               $http, $timeout, $ionicLoading, $cordovaFileTransfer, $cordovaFileOpener2) {
     var url = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.updateVersion",
       checkVersionParams = {
         'platform': ionic.Platform.isAndroid() ? 'Android' : 'iPhone',
@@ -25,7 +25,9 @@
       bigVersion: '',
       bigUpdateUrl: '',
       updateContent: '',
-      subForceUpdate: ''
+      subForceUpdate: '',
+      hotUpdate: '',
+      hotUrl: ''
     };
     var dealVersionUtil = function (localVersion, serveVersion) {
       if (parseInt(localVersion[0]) < parseInt(serveVersion[0])) {
@@ -56,6 +58,8 @@
             serveVersionParams.bigVersion = response.response.version;
             serveVersionParams.bigUpdateUrl = response.response.update_version_url;
             serveVersionParams.subForceUpdate = response.response.must_update;
+            serveVersionParams.hotUpdate = response.response.hot_update;
+            serveVersionParams.hotUrl = response.response.hot_version_url;
           } catch (e) {
           }
           try {
@@ -66,42 +70,52 @@
 
           var serveVersion = response.response.version.split('.');
           var localVersion = baseConfig.version.currentVersion.split('.');
-          if(dealVersionUtil(localVersion, serveVersion)){
-
-            if (serveVersionParams.subForceUpdate == 1) {
-              var selectAction_min_v2 = function(buttonIndex) { // update from pgy
+          if (dealVersionUtil(localVersion, serveVersion)) {
+            if (serveVersionParams.hotUpdate == 1) {
+              var selectAction_min_v2 = function (buttonIndex) { // update from pgy
                 //alert('selectAction_min_v2.buttonIndex ' + buttonIndex);
                 if (buttonIndex == 0) { //确认按钮
-                  // hotpatch.updateNewVersion(serveVersionParams.bigUpdateUrl);
-                  if (ionic.Platform.isAndroid()) {
-                    UpdateForAndroid(serveVersionParams.bigUpdateUrl)
-                  } else {
-                    window.open(baseConfig.iosUpdatePath);
-                  }
+                  hotpatch.updateNewVersion(serveVersionParams.hotUrl);
                 }
               }
               hmsPopup.confirmOnly(serveVersionParams.updateContent, "版本更新", selectAction_min_v2);
-            } else if (serveVersionParams.subForceUpdate == 0) {
-              var selectAction_min = function(buttonIndex) { // update from pgy
-                if (buttonIndex == 1) { //确认按钮
-                  // hotpatch.updateNewVersion(serveVersionParams.bigUpdateUrl);
-
-                  if (ionic.Platform.isAndroid()) {
-                    UpdateForAndroid(serveVersionParams.bigUpdateUrl)
-
-                  } else {
-                    window.open(baseConfig.iosUpdatePath);
-                  }
-                } else { //取消按钮
-                  return;
-                }
-              }
-
-              hmsPopup.confirm(serveVersionParams.updateContent, "版本更新", selectAction_min);
             } else {
+              if (serveVersionParams.subForceUpdate == 1) {
+                var selectAction_min_v2 = function (buttonIndex) { // update from pgy
+                  //alert('selectAction_min_v2.buttonIndex ' + buttonIndex);
+                  if (buttonIndex == 0) { //确认按钮
+                    // hotpatch.updateNewVersion(serveVersionParams.bigUpdateUrl);
+                    if (ionic.Platform.isAndroid()) {
+                      UpdateForAndroid(serveVersionParams.hotUrl)
+                    } else {
+                      window.open(baseConfig.iosUpdatePath);
+                    }
+                  }
+                }
+                hmsPopup.confirmOnly(serveVersionParams.updateContent, "版本更新", selectAction_min_v2);
+              } else if (serveVersionParams.subForceUpdate == 0) {
+                var selectAction_min = function (buttonIndex) { // update from pgy
+                  if (buttonIndex == 1) { //确认按钮
+                    // hotpatch.updateNewVersion(serveVersionParams.bigUpdateUrl);
 
+                    if (ionic.Platform.isAndroid()) {
+                      UpdateForAndroid(serveVersionParams.bigUpdateUrl)
+
+                    } else {
+                      window.open(baseConfig.iosUpdatePath);
+                    }
+                  } else { //取消按钮
+                    return;
+                  }
+                }
+
+                hmsPopup.confirm(serveVersionParams.updateContent, "版本更新", selectAction_min);
+              } else {
+
+              }
             }
-          }else{
+
+          } else {
 
           }
         });
@@ -131,7 +145,7 @@
         });
         $timeout(function () {
           $ionicLoading.hide();
-        },30000);
+        }, 30000);
 
       }, function (progress) {
         console.log(progress);
