@@ -4,19 +4,18 @@
     <span class="col-25 spanWidth">
       <button class="button button-icon icon ion-ios-arrow-left rowHeadButton" ng-click="goBack()"></button>
     </span>
-    <span class="col-50 rowHeadTitle">学校名称</span>
+    <span class="col-50 rowHeadTitle">{{data.schoolInfo.school_name}}</span>
     <span class="col-25">
-      <!--<img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>-->
     </span>
   </div>
   <div style="position: absolute;z-index: 90;height: 60px;width: 70px" ng-click="goBack()"></div>
   <div id="the-image-class-id" class="elastic-image ">
     <button class="button button-icon icon ion-ios-arrow-left imgButton" ng-click="goBack()"></button>
     <div class="contentText">
-      <div class="imgDiv"><img src="build/assets/img/school/icon_explain.png"></div>
-      <div class="schoolNameHead">初三三班</div>
+      <div class="imgDiv"><img ng-src="{{data.classInfo.avatar}}"></div>
+      <div class="schoolNameHead">{{data.classInfo.class_name}}</div>
       <div class="schoolAdress">
-        <span>&nbsp;整&nbsp;</span>&nbsp;&nbsp;<span>上海武宁路小学</span>
+        <span ng-if="true">&nbsp;整&nbsp;</span>&nbsp;&nbsp;<span>{{data.schoolInfo.school_name}}</span>
       </div>
     </div>
   </div>
@@ -31,36 +30,36 @@
         </div>
       </div>
       <div class="padding content-style" style="min-height: 800px" ng-if="config.headStyleActive">
-        <div class="listDesc">共3位</div>
+        <div class="listDesc">共{{data.teacherList.count}}位</div>
         <div class="list">
-          <a class="item item-avatar itemStyle" ng-repeat="i in [1,2,7]" ng-click="goSchoolDetail()">
-            <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle">
+          <a class="item item-avatar itemStyle" ng-repeat="item in data.teacherList.member_list" ng-click="goSchoolDetail()" style="background: white">
+            <img ng-src="{{item.photo}}" class="imgStyle">
             <div class="row rowStyleDetail">
-              <div class="col-50 schoolName">一班</div>
-              <div class="col-50 schoolTime">2017/01/01</div>
+              <div class="col-50 schoolName">{{item.teacher_name}}</div>
+              <div class="col-50 schoolTime">{{item.bind_time}}</div>
             </div>
             <div class="row rowStyleDetail">
-              <div class="col-50 personName">数学</div>
+              <div class="col-50 personName">{{item.subjectString}}</div>
               <div class="col-50" style="text-align: right"
-                   ng-class="{'fontColor':config.font,'personName' :!config.font}">王老师
+                   ng-class="{'fontColor':config.font,'personName' :!config.font}">{{item.teacher_type}}
               </div>
             </div>
           </a>
         </div>
       </div>
       <div class="padding content-style" style="min-height: 800px" ng-if="!config.headStyleActive">
-        <div class="listDesc">共3位</div>
+        <div class="listDesc">共{{data.otherList.count}}位</div>
         <div class="list">
-          <a class="item item-avatar itemStyle" ng-repeat="i in [1,2,7]" ng-click="goSchoolDetail()">
-            <img ng-src="build/assets/img/login/product_logo.png" class="imgStyle">
+          <a class="item item-avatar itemStyle" ng-repeat="item in data.otherList.member_list" ng-click="goSchoolDetail()" style="background: white">
+            <img ng-src="{{item.avatar}}" class="imgStyle">
             <div class="row rowStyleDetail">
-              <div class="col-50 schoolName">一班</div>
-              <div class="col-50 schoolTime">2017/01/01</div>
+              <div class="col-50 schoolName">{{item.child_name}}</div>
+              <div class="col-50 schoolTime">{{item.join_time}}</div>
             </div>
             <div class="row rowStyleDetail">
-              <div class="col-50 personName">数学</div>
+              <div class="col-50 personName">{{item.role}}-{{item.relation}}</div>
               <div class="col-50" style="text-align: right"
-                   ng-class="{'fontColor':config.font,'personName' :!config.font}">王老师
+                   ng-class="{'fontColor':config.font,'personName' :!config.font}">{{item.speak_stype}}
               </div>
             </div>
           </a>

@@ -304,8 +304,8 @@
         <div class="lineClass" ></div>
         <img ng-src="build/assets/img/indexPage/icon_choose.png" ng-show="">
         <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[0].select">{{i}}</span>
-        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[1].select">{{i.user_name}}</span>
-        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[2].select">{{i.section_name}}</span>
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[1].select">{{i.reached_name || i.section_name}}</span>
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[2].select">{{i.user_name}}</span>
       </div>
     </div>
   </div>

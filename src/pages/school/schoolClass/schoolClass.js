@@ -5,7 +5,9 @@ angular.module('schoolModule')
   .controller('schoolClassCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout','SettingsService','hmsPopup','$ionicScrollDelegate','publicMethod',
     function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout,SettingsService,hmsPopup,$ionicScrollDelegate,publicMethod) {
       $scope.data = {
-      }
+        schoolInfo : SettingsService.get('schoolInfo'),
+        classInfo : SettingsService.get('schoolClass')
+    }
       $scope.config = {
         headStyleActive : true,
         headShow : false,
@@ -15,7 +17,7 @@ angular.module('schoolModule')
       $scope.goBack = function () {
         publicMethod.goBack();
       }
-
+      console.log($scope.data );
       $scope.selectModules = function(item){
         (item == 'class') ? $scope.config.headStyleActive = true : $scope.config.headStyleActive = false;
       }
@@ -29,6 +31,9 @@ angular.module('schoolModule')
           function (response) {
             if(item == 0){
               $scope.data.teacherList = response.response;
+              for(var i=0;i<$scope.data.teacherList.member_list.length;i++){
+                $scope.data.teacherList.member_list[i].subjectString = $scope.data.teacherList.member_list[i].subject_name.join(',');
+              }
             }else{
               $scope.data.otherList = response.response;
             }

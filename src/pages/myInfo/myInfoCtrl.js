@@ -80,7 +80,6 @@ angular.module('myInfoModule')
       }
 
       $scope.toggleGroup = function (group) {
-        console.log(group);
         group.show = !group.show;
         $ionicScrollDelegate.$getByHandle('mainScroll').resize();
 

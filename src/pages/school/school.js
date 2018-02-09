@@ -212,12 +212,12 @@ angular.module('schoolModule')
             $scope.data.selectList[0].province = item1;
             break;
           case 1:
-            $scope.data.selectList[1].name = item1.user_name;
-            $scope.data.selectList[1].invited_code = item1.invited_code;
+            $scope.data.selectList[1].name = item1.reached_name || item1.section_name;
+            $scope.data.selectList[1].is_reached = item1.is_reached;
             break;
           default:
-            $scope.data.selectList[2].name = item1.section_name;
-            $scope.data.selectList[2].study_section = item1.study_section;
+            $scope.data.selectList[2].name = item1.user_name;
+            $scope.data.selectList[2].invited_code = item1.invited_code;
         }
         for (var i = 0; i < $scope.data.selectList.length; i++) {
           $scope.data.selectList[i].select = false;
@@ -243,7 +243,7 @@ angular.module('schoolModule')
           type: $scope.data.type,
           province: $scope.data.selectList[0].province,
           invited_code: $scope.data.selectList[2].invited_code,
-          study_section: $scope.data.selectList[1].study_section
+          is_reached: $scope.data.selectList[1].is_reached
         }
         if ($scope.configList.nextId > 0 && item == '1') {
           data.next_id = $scope.configList.nextId;
@@ -276,11 +276,10 @@ angular.module('schoolModule')
         var selectUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.schoolContidion&type=" + $scope.data.type;
         hmsHttp.get(selectUrl).success(
           function (response) {
-            console.log(response);
             $scope.data.selectListData = response.response;
             $scope.data.selectList[0].list = response.response.school_address;
-            $scope.data.selectList[1].list = response.response.trainer_list;
-            $scope.data.selectList[2].list = response.response.section_list;
+            $scope.data.selectList[1].list = response.response.school_reached;
+            $scope.data.selectList[2].list = response.response.trainer_list;
           }
         ).error(
           function (response, status, header, config) {
