@@ -70,7 +70,7 @@ angular.module('indexPageModule')
         }
         $ionicScrollDelegate.$getByHandle('mainScroll').resize();
       }
-      // 截取3条数据
+      // 截取10条数据
       var sliceThreeData = function (data) {
         for (var i = 0; i < $scope.data.names.length; i++) {
           $scope.newViewDataSp[$scope.data.names[i]] = {};

@@ -238,7 +238,7 @@
     console.log('window.localStorage.token ' + window.localStorage.token);
     if (window.localStorage.token && window.localStorage.token != "") {
       if(window.localStorage.identity && window.localStorage.identity == '1'){
-        // $urlRouterProvider.otherwise('/agentInfo');
+        $urlRouterProvider.otherwise('/tab');
       }else{
         $urlRouterProvider.otherwise('/tab');
       }

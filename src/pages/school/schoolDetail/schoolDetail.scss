@@ -39,10 +39,14 @@
       letter-spacing: -0.41px;
       display: inline-block;
       width: 50%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
     .spanWidth{
       width: 25%;
       display: inline-block;
+      float: left;
     }
   }
 
@@ -72,6 +76,12 @@
       height: 44px;
       line-height: 44px;
       margin-left: 40px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 85%;
+      display: block;
+
     }
   }
   .contentText{
@@ -129,5 +139,8 @@
     font-size: 13px;
     color: #A7A7A7;
     letter-spacing: -0.31px;
+  }
+  .content-style .list .itemStyle:last-child{
+    margin-bottom: 0;
   }
 }

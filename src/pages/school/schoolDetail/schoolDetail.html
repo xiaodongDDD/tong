@@ -5,7 +5,7 @@
     <span class="col-25 spanWidth">
       <button class="button button-icon icon ion-ios-arrow-left rowHeadButton" ng-click="goBack()"></button>
     </span>
-    <span class="col-50 rowHeadTitle">学校名称</span>
+    <span class="col-50 rowHeadTitle">{{data.schoolInfo.school_name}}</span>
     <span class="col-25">
       <!--<img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>-->
     </span>
@@ -19,7 +19,7 @@
       <div class="row schoolAdress">
         {{data.classList.school_info.address}}
       </div>
-      <div class="row schoolNum">实际人数 {{data.classList.school_info.teacher_num}}&nbsp;&nbsp;&nbsp;架构 {{data.classList.school_info.arc_teacher}}&nbsp;&nbsp;&nbsp;扫码 {{data.classList.school_info.scan_teacher}}</div>
+      <div class="row schoolNum">全校人数 {{data.classList.school_info.teacher_num}}&nbsp;&nbsp;&nbsp;架构 {{data.classList.school_info.arc_teacher}}&nbsp;&nbsp;&nbsp;扫码 {{data.classList.school_info.scan_teacher}}</div>
     </div>
   </div>
 
@@ -32,19 +32,19 @@
           架构人员
         </div>
       </div>
-      <div class="padding content-style" ng-show="config.headStyleActive" style="min-height: 800px">
-        <div ng-repeat="itemDetail in data.classList.class_list">
+      <div class="padding content-style" ng-show="config.headStyleActive" style="min-height: 800px;padding-top: 0;">
+        <div ng-repeat="itemDetail in data.classList.class_list" >
           <div class="listDesc">{{itemDetail.grade_name}}</div>
           <div class="list">
-            <a class="item item-avatar itemStyle" ng-repeat="item in itemDetail.class_list" ng-click="goSchoolClass(item)">
-              <img ng-src="{{item.avatar}}" class="imgStyle">
+            <a class="item item-avatar itemStyle"  ng-repeat="item in itemDetail.class_list" ng-click="goSchoolClass(item)">
+              <img ng-src="{{item.avatar}}" class="imgStyle" style="border-radius: 0">
               <div class="row rowStyleDetail">
                 <div class="col-50 schoolName">{{item.class_name}}</div>
-                <div class="col-50 schoolTime">{{}}</div>
+                <div class="col-50 schoolTime" ng-if="item.bind_time!=0">{{item.bind_time}}</div>
               </div>
               <div class="row rowStyleDetail">
                 <div class="col-50 personName">创建者&nbsp;{{item.teacher_name}}</div>
-                <div class="col-50 personName">班级号&nbsp;{{item.class_id}}</div>
+                <div class="col-50 personName" ng-if="item.code!=''">班级号&nbsp;{{item.code}}</div>
               </div>
             </a>
           </div>
@@ -54,15 +54,15 @@
       <div ng-show="!config.headStyleActive" style="min-height: 800px">
         <div class="global-container content-style">
           <div class="headClassNum">
-            共{{data.arcList.arc_teacher}}位，{{data.arcList.arc_teacher - data.arcList.scan_teacher}}位未加入
+            共 {{data.arcList.arc_teacher}} 位，{{data.arcList.arc_teacher - data.arcList.scan_teacher}} 位未扫码
           </div>
           <div class="listColor">
             <div ng-repeat="item in data.arcList.arc_list" ng-click="goSchoolList(item)">
               <div class="row itemClass" >
-                <div class="col-50 imageClass">
+                <div class="col-80 imageClass">
                   {{item.s_a_name}}&nbsp;&nbsp;<span class="completionDegree">({{item.scan_teacher}}/{{item.arc_teacher}})</span>
                 </div>
-                <div class="col-50 numClass">
+                <div class="col-20 numClass">
 
                   <span>
               <i class="ion-ios-arrow-right rightGo"></i>

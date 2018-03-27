@@ -206,6 +206,8 @@ angular.module('schoolModule')
       }
       //选择成功
       $scope.selectConfirm = function (item1, item2) {
+        console.log(item1);
+        console.log(item2);
         switch (item2.id) {
           case 0:
             $scope.data.selectList[0].name = item1;
@@ -217,11 +219,12 @@ angular.module('schoolModule')
             break;
           default:
             $scope.data.selectList[2].name = item1.user_name;
-            $scope.data.selectList[2].invited_code = item1.invited_code;
+            $scope.data.selectList[2].invited_code = item1.invite_code;
         }
         for (var i = 0; i < $scope.data.selectList.length; i++) {
           $scope.data.selectList[i].select = false;
         }
+        console.log($scope.data.selectList);
         $scope.configList.showSelectList = false;
         $scope.configList.nextId = '';
         $scope.data.schoolList = [];
@@ -245,6 +248,8 @@ angular.module('schoolModule')
           invited_code: $scope.data.selectList[2].invited_code,
           is_reached: $scope.data.selectList[1].is_reached
         }
+        console.log(data);
+        console.log($scope.data);
         if ($scope.configList.nextId > 0 && item == '1') {
           data.next_id = $scope.configList.nextId;
         }

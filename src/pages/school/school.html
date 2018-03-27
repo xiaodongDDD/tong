@@ -3,7 +3,8 @@
     <div class="title titleStyle">
       {{data.pageName}}
     </div>
-    <img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="changePage()"/>
+    <img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-if="!configList.showPageList" ng-click="changePage()"/>
+    <img class="left-image" src="build/assets/img/myInfo/btn_statistics@2x.png" ng-if="configList.showPageList" ng-click="changePage()"/>
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll" ng-show="!configList.showPageList">
@@ -94,7 +95,7 @@
           <img src="build/assets/img/school/icon_school_scale_statistics.png"/>
           <div class="info">
             <div class="title">整校人数达标率统计</div>
-            <div class="point">家长与学生数与实际在读学生数所占比的学校数量分布</div>
+            <div class="point">扫码加校人数与实际教职工和在读学生所占比的学校数量分布</div>
           </div>
           <div class="auto-height"></div>
         </div>
@@ -102,9 +103,9 @@
           <table>
             <tbody>
             <tr ng-repeat="item in newViewDataSp.reached_school">
-              <td width="60%" class="first" ng-bind="item.range" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='red'}"></td>
-              <td width="20%" class="middle" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='red'}">{{item.percent}}</td>
-              <td width="20%" class="last" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='red'}">{{item.count}}</td>
+              <td width="60%" class="first" ng-bind="item.range" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='green'}"></td>
+              <td width="20%" class="middle" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='green'}">{{item.percent}}</td>
+              <td width="20%" class="last" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='green'}">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -315,8 +316,8 @@
   <div class="modalClass" ng-class="{'md-show-class':configList.showSelectList}" ng-click="selectAny({})">
   </div>
   <ion-content ng-show="configList.showPageList" class="content-style" style="margin-top: 44px;">
-    <div class="padding" delegate-handle="scrollList">
-      <div class="listDesc">共{{data.schoolList.length}}个</div>
+    <div class="padding" delegate-handle="scrollList" style="padding-top: 0;">
+      <div class="listDesc">共 {{data.schoolList.length}} 个</div>
       <div class="list">
         <a class="item item-avatar itemStyle" ng-repeat="school in data.schoolList" ng-click="goSchoolDetail(school)">
           <img ng-src="{{school.school_img}}" class="imgStyle">
@@ -325,12 +326,12 @@
             <div class="col-50 schoolTime" ng-bind="school.create_time"></div>
           </div>
           <div class="row rowStyleDetail">
-            <div class="col-33 personName">实际人数&nbsp;{{school.teacher_num}}</div>
-            <div class="col-33 personName">架构人数&nbsp;{{school.arc_count}}</div>
-            <div class="col-33 personName">扫码&nbsp;{{school.scan_count}}</div>
+            <div class="col-40 personName">全校人数&nbsp;{{school.teacher_num}}</div>
+            <div class="col-30 personName">架构&nbsp;{{school.arc_count}}</div>
+            <div class="col-30 personName">扫码&nbsp;{{school.scan_count}}</div>
           </div>
           <div class="row rowStyleDetail">
-            <div class="col-50 principal" ng-bind="school.teacher_name"></div>
+            <div class="col-50 principal" ng-bind="school.teacher_name" style="font-family: PingFangSC-Regular"></div>
             <div class="col-50 saleName" ng-bind="school.user_name"></div>
           </div>
         </a>

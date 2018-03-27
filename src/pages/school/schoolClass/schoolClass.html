@@ -57,7 +57,7 @@
               <div class="col-50 schoolTime">{{item.join_time}}</div>
             </div>
             <div class="row rowStyleDetail">
-              <div class="col-50 personName">{{item.role}}-{{item.relation}}</div>
+              <div class="col-50 personName">{{item.role}}<span ng-if="item.relation!=''">-</span>{{item.relation}}</div>
               <div class="col-50" style="text-align: right"
                    ng-class="{'fontColor':config.font,'personName' :!config.font}">{{item.speak_stype}}
               </div>

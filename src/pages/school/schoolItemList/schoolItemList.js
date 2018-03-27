@@ -22,6 +22,10 @@ angular.module('schoolModule')
         hmsHttp.post(indexUrl, data).success(
           function (response) {
             $scope.data.arcList = response.response;
+            for(var i=0;i<$scope.data.arcList.length;i++){
+              $scope.data.arcList[i].subjectString = $scope.data.arcList[i].subject_list.join(',');
+            }
+            console.log();
             $ionicScrollDelegate.$getByHandle('mainScroll').resize();
           }
         ).error(
