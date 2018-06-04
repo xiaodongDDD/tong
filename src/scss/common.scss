@@ -31,6 +31,17 @@
 //    z-index: 5;
 //  }
 //}
+@font-face {
+  font-family: 'DIN-Regular';
+  src: url('../lib/font/DIN-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+//数字字体
+.numFontFamily{
+  font-family: DIN-Regular !important;
+}
+
 //带有返回按钮的头部
 html,body{
   height: 100%;

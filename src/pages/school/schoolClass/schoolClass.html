@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="padding content-style" style="min-height: 800px" ng-if="config.headStyleActive">
-        <div class="listDesc">共{{data.teacherList.count}}位</div>
+        <div class="listDesc">共<span class="numFontFamily"> {{data.teacherList.count}} </span>位</div>
         <div class="list">
           <a class="item item-avatar itemStyle" ng-repeat="item in data.teacherList.member_list" ng-click="goSchoolDetail()" style="background: white">
             <img ng-src="{{item.photo}}" class="imgStyle">
@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="padding content-style" style="min-height: 800px" ng-if="!config.headStyleActive">
-        <div class="listDesc">共{{data.otherList.count}}位</div>
+        <div class="listDesc">共<span class="numFontFamily"> {{data.otherList.count}} </span>位</div>
         <div class="list">
           <a class="item item-avatar itemStyle" ng-repeat="item in data.otherList.member_list" ng-click="goSchoolDetail()" style="background: white">
             <img ng-src="{{item.avatar}}" class="imgStyle">

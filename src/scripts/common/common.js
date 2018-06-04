@@ -360,3 +360,7 @@ function CheckPassWord(password) {//必须为字母加数字且长度不小于6�
   //   return false;
   // }
 }
+
+function numToString(num){
+  return num.toString().replace(/(\d{1,3})(?=(\d{3})+$)/g,'$1,');
+}

@@ -25,9 +25,9 @@
           <div class="registered-users">
             <div class="total">新增班级总数<img src="build/assets/img/myClass/icon_explain.png" class="explain"
                                           ng-click="bindClickExplain()"/></div>
-            <div class="yesterday-added">昨日新增：{{newViewData.class_data.yes_class}}</div>
+            <div class="yesterday-added">昨日新增：<span class="numFontFamily">{{newViewData.class_data.yes_class}}</span></div>
           </div>
-          <div class="numbers">{{newViewData.class_data.new_class}}</div>
+          <div class="numbers numFontFamily">{{newViewData.class_data.new_class}}</div>
           <div class="auto-height"></div>
         </div>
         <div class="explain-box-hide classes fadeIn" ng-show="config.explainFlag">「班级」数量统计未包含「虚拟班级」</div>
@@ -49,8 +49,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.class_address">
               <td width="34%" class="first" ng-bind="item.city">{{item.city}}</td>
-              <td width="33%" class="middle">{{item.percent}}</td>
-              <td width="33%" class="last">{{item.count}}</td>
+              <td width="33%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="33%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -77,8 +77,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.class_type">
               <td width="34%" class="first" ng-bind="item.teacher_type"></td>
-              <td width="33%" class="middle">{{item.percent}}</td>
-              <td width="33%" class="last">{{item.count}}</td>
+              <td width="33%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="33%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -105,8 +105,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.class_member">
               <td width="45%" class="first" ng-bind="item.range"></td>
-              <td width="25%" class="middle">{{item.percent}}</td>
-              <td width="30%" class="last">{{item.count}}</td>
+              <td width="25%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="30%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -133,8 +133,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.class_message">
               <td width="45%" class="first" ng-bind="item.class_message">0 发布</td>
-              <td width="25%" class="middle">{{item.percent}}</td>
-              <td width="30%" class="last">{{item.count}}</td>
+              <td width="25%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="30%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -161,8 +161,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.class_found">
               <td width="45%" class="first" ng-bind="item.keys">外部用户</td>
-              <td width="25%" class="middle">{{item.percent}}</td>
-              <td width="30%" class="last">{{item.count}}</td>
+              <td width="25%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="30%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -203,7 +203,7 @@
   </div>
   <ion-content ng-show="configList.showPageList" class="content-style" style="margin-top: 44px;" delegate-handle="mainScrollList">
     <div class="padding" style="padding-top: 0" delegate-handle="scrollList">
-      <div class="listDesc">共{{data.totle}}个</div>
+      <div class="listDesc">共 <span class="numFontFamily">{{data.totle}}</span> 个</div>
       <div class="list">
         <a class="item item-avatar itemStyle" ng-repeat="school in data.schoolList" ng-click="goSchoolDetail(school)">
           <img ng-src="{{school.avatar}}" class="imgStyle" style="border-radius: 0 !important;">
@@ -213,11 +213,11 @@
           </div>
           <div class="row rowStyleDetail">
             <div class="col-50 principal">创建者：{{school.user_name}}</div>
-            <div class="col-50 saleName">班级号：{{school.code}}</div>
+            <div class="col-50 saleName">班级号：<span class="numFontFamily">{{school.code}}</span></div>
           </div>
           <div class="row rowStyleDetail">
-            <div class="col-33 personName">任课教师&nbsp;{{school.class_teacher}}</div>
-            <div class="col-66 personName">普通成员&nbsp;{{school.class_member}} (可发言&nbsp;{{school.class_speak}})</div>
+            <div class="col-33 personName">任课教师&nbsp;<span class="numFontFamily">{{school.class_teacher}}</span></div>
+            <div class="col-66 personName">普通成员&nbsp;<span class="numFontFamily">{{school.class_member}}</span> (可发言&nbsp;<span>{{school.class_speak}}</span>)</div>
           </div>
           <div class="schoolXZheng"><img src="build/assets/img/myClass/zheng.png" ng-show="school.in_school"><span
             ng-show="school.in_school">&nbsp;&nbsp;</span>{{school.school_name}}

@@ -26,9 +26,9 @@
           <div class="registered-users">
             <div class="total">整校用户<img src="build/assets/img/school/icon_explain.png" class="explain"
                                         ng-click="bindClickExplain()"/></div>
-            <div class="yesterday-added">昨日新增：{{newViewData.school_yes_data.yes_data || 0}}</div>
+            <div class="yesterday-added">昨日新增：<span class="numFontFamily">{{newViewData.school_yes_data.yes_data || 0}}</span></div>
           </div>
-          <div class="numbers">{{newViewData.school_yes_data.school_count || 0}}</div>
+          <div class="numbers numFontFamily">{{newViewData.school_yes_data.school_count || 0}}</div>
           <div class="auto-height"></div>
         </div>
         <div class="explain-box-hide school" ng-show="config.explainFlag">以「学校」为单位的用户统计数</div>
@@ -48,8 +48,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.distinct_list">
               <td width="34%" class="first" ng-bind="item.province"></td>
-              <td width="33%" class="middle">{{item.percent}}</td>
-              <td width="33%" class="last">{{item.count}}</td>
+              <td width="33%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="33%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -76,8 +76,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.school_ranges">
               <td width="60%" class="first" ng-bind="item.range"></td>
-              <td width="20%" class="middle">{{item.percent}}</td>
-              <td width="20%" class="last">{{item.count}}</td>
+              <td width="20%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="20%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -104,8 +104,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.reached_school">
               <td width="60%" class="first" ng-bind="item.range" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='green'}"></td>
-              <td width="20%" class="middle" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='green'}">{{item.percent}}</td>
-              <td width="20%" class="last" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='green'}">{{item.count}}</td>
+              <td width="20%" class="middle numFontFamily" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='green'}">{{item.percent}}</td>
+              <td width="20%" class="last numFontFamily" ng-class="{'fontBlack':item.color=='black','fontRed':item.color=='red','fontGreen':item.color=='green'}">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -134,8 +134,8 @@
               <td width="50%" class="first" >
                 <span>{{item.range}}</span>
               </td>
-              <td width="25%" class="middle">{{item.percent}}</td>
-              <td width="25%" class="last">{{item.count}}</td>
+              <td width="25%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="25%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -163,8 +163,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.join_school">
               <td width="50%" class="first" ng-bind="item.range"></td>
-              <td width="25%" class="middle">{{item.percent}}</td>
-              <td width="25%" class="last">{{item.count}}</td>
+              <td width="25%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="25%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -191,8 +191,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.message_use">
               <td width="50%" class="first" ng-bind="item.range"></td>
-              <td width="25%" class="middle">{{item.percent}}</td>
-              <td width="25%" class="last">{{item.count}}</td>
+              <td width="25%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="25%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -219,8 +219,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.school_property">
               <td width="34%" class="first" ng-bind="item.key"></td>
-              <td width="33%" class="middle">{{item.percent}}</td>
-              <td width="33%" class="last">{{item.count}}</td>
+              <td width="33%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="33%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -247,8 +247,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.study_section">
               <td width="50%" class="first" ng-bind="item.key">十二年一贯制</td>
-              <td width="25%" class="middle">{{item.percent}}</td>
-              <td width="25%" class="last">{{item.count}}</td>
+              <td width="25%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="25%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -275,8 +275,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.trainer_lists">
               <td width="34%" class="first" ng-bind="item.user_name"></td>
-              <td width="33%" class="middle">{{item.percent}}</td>
-              <td width="33%" class="last">{{item.count}}</td>
+              <td width="33%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="33%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -315,9 +315,9 @@
   <!--设置弹窗modal-->
   <div class="modalClass" ng-class="{'md-show-class':configList.showSelectList}" ng-click="selectAny({})">
   </div>
-  <ion-content ng-show="configList.showPageList" class="content-style" style="margin-top: 44px;">
+  <ion-content ng-show="configList.showPageList" class="content-style" style="margin-top: 44px;" delegate-handle="mainScrollList">
     <div class="padding" delegate-handle="scrollList" style="padding-top: 0;">
-      <div class="listDesc">共 {{data.schoolList.length}} 个</div>
+      <div class="listDesc">共 <span class="numFontFamily">{{data.totle}}</span> 个</div>
       <div class="list">
         <a class="item item-avatar itemStyle" ng-repeat="school in data.schoolList" ng-click="goSchoolDetail(school)">
           <img ng-src="{{school.school_img}}" class="imgStyle">
@@ -326,9 +326,9 @@
             <div class="col-50 schoolTime" ng-bind="school.create_time"></div>
           </div>
           <div class="row rowStyleDetail">
-            <div class="col-40 personName">全校人数&nbsp;{{school.teacher_num}}</div>
-            <div class="col-30 personName">架构&nbsp;{{school.arc_count}}</div>
-            <div class="col-30 personName">扫码&nbsp;{{school.scan_count}}</div>
+            <div class="col-40 personName">全校人数&nbsp;<span class="numFontFamily">{{school.teacher_num}}</span></div>
+            <div class="col-30 personName">架构&nbsp;<span class="numFontFamily">{{school.arc_count}}</span></div>
+            <div class="col-30 personName">扫码&nbsp;<span class="numFontFamily">{{school.scan_count}}</span></div>
           </div>
           <div class="row rowStyleDetail">
             <div class="col-50 principal" ng-bind="school.teacher_name" style="font-family: PingFangSC-Regular"></div>
@@ -337,7 +337,7 @@
         </a>
 
       </div>
-      <ion-infinite-scroll ng-if="true" on-infinite="" distance="1%" on-infinite="loadMore()" ng-show="configList.nextPage"></ion-infinite-scroll>
+      <ion-infinite-scroll   distance="1%" on-infinite="loadMore()" ng-if="configList.nextPage"></ion-infinite-scroll>
       <div class="text-center spinnerClass" ng-show="configList.nextPage">正在加载..</div>
       <div class="text-center spinnerClassSp" ng-show="!configList.nextPage && data.schoolList.length>0">暂无更多数据</div>
 

@@ -24,9 +24,9 @@
           <img src="build/assets/img/myInfo/icon_user.png"/>
           <div class="registered-users">
             <div class="total">注册用户总数</div>
-            <div class="yesterday-added" >昨日新增：{{newViewData.user_data.yes_res}}</div>
+            <div class="yesterday-added" >昨日新增：<span class="numFontFamily">{{newViewData.user_data.yes_res}}</span></div>
           </div>
-          <div class="numbers" >{{newViewData.user_data.new_res}}</div>
+          <div class="numbers numFontFamily">{{newViewData.user_data.new_res}}</div>
           <div class="auto-height"></div>
         </div>
       </div>
@@ -49,8 +49,8 @@
             <div class="row  row-no-padding " ng-class="{'groupList': group.show,'groupListSp': !group.show}" ng-click="toggleGroup(group)">
               <div class="col-3"></div>
               <div class="col-30 text-left">{{group.province}}</div>
-              <div class="col-30 text-center">{{group.percent}}</div>
-              <div class="col-25 text-right">{{group.count}}</div>
+              <div class="col-30 text-center numFontFamily">{{group.percent}}</div>
+              <div class="col-25 text-right numFontFamily">{{group.count}}</div>
               <div class="col-11 text-right">
                 <i class="iBack ion-android-arrow-dropdown" ng-if="!isGroupShown(group) && group.city_list.length>0"></i>
                 <i class="iBackActive ion-android-arrow-dropup"
@@ -66,7 +66,7 @@
                 <div class="col-15"></div>
                 <div class="col-40 text-left" style="border-bottom: 1px solid #EFEFEF;">&nbsp;&nbsp;&nbsp;{{item.city}}
                 </div>
-                <div class="col-35 text-right" style="border-bottom: 1px solid #EFEFEF;">{{item.count}}</div>
+                <div class="col-35 text-right numFontFamily" style="border-bottom: 1px solid #EFEFEF;">{{item.count}}</div>
                 <div class="col-10"></div>
               </div>
             </div>
@@ -97,8 +97,8 @@
             <tbody>
             <tr ng-repeat="item in  newViewDataSp.teacher_address">
               <td width="34%" class="first" ng-bind="item.city">未知</td>
-              <td width="33%" class="middle">{{item.percent}}</td>
-              <td width="33%" class="last">{{item.count}}</td>
+              <td width="33%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="33%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -127,8 +127,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.user_role" >
               <td width="34%" class="first" ng-bind="item.teacher_type"></td>
-              <td width="33%" class="middle">{{item.percent}}</td>
-              <td width="33%" class="last">{{item.count}}</td>
+              <td width="33%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="33%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>
@@ -155,8 +155,8 @@
             <tbody>
             <tr ng-repeat="item in newViewDataSp.user_type" >
               <td width="34%" class="first" ng-bind="item.teacher_type">教师</td>
-              <td width="33%" class="middle">{{item.percent}}</td>
-              <td width="33%" class="last">{{item.count}}</td>
+              <td width="33%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="33%" class="last numFontFamily">{{item.count}}</td>
             </tr>
             </tbody>
           </table>

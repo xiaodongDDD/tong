@@ -19,7 +19,7 @@
       <div class="row schoolAdress">
         {{data.classList.school_info.address}}
       </div>
-      <div class="row schoolNum">全校人数 {{data.classList.school_info.teacher_num}}&nbsp;&nbsp;&nbsp;架构 {{data.classList.school_info.arc_teacher}}&nbsp;&nbsp;&nbsp;扫码 {{data.classList.school_info.scan_teacher}}</div>
+      <div class="row schoolNum">全校人数 <span class="numFontFamily">&nbsp;{{data.classList.school_info.teacher_num}}</span>&nbsp;&nbsp;&nbsp;架构 <span class="numFontFamily">&nbsp;{{data.classList.school_info.arc_teacher}}</span>&nbsp;&nbsp;&nbsp;扫码 <span class="numFontFamily">&nbsp;{{data.classList.school_info.scan_teacher}}</span></div>
     </div>
   </div>
 
@@ -54,13 +54,13 @@
       <div ng-show="!config.headStyleActive" style="min-height: 800px">
         <div class="global-container content-style">
           <div class="headClassNum">
-            共 {{data.arcList.arc_teacher}} 位，{{data.arcList.arc_teacher - data.arcList.scan_teacher}} 位未扫码
+            共 <span class="numFontFamily">{{data.arcList.arc_teacher}}</span> 位，<span class="numFontFamily">{{data.arcList.arc_teacher - data.arcList.scan_teacher}}</span> 位未扫码
           </div>
           <div class="listColor">
             <div ng-repeat="item in data.arcList.arc_list" ng-click="goSchoolList(item)">
               <div class="row itemClass" >
                 <div class="col-80 imageClass">
-                  {{item.s_a_name}}&nbsp;&nbsp;<span class="completionDegree">({{item.scan_teacher}}/{{item.arc_teacher}})</span>
+                  {{item.s_a_name}}&nbsp;&nbsp;<span class="completionDegree">(<span class="numFontFamily">{{item.scan_teacher}}</span>/<span class="numFontFamily">{{item.arc_teacher}}</span>)</span>
                 </div>
                 <div class="col-20 numClass">
 

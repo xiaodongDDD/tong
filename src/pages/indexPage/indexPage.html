@@ -3,7 +3,7 @@
     <!--<button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>-->
     <div class="title">
       <div class="titleName" ng-bind="newViewData.user_info.user_name"></div>
-      <div class="titleNum" ng-bind="newViewData.user_info.invited_code"></div>
+      <div class="titleNum numFontFamily" ng-bind="newViewData.user_info.invited_code"></div>
     </div>
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
@@ -79,12 +79,12 @@
             <div class="person-info">
               <div class="top">
                 <span class="name" ng-bind="item.user_name"></span>
-                <span class="num" ng-bind="item.invited_code"></span>
+                <span class="num numFontFamily" ng-bind="item.invited_code"></span>
               </div>
               <div class="bottom">
-                <span class="register">注册用户 {{item.new_register_user}}</span>
-                <span class="classes">班级数 {{item.new_classes}}</span>
-                <span class="zhengxiao">整校数 {{item.new_school}}</span>
+                <span class="register">注册用户 <span class="numFontFamily">{{item.new_register_user}}</span></span>
+                <span class="classes">班级数 <span class="numFontFamily">{{item.new_classes}}</span></span>
+                <span class="zhengxiao">整校数 <span class="numFontFamily">{{item.new_school}}</span></span>
               </div>
             </div>
             <div class="auto-height"></div>
@@ -108,19 +108,19 @@
         <div class="rank-list">
           <div class="rank-item" ng-repeat="item in newViewDataSp.leading_ranking_company.leading_list">
             <div class="rank-num">
-              <span class="spanNum" ng-if="$index > 2">{{$index+1}}</span>
+              <span class="spanNum numFontFamily" ng-if="$index > 2">{{$index+1}}</span>
             </div>
             <img ng-src="{{item.avatar}}" class="head"/>
             <div class="person-info">
               <div class="top">
                 <span class="name" ng-bind="item.user_name"></span>
-                <span class="num" ng-bind="item.invited_code"></span>
-                <span class="count">({{item.count}})</span>
+                <span class="num numFontFamily" ng-bind="item.invited_code"></span>
+                <span class="count numFontFamily">({{item.count}})</span>
               </div>
               <div class="bottom">
-                <span class="register">注册用户 {{item.new_register_user}}</span>
-                <span class="classes">班级数 {{item.new_classes}}</span>
-                <span class="zhengxiao">整校数 {{item.new_school}}</span>
+                <span class="register">注册用户 <span class="numFontFamily">{{item.new_register_user}}</span></span>
+                <span class="classes">班级数 <span class="numFontFamily">{{item.new_classes}}</span></span>
+                <span class="zhengxiao">整校数 <span class="numFontFamily">{{item.new_school}}</span></span>
               </div>
             </div>
             <div class="auto-height"></div>
@@ -145,18 +145,18 @@
         <div class="rank-list">
           <div class="rank-item" ng-repeat="item in newViewDataSp.user_ranking_company.user_list">
             <div class="rank-num">
-              <span class="spanNum" ng-if="$index > 2">{{$index+1}}</span>
+              <span class="spanNum numFontFamily" ng-if="$index > 2">{{$index+1}}</span>
             </div>
             <img ng-src="{{item.avatar}}" class="head"/>
             <div class="person-info">
               <div class="top">
                 <span class="name" ng-bind="item.user_name"></span>
-                <span class="num" ng-bind="item.invited_code"></span>
+                <span class="num numFontFamily" ng-bind="item.invited_code"></span>
               </div>
               <div class="bottom">
-                <span class="register">注册用户 {{item.new_register_user}}</span>
-                <span class="classes">班级数 {{item.new_classes}}</span>
-                <span class="zhengxiao">整校数 {{item.new_school}}</span>
+                <span class="register">注册用户 <span class="numFontFamily">{{item.new_register_user}}</span></span>
+                <span class="classes">班级数 <span class="numFontFamily">{{item.new_classes}}</span></span>
+                <span class="zhengxiao">整校数 <span class="numFontFamily">{{item.new_school}}</span></span>
               </div>
             </div>
             <div class="auto-height"></div>

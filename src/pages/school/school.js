@@ -5,9 +5,9 @@ angular.module('schoolModule')
   .controller('schoolCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', 'SettingsService', 'hmsPopup', '$ionicScrollDelegate',
     function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, SettingsService, hmsPopup, $ionicScrollDelegate) {
       $scope.data = {
-        pageName :'整校用户',
+        pageName: '整校用户',
         type: SettingsService.get('timeType').id || 'day',
-        names: ['distinct_list', 'arc_percent', 'join_school', 'message_use', 'school_property', 'school_ranges', 'study_section', 'trainer_lists','reached_school'],
+        names: ['distinct_list', 'arc_percent', 'join_school', 'message_use', 'school_property', 'school_ranges', 'study_section', 'trainer_lists', 'reached_school'],
         schoolList: [],
         selectList: [
           {
@@ -26,7 +26,8 @@ angular.module('schoolModule')
             select: false,
             id: 2,
             list: []
-          }]
+          }],
+        totle: ''
       }
       $scope.config = {
         explainFlag: false,
@@ -46,7 +47,7 @@ angular.module('schoolModule')
         showPageList: false,
         nextPage: false,
         nextId: '-1',
-        showSelectList : false
+        showSelectList: false
       }
       $scope.configSp = angular.copy($scope.config);
       $scope.newViewData = {};
@@ -166,7 +167,7 @@ angular.module('schoolModule')
         $scope.configList.nextId = '';
         $scope.configList.showPageList = !$scope.configList.showPageList;
         $scope.configList.showSelectList = false;
-        for(var i=0;i<$scope.data.selectList.length;i++){
+        for (var i = 0; i < $scope.data.selectList.length; i++) {
           $scope.data.selectList[i].select = false;
         }
         if ($scope.configList.showPageList == true) {
@@ -181,7 +182,7 @@ angular.module('schoolModule')
 
 
       $scope.goSchoolDetail = function (school) {
-        SettingsService.set('schoolInfo',school);
+        SettingsService.set('schoolInfo', school);
         $state.go('schoolDetail');
       }
       //筛选条件
@@ -194,13 +195,13 @@ angular.module('schoolModule')
           } else {
             $scope.data.selectList[i].select = false;
           }
-          if($scope.data.selectList[i].select == true){
+          if ($scope.data.selectList[i].select == true) {
             num++;
           }
         }
-        if(num == 1){
+        if (num == 1) {
           $scope.configList.showSelectList = true;
-        }else{
+        } else {
           $scope.configList.showSelectList = false;
         }
       }
@@ -237,10 +238,7 @@ angular.module('schoolModule')
       function initPageDataList(item) {
         if ($scope.isLock) return;
         $scope.isLock = true;
-        if (item == '1') {
-        } else {
-          hmsPopup.showLoadingWithoutBackdrop('正在加载...');
-        }
+        hmsPopup.showLoadingWithoutBackdrop('正在加载...');
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.schoolLists";
         var data = {
           type: $scope.data.type,
@@ -248,20 +246,18 @@ angular.module('schoolModule')
           invited_code: $scope.data.selectList[2].invited_code,
           is_reached: $scope.data.selectList[1].is_reached
         }
-        console.log(data);
-        console.log($scope.data);
         if ($scope.configList.nextId > 0 && item == '1') {
           data.next_id = $scope.configList.nextId;
         }
         hmsHttp.post(indexUrl, data).success(
           function (response) {
             if (item != '1') {
-              $scope.data.totle = response.response.totle;
+              $scope.data.totle = response.response.total;
             }
-            $scope.data.schoolList = response.response.school_list;
-            if(response.response.next_id < 0){
+            $scope.data.schoolList = $scope.data.schoolList.concat(response.response.school_list);
+            if (response.response.next_id < 0) {
               $scope.configList.nextPage = false
-            }else{
+            } else {
               $scope.configList.nextPage = true;
             }
             $scope.isLock = false;

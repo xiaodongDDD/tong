@@ -31,8 +31,8 @@
         </div>
       </div>
       <div class="padding content-style" style="min-height: 800px;padding-top: 0">
-        <div class="listDesc" ng-if="config.headStyleActive">共{{data.classListData.count}}位</div>
-        <div class="listDesc" ng-if="!config.headStyleActive">共{{data.userListData.count}}位</div>
+        <div class="listDesc numFontFamily" ng-if="config.headStyleActive">共 {{data.classListData.count}} 位，  班级号：{{data.classDetail.code}}</div>
+        <div class="listDesc numFontFamily" ng-if="!config.headStyleActive">共 {{data.userListData.count}} 位，  班级号：{{data.classDetail.code}}</div>
         <div class="list" ng-if="config.headStyleActive">
           <div class="item item-avatar itemStyle" style="background: #ffffff" ng-repeat="i in data.classListData.member_list" ng-click="goSchoolDetail()">
             <img ng-src="{{i.avatar}}" class="imgStyle">

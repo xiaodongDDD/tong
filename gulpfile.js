@@ -71,7 +71,8 @@ var libPublishFilePath = [
   'src/lib/**/dist/pouchdb.min.js',
   'src/lib/**/dist/ocLazyLoad.min.js',
   'src/lib/**/css/*.*',
-  'src/lib/**/js/mobiscroll.custom-3.0.0-beta6.min.js'
+  'src/lib/**/js/mobiscroll.custom-3.0.0-beta6.min.js',
+  'src/lib/**/font/*.*',
 ];
 
 var imgFilePath = [

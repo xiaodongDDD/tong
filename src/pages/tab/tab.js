@@ -18,14 +18,14 @@ angular.module('loginModule').controller('tabsCtrl', ['$scope', '$rootScope', '$
     }
     $scope.tabs = tabService.tabs;
     $scope.clickTab = function (tab) {
-      if (tab.id == '5') {
-        $scope.config.showSettingModal = true;
-      } else {
+      // if (tab.id == '5') {
+      //   $scope.config.showSettingModal = true;
+      // } else {
         for (var i = 0; i < $scope.tabs.length; i++) {
           $scope.tabs[i].isActive = false;
         }
         tab.isActive = true;
-      }
+      // }
     }
 
     $scope.exitAccount = function(){
