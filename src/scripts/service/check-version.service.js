@@ -50,7 +50,7 @@
      * -- 分大版本和小版本的update
      */
     return {
-      checkAppVersion: function (newName) {
+      checkAppVersion: function (updateFlag) {
 
 
         var promise = $http.post(url, checkVersionParams).success(function (response) {
@@ -116,7 +116,9 @@
             }
 
           } else {
-
+            if(updateFlag=== 'updateFlag'){
+              hmsPopup.showShortCenterToast('您已经是最新版本了');
+            }
           }
         });
       }

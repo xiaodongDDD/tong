@@ -1,0 +1,27 @@
+<ion-view view-title="我的任务" class="myInfo indexPage">
+  <ion-header-bar class="head-bg">
+    <button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>
+    <div class="title titleStyle">
+      我的任务
+    </div>
+  </ion-header-bar>
+  <ion-content class="content-style" delegate-handle="mainScroll">
+    <ion-list>
+      <ion-item class="text-center item item-icon-right" ng-click="goOperation(1)">
+        分派
+      </ion-item>
+      <ion-item class="text-center item item-icon-right" ng-click="goOperation(2)">
+        调换
+      </ion-item>
+      <ion-item class="text-center item item-icon-right" ng-click="goOperation(3)">
+        跟进
+      </ion-item>
+      <ion-item class="text-center item item-icon-right" ng-click="goOperation(4)">
+        返回
+      </ion-item>
+      <ion-item class="text-center item item-icon-right" ng-click="goOperation(5)">
+        操作日志
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

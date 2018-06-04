@@ -227,6 +227,46 @@
         templateUrl: 'build/pages/school/schoolItemList/schoolItemList.html',
         controller: 'schoolItemListCtrl'
       })
+      .state('messageDetail', {
+        url: '/messageDetail',
+        templateUrl: 'build/pages/setting/messageInfo/messageDetail/messageDetail.html',
+        controller: 'messageDetailCtrl'
+      })
+      .state('messageList', {
+        url: '/messageList',
+        templateUrl: 'build/pages/setting/messageInfo/messageList.html',
+        controller: 'messageListCtrl'
+      })
+      .state('userApplicationList', {
+        url: '/userApplicationList',
+        templateUrl: 'build/pages/setting/userApplication/userApplicationList.html',
+        controller: 'userApplicationListCtrl'
+      })
+      .state('distribution', {
+        url: '/distribution',
+        templateUrl: 'build/pages/setting/userApplication/distribution/distribution.html',
+        controller: 'distributionCtrl'
+      })
+      .state('exchange', {
+        url: '/exchange',
+        templateUrl: 'build/pages/setting/userApplication/exchange/exchange.html',
+        controller: 'exchangeCtrl'
+      })
+      .state('follow', {
+        url: '/follow',
+        templateUrl: 'build/pages/setting/userApplication/follow/follow.html',
+        controller: 'followCtrl'
+      })
+      .state('operationLog', {
+        url: '/operationLog',
+        templateUrl: 'build/pages/setting/userApplication/operationLog/operationLog.html',
+        controller: 'operationLogCtrl'
+      })
+      .state('return', {
+        url: '/return',
+        templateUrl: 'build/pages/setting/userApplication/return/return.html',
+        controller: 'returnCtrl'
+      })
     // if (!window.localStorage.needGuid || window.localStorage.needGuid == "true") {
     //   //if (baseConfig.debug) {
     //   console.log('app.js into guide ');
