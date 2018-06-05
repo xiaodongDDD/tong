@@ -34,7 +34,7 @@ angular.module('indexPageModule')
         cache : false
       }, {
         id: '5',
-        name: '设置',
+        name: '我的',
         isActive: false,
         onClass: 'setting-on',
         offClass: 'setting-off',

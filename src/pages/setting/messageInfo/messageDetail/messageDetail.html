@@ -1,19 +1,34 @@
-<ion-view view-title="消息详情" class="indexPage myInfo">
+<ion-view view-title="消息详情" class="indexPage myInfo messageDetail setting">
   <ion-header-bar class="head-bg">
     <button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>
     <div class="title titleStyle">
       消息详情
     </div>
+    <!--<i class="ion-ios-email-outline right-image emailStyle" ng-click="goMessage()"></i>-->
+    <button class="button button-clear button-positive" style="font-size: 14px;" ng-click="allRead()">
+      进入任务
+    </button>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
-    <ion-list>
-      <ion-item class="text-center item ">
-        <div class="row">
-          <div class="col col-50 text-left">消息的标题{{i}}</div>
-          <div class="col col-50 text-right">2018-06-04</div>
-        </div>
-        <div class="row"><div class="col text-left">这个真的是个消息的详情吧</div></div>
-      </ion-item>
-    </ion-list>
+    <div class="" ng-class="{'contentAll': true,'contentAllRed':false}">
+      <div class="row">
+        <div class="col col-60 text-left bigTitle">消息的标题消息的标题消息的标题消息的标题{{i}}</div>
+        <div class="col col-40 text-right smallTime">2018-06-04</div>
+      </div>
+      <div class="col smallContent">这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+      </div>
+    </div>
   </ion-content>
 </ion-view>

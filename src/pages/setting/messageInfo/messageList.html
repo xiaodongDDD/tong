@@ -4,16 +4,21 @@
     <div class="title titleStyle">
       我的消息
     </div>
-    <button class="button button-clear button-positive" style="font-size: 14px;color: black;" ng-click="allRead()">全部已读</button>
+    <button class="button button-clear button-positive" style="font-size: 14px;color: black;" ng-click="allRead()">
+      全部已读
+    </button>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
     <ion-list>
-      <ion-item class="text-center item item-icon-right" ng-class="{'urgentBackground': false}" ng-click="goMessageDetail()" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]">
+      <ion-item class="text-center item item-icon-right" ng-class="{'urgentBackground': false}"
+                ng-click="goMessageDetail()" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]">
         <div class="row">
-          <div class="col col-50 text-left">消息的标题{{i}}</div>
-          <div class="col col-50 text-right">2018-06-04</div>
+          <div class="col col-60 text-left bigTitle">消息的标题消息的标题消息的标题{{i}}</div>
+          <div class="col col-40 text-right smallTime">2018-06-04</div>
         </div>
-        <div class="row"><div class="col text-left">这个真的是个消息的详情吧</div></div>
+        <div class="row">
+          <div class="col text-left smallContent">这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧</div>
+        </div>
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
     </ion-list>

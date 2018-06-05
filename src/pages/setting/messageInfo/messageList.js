@@ -4,9 +4,12 @@
 
 angular.module('settingModule')
   .controller('messageListCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup', 'publicMethod',
-    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup, publicMethod) {
+    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup', 'publicMethod','hmsHttp',
+    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup, publicMethod,hmsHttp) {
       $scope.config = {}
+      $scope.data = {
+        messageList : []
+      }
       $scope.goMessageDetail = function () {
         $state.go('messageDetail');
       }
@@ -22,6 +25,19 @@ angular.module('settingModule')
             return;
           }
         }
+
         hmsPopup.confirm('是否将全部信息设置为已读？？', '提示信息', loginOut);
+      }
+      $scope.initData = function () {
+        hmsPopup.showLoadingWithoutBackdrop('正在加载...');
+        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.userData&type=" + $scope.data.type;
+        hmsHttp.get(indexUrl).success(
+          function (response) {
+            $scope.data.messageList = response.response;
+          }
+        ).error(
+          function (response, status, header, config) {
+          }
+        );
       }
     }]);

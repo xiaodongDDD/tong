@@ -1,5 +1,27 @@
 .messageList {
-  .urgentBackground{
+  .urgentBackground {
     background-color: red;
+  }
+  .bigTitle {
+    font-size: 17px;
+    color: #000000;
+    font-family: PingFangSC-Regular;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .smallContent {
+    font-size: 15px;
+    color: #000000;
+    font-family: PingFangSC-Light;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .smallTime {
+    font-size: 13px;
+    color: #888888;
+    vertical-align: bottom;
+    font-family: DIN-Regular !important;
   }
 }

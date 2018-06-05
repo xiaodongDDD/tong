@@ -4,6 +4,7 @@
       注册用户情况统计
     </div>
     <i class="ion-ios-email-outline right-image emailStyle" ng-click="goMessage()"></i>
+    <!--<i class="ion-email-unread right-image emailStyle" ng-click="goMessage()"></i>-->
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
     <ion-list>
@@ -20,7 +21,7 @@
         <!--<i class="icon ion-ios-arrow-right"></i>-->
       </ion-item>
       <ion-item>
-        我的任务
+        <span class="bigTitle">我的任务</span>
         <div class="row row-wrap" ng-click="userApplication()">
           <div class="col col-25" >
             <span class="userStyle"><p>用户申请</p>
@@ -30,16 +31,16 @@
           </div>
         </div>
       </ion-item>
-      <ion-item class="text-center item item-icon-right">
+      <ion-item class="text-center item item-icon-right bigTitle">
         我的资源（即将上线，敬请期待）<i class="icon ion-ios-arrow-right"></i>
       </ion-item>
-      <ion-item class="text-center  item item-icon-right" ng-click="goChangePassword()">
+      <ion-item class="text-center  item item-icon-right bigTitle" ng-click="goChangePassword()">
         修改密码<i class="icon ion-ios-arrow-right"></i>
       </ion-item>
-      <ion-item class="text-center item item-icon-right" ng-click="versionDetection()">
+      <ion-item class="text-center item item-icon-right bigTitle" ng-click="versionDetection()">
         版本检测(1.2.3)
       </ion-item>
-      <ion-item class="text-center item item-icon-right" ng-click="exitAccount()">
+      <ion-item class="text-center item item-icon-right bigTitle" ng-click="exitAccount()">
         退出登录
       </ion-item>
     </ion-list>
