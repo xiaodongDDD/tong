@@ -170,8 +170,8 @@
           scope.$eval(attrs.repeatDone);
         }
       }
-    }).service('publicMethod', ['$filter', '$ionicLoading', '$ionicPopup', '$ionicHistory', '$cordovaDialogs',
-    function ($filter, $ionicLoading, $ionicPopup, $ionicHistory, $cordovaDialogs) {
+    }).service('publicMethod', ['$filter', '$ionicLoading', '$ionicPopup', '$ionicHistory', '$cordovaDialogs','$ionicActionSheet','$window',
+    function ($filter, $ionicLoading, $ionicPopup, $ionicHistory, $cordovaDialogs,$ionicActionSheet,$window) {
       return {
         //调用电话
         showphone: function (types) {

@@ -1,2 +1,126 @@
-.messageList {
+.userApplicationList {
+  .rowStyle {
+    text-align: center;
+    background: white;
+    height: 44px;
+    line-height: 44px;
+    padding: 0;
+    font-family: PingFangSC-Regular;
+    font-size: 15px;
+    color: #000000;
+    letter-spacing: -0.36px;
+    position: absolute;
+    border-top: 1px solid #E2DFDF;
+    .iconStyle {
+      color: #C6C6C6;
+    }
+  }
+  .fontSelected{
+    color: #0775F5;
+  }
+  .fontSelectedSp{
+    font-family: PingFangSC-Light;
+    font-size: 15px;
+    //color: #000000;
+    letter-spacing: -0.36px;
+  }
+  .listSelectDetail {
+    max-height: 450px;
+    overflow-y: scroll;
+    background: #FFFFFF;
+    box-shadow: 0 14px 15px 0 rgba(59, 132, 239, 0.17);
+    border-radius: 4px;
+    position: absolute;
+    top: 44px;
+    width: 100%;
+    z-index: 9;
+    border-top: 1px solid #E2DFDF;
+    .listSelect {
+      height: 44px;
+      width: 100%;
+      line-height: 44px;
+      text-align: center;
+      background-color: #ffffff;
+      .lineClass {
+        height: 1px;
+        background: #EFEFEF;
+        margin: 0 10px 0 10px;
+      }
+      .fontStyle {
+        font-family: PingFangSC-Regular;
+        font-size: 17px;
+        color: #646464;
+        letter-spacing: -0.41px;
+      }
+      .fontSp {
+        font-family: PingFangSC-Medium;
+        font-size: 16px;
+        color: #0775F5;
+        letter-spacing: -0.39px;
+      }
+      img {
+        float: left;
+        left: 30px;
+        position: relative;
+        top: 17px;
+      }
+    }
+  }
+  .bar-subheader {
+    padding: 0;
+  }
+  .spinnerClass{
+    position: relative;
+    top: -40px;
+    height: 66px;
+    line-height: 66px;
+    color: #ccc;
+  }
+  .spinnerClassSp{
+    position: relative;
+    top: -40px;
+    height: 66px;
+    line-height: 66px;
+    color: #ccc;
+  }
+  /*modal*/
+  .modalClass {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1001;
+    background: rgba(0, 0, 0, 0.5);
+    //visibility: hidden;
+    display: none;
+  }
+  .md-show-class {
+    //visibility: visible;
+    display: block;
+  }
+  .modalClass .scroll {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: scroll;
+  }
+  .headStylelist{
+  }
+  .rowHeight{
+    height: 36px;
+    line-height: 36px;
+    font-size: 16px;
+    font-family: PingFangSC-Light;
+  }
+  .paddingCol{
+    padding: 0 5px;
+  }
+  .longStyle{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }

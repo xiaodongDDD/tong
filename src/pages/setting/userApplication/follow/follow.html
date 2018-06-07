@@ -6,11 +6,80 @@
     </div>
     <button class="button button-clear button-positive" style="font-size: 14px;color: black;">保存</button>
   </ion-header-bar>
+  <div class="bar bar-subheader">
+    <div class=" button-bar">
+      <button class="button button-light button-android" ng-class="{ 'button-positive': config.flag == 'ios' }" ng-click="setPlatform('ios')">
+        跟进成功
+      </button>
+      <button class="button button-light button-android" ng-class="{ 'button-positive': config.flag == 'ionic' }" ng-click="setPlatform('ionic')">
+        跟进失败
+      </button>
+    </div>
+  </div>
   <ion-content class="content-style" delegate-handle="mainScroll">
-    <ion-list>
-      <ion-item class="text-center item item-icon-right" ng-click="goMessageDetail()">
-        跟进
-      </ion-item>
-    </ion-list>
+    <div class="button-bar">
+      <a class="button">跟进成功</a>
+      <a class="button">跟进失败</a>
+    </div>
+    <div ng-if="config.flag == 'ios'">
+      <div class="item item-divider">
+        获知晓黑板的渠道
+      </div>
+      <ion-radio ng-repeat="item in successList1"
+                 ng-value="item.value"
+                 ng-model="data.successSelect1" name="success">
+        <div class="row row-no-padding">
+          <div class="col">{{ item.text }}</div>
+        </div>
+      </ion-radio>
+      <div class="item item-divider">
+        资质评价
+      </div>
+      <ion-radio ng-repeat="item in successList2"
+                 ng-value="item.value"
+                 ng-model="data.successSelect2" name="success1">
+        <div class="row row-no-padding">
+          <div class="col">{{ item.text }}</div>
+        </div>
+      </ion-radio>
+      <div class="item item-divider">
+        跟进记录
+      </div>
+      <div class="item">
+        <textarea rows="3" cols="20" style="background-color:#eee;padding:5px;width: 100%" placeholder="最多输入300个汉字">
+        在w3school，你可以找到你所需要的所有的网站建设教程。
+        </textarea>
+      </div>
+    </div>
+    <div ng-if="config.flag == 'ionic'">
+      <div class="item item-divider">
+        失败原因
+      </div>
+      <ion-radio ng-repeat="item in errorList1"
+                 ng-value="item.value"
+                 ng-model="data.errorSelect1" name="error">
+        <div class="row row-no-padding">
+          <div class="col">{{ item.text }}</div>
+        </div>
+      </ion-radio>
+      <div class="item item-divider">
+        是否需要再次联系
+      </div>
+      <ion-radio ng-repeat="item in errorList2"
+                 ng-value="item.value"
+                 ng-model="data.errorSelect2" name="error1">
+        <div class="row row-no-padding">
+          <div class="col">{{ item.text }}</div>
+        </div>
+      </ion-radio>
+      <div class="item item-divider">
+        跟进记录
+      </div>
+      <div class="item">
+        <textarea rows="3" cols="20" style="background-color:#eee;padding:5px;width: 100%" placeholder="最多输入300个汉字">
+        在w3school，你可以找到你所需要的所有的网站建设教程。
+        </textarea>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

@@ -4,13 +4,50 @@
     <div class="title titleStyle">
       返回
     </div>
-    <button class="button button-clear button-positive" style="font-size: 14px;color: black;">保存</button>
+    <button class="button button-clear button-positive" style="font-size: 14px;color: black;" ng-click="goBack()">保存</button>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
-    <ion-list>
-      <ion-item class="text-center item item-icon-right" ng-click="goMessageDetail()">
-        返回
-      </ion-item>
-    </ion-list>
+    <div class="list">
+
+      <div class="item item-divider">
+        返回给
+      </div>
+      <ion-radio ng-repeat="item in clientSideList"
+                 ng-value="item.value"
+                 ng-model="data.clientSide">
+        <div class="row row-no-padding">
+          <div class="col">{{ item.text }}</div>
+          <div class="col">18298182058</div>
+        </div>
+      </ion-radio>
+      <div class="item item-divider">
+        实际归属地
+      </div>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          <!--Lightsaber-->&nbsp;
+        </div>
+        <select ng-model="data.province" ng-change="selectProvince(data.province)">
+          <option ng-repeat="item in data.listProvince" value="{{item}}">{{item.name}}</option>
+        </select>
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          <!--Lightsaber-->&nbsp;
+        </div>
+        <select ng-model="data.city">
+          <option ng-repeat="item in data.listCity">{{item}}</option>
+        </select>
+      </label>
+      <div class="item item-divider">
+        返回缘由
+      </div>
+      <div class="item">
+        <textarea rows="3" cols="20" style="background-color:#eee;padding:5px;width: 100%">
+        在w3school，你可以找到你所需要的所有的网站建设教程。
+        </textarea>
+      </div>
+
+    </div>
   </ion-content>
 </ion-view>

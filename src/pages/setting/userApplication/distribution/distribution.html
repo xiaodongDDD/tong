@@ -1,4 +1,4 @@
-<ion-view view-title="分派" class="myInfo indexPage">
+<ion-view view-title="分派" class="myInfo indexPage distribution">
   <ion-header-bar class="head-bg">
     <button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>
     <div class="title titleStyle">
@@ -7,10 +7,30 @@
     <button class="button button-clear button-positive" style="font-size: 14px;color: black;">保存</button>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
-    <ion-list>
-      <ion-item class="text-center item item-icon-right" ng-click="goMessageDetail()">
-        分派
-      </ion-item>
-    </ion-list>
+    <div class="list">
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="请正确输入培训师姓名">
+        </label>
+        <button class="button button-small">
+          查询
+        </button>
+      </div>
+      <div class="item text-center">
+        暂无数据
+      </div>
+
+      <ion-radio ng-repeat="item in clientSideList"
+                 ng-value="item.value"
+                 ng-model="data.clientSide">
+        <div class="row row-no-padding">
+          <div class="col">{{ item.text }}</div>
+          <div class="col">18298182058</div>
+        </div>
+      </ion-radio>
+      <div class="styleTips">
+        温馨提示：只能分派给管辖该区域的我的下级人员，如需跨区域分派，请由区域负责人进行调换
+      </div>
+    </div>
   </ion-content>
 </ion-view>

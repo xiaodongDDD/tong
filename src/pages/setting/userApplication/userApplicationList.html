@@ -1,26 +1,93 @@
-<ion-view view-title="我的任务" class="myInfo indexPage">
-  <ion-header-bar class="head-bg">
+<ion-view view-title="我的任务" class="myInfo indexPage userApplicationList">
+  <ion-header-bar class="head-bg" style="z-index: 1009">
     <button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>
     <div class="title titleStyle">
       我的任务
     </div>
+    <button class="button button-clear button-positive" style="font-size: 14px;" ng-click="reset()">
+      重置条件
+    </button>
   </ion-header-bar>
-  <ion-content class="content-style" delegate-handle="mainScroll">
+  <div class="bar bar-subheader " style="z-index: 1002" ng-show="config.showPageList" >
+    <div class="row rowStyle">
+      <div class="col-25 fontSelectedSp" ng-repeat="item in data.selectList" ng-click="selectAny(item)" >
+        <span ng-bind="item.name" ng-if="!item.select" class="headStylelist"></span>
+        <span ng-bind="item.name" ng-if="item.select" style="color:#0775F5" class="headStylelist"></span>
+        <i ng-if="!item.select" class="ion-ios-arrow-down iconStyle ng-cloak"></i>
+        <i ng-if="item.select" class="ion-ios-arrow-up iconStyle ng-cloak" style="color: #0775F5"></i>
+      </div>
+    </div>
+    <div class="listSelectDetail" ng-if="item2.select" ng-repeat="item2 in data.selectList">
+      <div class="listSelect" ng-repeat="i in item2.list" ng-click="selectConfirm(i,item2)" ng-if="item2.select">
+        <div class="lineClass"></div>
+        <!--<img ng-src="build/assets/img/indexPage/icon_choose.png">-->
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[0].select">
+          <spam ng-show="!data.selectList[0].selectSp">{{i.name}}</spam>
+          <spam ng-show="data.selectList[0].selectSp">{{i}}</spam>
+        </span>
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[1].select">{{i.label}}</span>
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[2].select">{{i.label}}</span>
+      </div>
+    </div>
+  </div>
+  <!--设置弹窗modal-->
+  <div class="modalClass" ng-class="{'md-show-class':config.showSelectList}" ng-click="selectAny({})">
+  </div>
+  <ion-content class="content-style" style="margin-top: 44px;" delegate-handle="mainScrollList">
+    <!-- 1.添加下拉刷新的组件 -->
+    <ion-refresher
+      pulling-text="下拉刷新页面数据..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
     <ion-list>
-      <ion-item class="text-center item item-icon-right" ng-click="goOperation(1)">
-        分派
-      </ion-item>
-      <ion-item class="text-center item item-icon-right" ng-click="goOperation(2)">
-        调换
-      </ion-item>
-      <ion-item class="text-center item item-icon-right" ng-click="goOperation(3)">
-        跟进
-      </ion-item>
-      <ion-item class="text-center item item-icon-right" ng-click="goOperation(4)">
-        返回
-      </ion-item>
-      <ion-item class="text-center item item-icon-right" ng-click="goOperation(5)">
-        操作日志
+      <ion-item ng-repeat="i in [1,2,3,4,5,6,7,8,9]">
+        <div class="row row-no-padding rowHeight">
+          <div class="col-20">王大锤</div>
+          <div class="col-60 numFontFamily font-little-small">2018-09-08 19:30</div>
+          <div class="col-20">
+            <button class="button button-small button-outline button-stable" ng-click="telphone()">
+              拨打电话
+            </button>
+          </div>
+        </div>
+        <div class="row row-no-padding rowHeight">
+          <div class="col-20 font-medium-small longStyle">归属地</div>
+          <div class="col-60 font-little-small longStyle">上海市普陀区xx小学上海市普陀区xx小学上海市普陀区xx小学</div>
+          <div class="col-20 font-medium-small">
+              邀请码申请
+          </div>
+        </div>
+        <div class="row row-no-padding rowHeight">
+          <div class="col-70 font-medium-small">当前处理人</div>
+          <div class="col-30 font-medium-small">任务状态</div>
+        </div>
+        <div class="row row-no-padding rowHeight">
+          <div class="col-20 paddingCol">
+            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(1)'>
+              分派
+            </button>
+          </div>
+          <div class="col-20 paddingCol">
+            <button class="button button-small button-outline button-positive button-block"  ng-click='goOperation(2)'>
+              调换
+            </button>
+          </div>
+          <div class="col-20 paddingCol">
+            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(3)'>
+              跟进
+            </button>
+          </div>
+          <div class="col-20 paddingCol">
+            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(5)'>
+              返回
+            </button>
+          </div>
+          <div class="col-20 paddingCol">
+            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(4)'>
+              操作日志
+            </button>
+          </div>
+        </div>
       </ion-item>
     </ion-list>
   </ion-content>

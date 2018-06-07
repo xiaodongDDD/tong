@@ -24,6 +24,7 @@
     "cordova-plugin-file-transfer": "^1.7.0",
     "cordova-plugin-jcore": "^1.1.10",
     "cordova-plugin-whitelist": "1",
+    "ionic": "^3.20.0",
     "jpush-phonegap-plugin": "file:///Users/daidongdong/Desktop/项目信息/plugin/jpush-phonegap-plugin",
     "tiny-lr": "^1.0.5"
   },

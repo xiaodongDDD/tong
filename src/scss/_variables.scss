@@ -2,7 +2,8 @@
 * 基础字体大小
 */
 $font-size-small:16px !default;
-
+$font-little-small:12px !default;
+$font-medium-small:14px !default;
 //字色
 $color-text-key: #FFFFFF !default;
 $color-text-value: #565A64 !default;
@@ -15,7 +16,13 @@ $global-head-bg:#f5f5f5  !default;
 //head线条颜色
 $global-Line-bg: #E2DFDF  !default;
 
+.font-little-small{
+  font-size: $font-little-small;
+}
 
+.font-medium-small{
+  font-size: $font-medium-small;
+}
 .head-bg{
   background-color: $global-head-bg;
 }

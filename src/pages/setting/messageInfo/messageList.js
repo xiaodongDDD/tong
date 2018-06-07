@@ -28,12 +28,19 @@ angular.module('settingModule')
 
         hmsPopup.confirm('是否将全部信息设置为已读？？', '提示信息', loginOut);
       }
+      //下拉刷新
+      $scope.doRefresh = function () {
+        initData('1');
+        $scope.$broadcast("scroll.refreshComplete");
+      }
       $scope.initData = function () {
         hmsPopup.showLoadingWithoutBackdrop('正在加载...');
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.userData&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
             $scope.data.messageList = response.response;
+            $ionicScrollDelegate.$getByHandle('mainScrollMessageList').resize();
+            $scope.$broadcast('scroll.infiniteScrollComplete');
           }
         ).error(
           function (response, status, header, config) {
