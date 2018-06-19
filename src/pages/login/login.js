@@ -19,7 +19,7 @@
     '$ionicScrollDelegate',
     'checkVersionService',
     'hmsPopup',
-    '$rootScope','$ionicBackdrop'];
+    '$rootScope','$ionicBackdrop','jpushService'];
 
   function loginCtrl($scope,
                      $state,
@@ -32,7 +32,7 @@
                      $ionicScrollDelegate,
                      checkVersionService,
                      hmsPopup,
-                     $rootScope) {
+                     $rootScope,jpushService) {
     //将页面的导航bar设置成白色
     $ionicPlatform.ready(function () {
       if (window.StatusBar) {
@@ -255,6 +255,16 @@
 
 
         loginPost().success(function (result) {
+          var alias = 'yt'+result.response.u_id
+          console.log(alias)
+          if (ionic.Platform.isWebView()) {
+            window.JPush.setAlias({ sequence: 1, alias: alias },function(result){
+              alert('success')
+              alert(result.alias)
+            })
+          }else{
+            console.log('网页情况下不开启推送！');
+          }
           if (baseConfig.debug) {
             console.log("result success " + angular.toJson(result.response.yitong_token));
           }
@@ -264,6 +274,7 @@
             window.localStorage.empno = $scope.loginInfo.username;
             window.localStorage.checkboxSavePwd = $scope.rememberPassword;
             window.localStorage.identity = result.response.is_agent;
+            window.localStorage.id = result.response.u_id;
             // if(result.response.is_agent == 0){
               $state.go("tab");
             // }else{

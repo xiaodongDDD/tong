@@ -5,29 +5,20 @@
       消息详情
     </div>
     <!--<i class="ion-ios-email-outline right-image emailStyle" ng-click="goMessage()"></i>-->
-    <button class="button button-clear button-positive" style="font-size: 14px;" ng-click="allRead()">
+    <button class="button button-clear button-positive" style="font-size: 14px;" ng-click="goApplication()">
       进入任务
     </button>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
     <div class="" ng-class="{'contentAll': true,'contentAllRed':false}">
       <div class="row">
-        <div class="col col-60 text-left bigTitle">消息的标题消息的标题消息的标题消息的标题{{i}}</div>
-        <div class="col col-40 text-right smallTime">2018-06-04</div>
+        <div class="col col-60 text-left bigTitle">{{data.messageDetail.title}}</div>
+        <div class="col col-40 text-right smallTime" ng-if="data.messageDetail.send_time">{{data.messageDetail.send_time * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</div>
       </div>
-      <div class="col smallContent">这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
-        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
-        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
-        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
-        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
-        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
-        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
-        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
-        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
-        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
-        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
-        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
-        这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧
+      <div class="row smallContent">
+        <div class="col">
+          {{data.messageDetail.content}}
+        </div>
       </div>
     </div>
   </ion-content>

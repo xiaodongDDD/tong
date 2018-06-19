@@ -8,24 +8,24 @@
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
     <div class="list">
-      <div class="item item-input-inset">
+      <div class="item item-input-inset" style="border-top: 0px">
         <label class="item-input-wrapper">
-          <input type="text" placeholder="请正确输入培训师姓名">
+          <input type="text" placeholder="请正确输入培训师姓名" ng-model="data.selectName">
         </label>
-        <button class="button button-small">
+        <button class="button button-small" ng-click="selectInfo()">
           查询
         </button>
       </div>
-      <div class="item text-center">
+      <div class="item text-center" ng-if="clientSideList.length < 1">
         暂无数据
       </div>
 
       <ion-radio ng-repeat="item in clientSideList"
-                 ng-value="item.value"
-                 ng-model="data.clientSide">
+                 ng-value="item.u_id"
+                 ng-model="data.clientSide" ng-if="clientSideList.length > 0">
         <div class="row row-no-padding">
-          <div class="col">{{ item.text }}</div>
-          <div class="col">18298182058</div>
+          <div class="col">{{ item.user_name }}</div>
+          <div class="col">{{item.mobile_phone}}</div>
         </div>
       </ion-radio>
       <div class="styleTips">

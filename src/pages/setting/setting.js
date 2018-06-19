@@ -4,9 +4,12 @@
 
 angular.module('settingModule')
   .controller('settingCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup','checkVersionService',
-    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup,checkVersionService) {
+    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup','checkVersionService','jpushService','baseConfig','hmsHttp',
+    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup,checkVersionService,jpushService,baseConfig,hmsHttp) {
       $scope.config = {}
+      $scope.data = {
+        userInfo : {}
+      }
       $scope.exitAccount = function () {
         function loginOut(buttonIndex) {
           console.log(buttonIndex)
@@ -30,6 +33,25 @@ angular.module('settingModule')
         $state.go('userApplicationList');
       }
       $scope.goMessage = function () {
+        if (ionic.Platform.isWebView()) {
+          jpushService.resetBadge();
+        }else{
+          console.log('网页情况下不开启推送！');
+        }
         $state.go('messageList');
       }
+      $scope.initData = function () {
+        hmsPopup.showLoadingWithoutBackdrop('正在加载...');
+        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.user_center";
+        hmsHttp.get(indexUrl).success(
+          function (response) {
+            $scope.data.userInfo = response.response;
+            console.log(response)
+          }
+        ).error(
+          function (response, status, header, config) {
+          }
+        );
+      }
+      $scope.initData()
     }]);

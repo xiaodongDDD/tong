@@ -63,17 +63,21 @@
               console.log(postName + " url " + url);
               console.log(postName + " paramter " + angular.toJson(paramter));
             }
-            var destUrl = url + "&yitong_token=" + window.localStorage.token;
+            var destUrl = url + "&yitong_token=" + window.localStorage.token+"&app_type=1";
             var startTime = new Date().getTime();
             var post = $http.post(destUrl, paramter, {
               headers: {'Content-Type': 'application/x-www-form-application;charset=utf-8'}
             }, {'timeout': '30000'}).success(function (response) {
+              hmsPopup.hideLoading();
+              if (response.hasOwnProperty('error_response')) {
+                hmsPopup.showShortCenterToast(response.error_response.msg);
+                return
+              }
               if (baseConfig.debug) {
                 console.log(postName + " success");
                 // console.log(postName + " response " + angular.toJson(response));
                 console.log(postName + " End!");
               }
-              hmsPopup.hideLoading();
             }).error(function (response, status, header, config) {
               var respTime = new Date().getTime() - startTime;
               //超时之后返回的方法
@@ -114,7 +118,7 @@
               console.log(getName + " Start!");
               console.log(getName + " url " + url);
             }
-            var destUrl = url + "&yitong_token=" + window.localStorage.token;
+            var destUrl = url + "&yitong_token=" + window.localStorage.token+"&app_type=1";
             var startTime = new Date().getTime();
             var get = $http.get(destUrl, {
               headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
@@ -125,6 +129,10 @@
                 console.log(getName + " End!");
               }
               hmsPopup.hideLoading()
+              if (response.hasOwnProperty('error_response')) {
+                hmsPopup.showShortCenterToast(response.error_response.msg);
+                return
+              }
             }).error(function (response, status, header, config) {
               console.log('-----------');
               var respTime = new Date().getTime() - startTime;

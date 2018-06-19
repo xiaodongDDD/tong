@@ -4,8 +4,8 @@
 
 angular.module('settingModule')
   .controller('userApplicationListCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup', 'publicMethod', 'userApplicationService',
-    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup, publicMethod, userApplicationService) {
+    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup', 'publicMethod', 'userApplicationService','baseConfig','$ionicScrollDelegate','hmsHttp','SettingsService',
+    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup, publicMethod, userApplicationService,baseConfig,$ionicScrollDelegate,hmsHttp,SettingsService) {
       $scope.config = {
         showPageList: true,
         showSelectList: false,
@@ -27,13 +27,13 @@ angular.module('settingModule')
             project_id: '-1',
             list: [
               {id: '0', label: '请选择'},
-              {id: '1', label: '系统待分配'},
-              {id: '2', label: '手机号异常'},
+              {id: '1', label: '手机号异常'},
+              {id: '2', label: '系统待分配'},
               {id: '3', label: '待处理'},
               {id: '4', label: '已分派'},
               {id: '5', label: '已跟进'},
-              {id: '6', label: '已调换'},
-              {id: '7', label: '已返回'}
+              {id: '6', label: '已返回'},
+              {id: '7', label: '已调换'}
             ]
           }, {
             name: "资质评价",
@@ -42,8 +42,8 @@ angular.module('settingModule')
             invited_code: '',
             list: [
               {id: '0', label: '请选择'},
-              {id: '1', label: '潜在资源'},
-              {id: '2', label: '重要资源'},
+              {id: '2', label: '潜在资源'},
+              {id: '1', label: '重要资源'},
               {id: '3', label: '无效资源'}
             ]
           }, {
@@ -58,10 +58,12 @@ angular.module('settingModule')
         $state.go('messageDetail');
       }
       $scope.goBack = function () {
-        publicMethod.goBack();
+        // publicMethod.goBack();
+        $state.go("tab");
       }
-      $scope.goOperation = function (item) {
-        switch (item) {
+      $scope.goOperation = function (id,item) {
+        SettingsService.set('t_a_id',item.t_a_id)
+        switch (id) {
           case 1:
             $state.go('distribution');
             break;
@@ -86,10 +88,21 @@ angular.module('settingModule')
       }
       $scope.initData = function () {
         hmsPopup.showLoadingWithoutBackdrop('正在加载...');
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.userData&type=" + $scope.data.type;
-        hmsHttp.get(indexUrl).success(
+        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yi.applyList";
+        var obj = {
+          "module_id":22,
+          "province":"",//省份
+          "city":"",//城市
+          "status":'',//1机号异常,2系统待分派，3待处理，4已分派，5已更进，6已返回，7已调换
+          "resource":'', //1重要资源，2潜在资源，3无效资源
+          "start_time":"",//开始时间
+          "end_time":"",//结束时间
+          "now_page":1,
+          "pagesize":10,
+      }
+        hmsHttp.post(indexUrl,obj).success(
           function (response) {
-            $scope.data.messageList = response.response;
+            $scope.data.messageList = response.response.list;
             $ionicScrollDelegate.$getByHandle('mainScrollList').resize();
             $scope.$broadcast('scroll.infiniteScrollComplete');
           }
@@ -101,7 +114,7 @@ angular.module('settingModule')
       //筛选条件
       $scope.selectAny = function (item) {
         if (item.id === 3) {
-          $state.go('timeSelect')
+          $state.go('timeSelectSetting')
           return
         }
         var num = 0;
@@ -166,6 +179,14 @@ angular.module('settingModule')
       }
       $scope.telphone = function(item){
         console.log(item)
-        publicMethod.showphone('18298182058')
+        publicMethod.showphone(item.mobile_phone)
       }
+      //路由监听事件
+      $scope.$on('$stateChangeSuccess',
+        function(event, toState, toParams, fromState, fromParams) {
+          if (fromState && toState && (fromState.name == 'timeSelectSetting') && toState.name == 'userApplicationList') {
+            console.log('=======')
+          }
+        })
+      $scope.initData();
     }]);

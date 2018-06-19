@@ -74,12 +74,12 @@
         jpushService.init(config);
         jpushService.resetBadge();
         //启动极光推送服务
-        window.plugins.jPushPlugin.init();
-        window.plugins.jPushPlugin.setDebugMode(true);
-        document.addEventListener("jpush.openNotification", onOpenNotification, false)
-        var onOpenNotification = function (event) {
-          window.plugins.jPushPlugin.resetBadge()
-        }
+        // window.plugins.jPushPlugin.init();
+        // window.plugins.jPushPlugin.setDebugMode(true);
+        // document.addEventListener("jpush.openNotification", onOpenNotification, false)
+        // var onOpenNotification = function (event) {
+        //   window.plugins.jPushPlugin.resetBadge()
+        // }
       } else {
         console.log('网页情况下不开启推送！');
       }
@@ -266,6 +266,11 @@
         url: '/return',
         templateUrl: 'build/pages/setting/userApplication/return/return.html',
         controller: 'returnCtrl'
+      })
+      .state('timeSelectSetting', {
+        url: '/timeSelectSetting',
+        templateUrl: 'build/pages/setting/userApplication/timeSelectSetting/timeSelectSetting.html',
+        controller: 'timeSelectSettingCtrl'
       })
     // if (!window.localStorage.needGuid || window.localStorage.needGuid == "true") {
     //   //if (baseConfig.debug) {

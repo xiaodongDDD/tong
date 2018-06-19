@@ -40,50 +40,50 @@
       on-refresh="doRefresh()">
     </ion-refresher>
     <ion-list>
-      <ion-item ng-repeat="i in [1,2,3,4,5,6,7,8,9]">
+      <ion-item ng-repeat="item in data.messageList">
         <div class="row row-no-padding rowHeight">
-          <div class="col-20">王大锤</div>
-          <div class="col-60 numFontFamily font-little-small">2018-09-08 19:30</div>
+          <div class="col-20">{{item.name}}</div>
+          <div class="col-60 numFontFamily font-little-small">{{item.apply_time}}</div>
           <div class="col-20">
-            <button class="button button-small button-outline button-stable" ng-click="telphone()">
+            <button class="button button-small button-outline button-stable" ng-click="telphone(item)">
               拨打电话
             </button>
           </div>
         </div>
         <div class="row row-no-padding rowHeight">
-          <div class="col-20 font-medium-small longStyle">归属地</div>
-          <div class="col-60 font-little-small longStyle">上海市普陀区xx小学上海市普陀区xx小学上海市普陀区xx小学</div>
+          <div class="col-20 font-medium-small longStyle">{{item.real_province_city}}</div>
+          <div class="col-60 font-little-small longStyle">{{item.school_name}}</div>
           <div class="col-20 font-medium-small">
-              邀请码申请
+              {{item.apply_type}}
           </div>
         </div>
         <div class="row row-no-padding rowHeight">
-          <div class="col-70 font-medium-small">当前处理人</div>
-          <div class="col-30 font-medium-small">任务状态</div>
+          <div class="col-70 font-medium-small">当前处理人：{{item.direct_manager1}}</div>
+          <div class="col-30 font-medium-small">{{item.status_name}}</div>
         </div>
         <div class="row row-no-padding rowHeight">
           <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(1)'>
+            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(1,item)'>
               分派
             </button>
           </div>
           <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block"  ng-click='goOperation(2)'>
+            <button class="button button-small button-outline button-positive button-block"  ng-click='goOperation(2,item)'>
               调换
             </button>
           </div>
           <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(3)'>
+            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(3,item)'>
               跟进
             </button>
           </div>
           <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(5)'>
+            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(5,item)'>
               返回
             </button>
           </div>
           <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(4)'>
+            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(4,item)'>
               操作日志
             </button>
           </div>

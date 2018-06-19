@@ -118,7 +118,7 @@ angular.module('settingModule')
             "连云港",
             "徐州",
             "淮安",
-            "宿州",
+            "宿迁",
             "其他"
           ],
           "arr": []

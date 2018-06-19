@@ -24,4 +24,23 @@
     vertical-align: bottom;
     font-family: DIN-Regular !important;
   }
+  .spinnerClass{
+    position: relative;
+    top: -40px;
+    height: 66px;
+    line-height: 66px;
+    color: #ccc;
+  }
+  .spinnerClassSp{
+    position: relative;
+    //top: -40px;
+    height: 66px;
+    line-height: 66px;
+    color: #ccc;
+  }
+  ion-list{
+    ion-item:first-child{
+      border-top: 0px;
+    }
+  }
 }

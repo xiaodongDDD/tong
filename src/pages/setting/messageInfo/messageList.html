@@ -16,16 +16,19 @@
     </ion-refresher>
     <ion-list>
       <ion-item class="text-center item item-icon-right" ng-class="{'urgentBackground': false}"
-                ng-click="goMessageDetail()" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]">
+                ng-click="goMessageDetail(item)" ng-repeat="item in data.messageList">
         <div class="row">
-          <div class="col col-60 text-left bigTitle">消息的标题消息的标题消息的标题{{i}}</div>
-          <div class="col col-40 text-right smallTime">2018-06-04</div>
+          <div class="col col-60 text-left bigTitle"><span ng-if="item.status == 0"><i class="ion-star" style="color: red" ></i>&nbsp;</span>{{item.title}}</div>
+          <div class="col col-40 text-right smallTime">{{item.send_time * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</div>
         </div>
         <div class="row">
-          <div class="col text-left smallContent">这个真的是个消息的详情吧这个真的是个消息的详情吧这个真的是个消息的详情吧</div>
+          <div class="col text-left smallContent">{{item.content}}</div>
         </div>
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
     </ion-list>
+    <ion-infinite-scroll ng-if="config.nextPage" on-infinite="loadMore()" immediate-check='false' distance="1%" class="spinner"></ion-infinite-scroll>
+    <div class="text-center spinnerClass" ng-show="config.nextPage">正在加载..</div>
+    <div class="text-center spinnerClassSp" ng-show="!config.nextPage">暂无更多数据</div>
   </ion-content>
 </ion-view>

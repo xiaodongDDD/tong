@@ -3,19 +3,20 @@
     <div class="title titleStyle">
       注册用户情况统计
     </div>
-    <i class="ion-ios-email-outline right-image emailStyle" ng-click="goMessage()"></i>
-    <!--<i class="ion-email-unread right-image emailStyle" ng-click="goMessage()"></i>-->
+    <i class="ion-ios-email-outline right-image emailStyle" ng-if="!data.userInfo.message_count" ng-click="goMessage()"></i>
+    <i class="ion-email-unread right-image emailStyle" style="color: red" ng-if="data.userInfo.message_count" ng-click="goMessage()"></i>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
     <ion-list>
-      <ion-item class="item item-icon-right">
-        <div class="row row-wrap">
+      <ion-item class="item item-icon-right" style="border-top: 0px">
+        <div class="row row-wrap ">
           <div class="col col-25">
-            <img src="build/assets/img/login/product_logo.png">
+            <img ng-src="{{data.userInfo.user.avatar}}" ng-if="data.userInfo.user.avatar">
+            <img src="build/assets/img/login/product_logo.png" ng-if="!data.userInfo.user.avatar">
           </div>
           <div class="col col-75">
-            <div class="row">姓名 职务</div>
-            <div class="row">直属公司</div>
+            <div class="row" style="margin-top: 5px">{{data.userInfo.user.user_name}}&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 14px">{{data.userInfo.user.work_position}}</span></div>
+            <div class="row" style="margin-top: 10px;font-size: 15px">{{data.userInfo.user.name}}</div>
           </div>
         </div>
         <!--<i class="icon ion-ios-arrow-right"></i>-->
@@ -26,13 +27,13 @@
           <div class="col col-25" >
             <span class="userStyle"><p>用户申请</p>
               <!--<span class="hongDian">3</span>-->
-              <span class="badge badge-assertive hongDian">0</span>
+              <span class="badge badge-assertive hongDian" ng-if="data.userInfo.apply_count">{{data.userInfo.apply_count}}</span>
             </span>
           </div>
         </div>
       </ion-item>
       <ion-item class="text-left item item-icon-right bigTitle">
-        我的资源（即将上线，敬请期待）<i class="icon ion-ios-arrow-right"></i>
+        我的资源（即将上线，敬请期待）
       </ion-item>
       <ion-item class="text-left  item item-icon-right bigTitle" ng-click="goChangePassword()">
         修改密码<i class="icon ion-ios-arrow-right"></i>
