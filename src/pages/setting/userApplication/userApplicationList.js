@@ -4,13 +4,16 @@
 
 angular.module('settingModule')
   .controller('userApplicationListCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup', 'publicMethod', 'userApplicationService','baseConfig','$ionicScrollDelegate','hmsHttp','SettingsService',
-    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup, publicMethod, userApplicationService,baseConfig,$ionicScrollDelegate,hmsHttp,SettingsService) {
+    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup', 'publicMethod', 'userApplicationService', 'baseConfig', '$ionicScrollDelegate', 'hmsHttp', 'SettingsService',
+    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup, publicMethod, userApplicationService, baseConfig, $ionicScrollDelegate, hmsHttp, SettingsService) {
       $scope.config = {
         showPageList: true,
         showSelectList: false,
+        nextPage: false
       }
       $scope.data = {
+        page: 1,
+        messageList: [],
         selectList: [
           {
             name: "地区搜索",
@@ -18,15 +21,15 @@ angular.module('settingModule')
             select: false,
             id: 0,
             province: '',
+            city: '',
             list: userApplicationService.provinces
           },
           {
             name: "状态",
             select: false,
             id: 1,
-            project_id: '-1',
+            status: '',
             list: [
-              {id: '0', label: '请选择'},
               {id: '1', label: '手机号异常'},
               {id: '2', label: '系统待分配'},
               {id: '3', label: '待处理'},
@@ -39,11 +42,10 @@ angular.module('settingModule')
             name: "资质评价",
             select: false,
             id: 2,
-            invited_code: '',
+            resource: '',
             list: [
-              {id: '0', label: '请选择'},
-              {id: '2', label: '潜在资源'},
               {id: '1', label: '重要资源'},
+              {id: '2', label: '潜在资源'},
               {id: '3', label: '无效资源'}
             ]
           }, {
@@ -51,18 +53,19 @@ angular.module('settingModule')
             select: false,
             id: 3,
             invited_code: '',
-            list: []
-          }]
+            list: ['', '']
+        }]
       }
+      $scope.selectListCopy = angular.copy($scope.data.selectList)
       $scope.goMessageDetail = function () {
         $state.go('messageDetail');
       }
       $scope.goBack = function () {
-        // publicMethod.goBack();
-        $state.go("tab");
+        publicMethod.goBack();
+        // $state.go("tab");
       }
-      $scope.goOperation = function (id,item) {
-        SettingsService.set('t_a_id',item.t_a_id)
+      $scope.goOperation = function (id, item) {
+        SettingsService.set('t_a_id', item.t_a_id)
         switch (id) {
           case 1:
             $state.go('distribution');
@@ -83,26 +86,35 @@ angular.module('settingModule')
       }
       //下拉刷新
       $scope.doRefresh = function () {
-        initData('1');
+        $scope.data.messageList = []
+        $scope.initData(1);
         $scope.$broadcast("scroll.refreshComplete");
       }
-      $scope.initData = function () {
+      $scope.initData = function (page) {
         hmsPopup.showLoadingWithoutBackdrop('正在加载...');
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yi.applyList";
         var obj = {
-          "module_id":22,
-          "province":"",//省份
-          "city":"",//城市
-          "status":'',//1机号异常,2系统待分派，3待处理，4已分派，5已更进，6已返回，7已调换
-          "resource":'', //1重要资源，2潜在资源，3无效资源
-          "start_time":"",//开始时间
-          "end_time":"",//结束时间
-          "now_page":1,
-          "pagesize":10,
-      }
-        hmsHttp.post(indexUrl,obj).success(
+          "module_id": 22,
+          "province": $scope.data.selectList[0].province,//省份
+          "city": $scope.data.selectList[0].city,//城市
+          "status": $scope.data.selectList[1].status,//1机号异常,2系统待分派，3待处理，4已分派，5已更进，6已返回，7已调换
+          "resource": $scope.data.selectList[2].resource, //1重要资源，2潜在资源，3无效资源
+          "start_time": $scope.data.selectList[3].list[0],//开始时间
+          "end_time": $scope.data.selectList[3].list[1],//结束时间
+          "now_page": page,
+          "pagesize": 10,
+        }
+        hmsHttp.post(indexUrl, obj).success(
           function (response) {
-            $scope.data.messageList = response.response.list;
+            $scope.data.messageList = $scope.data.messageList.concat(response.response.list);
+            if (response.response.total_page === $scope.data.page) {
+              $scope.config.nextPage = false
+            } else {
+              $scope.config.nextPage = true;
+            }
+            if (response.response.total_page == 0) {
+              $scope.config.nextPage = false
+            }
             $ionicScrollDelegate.$getByHandle('mainScrollList').resize();
             $scope.$broadcast('scroll.infiniteScrollComplete');
           }
@@ -134,59 +146,79 @@ angular.module('settingModule')
         } else {
           $scope.config.showSelectList = false;
         }
-        console.log($scope.config.showSelectList)
-        console.log($scope.data.selectList)
       }
       //选择成功
       $scope.selectConfirm = function (item1, item2) {
         switch (item2.id) {
           case 0:
-            if($scope.data.selectList[0].selectSp){
+            if ($scope.data.selectList[0].selectSp) {
               $scope.data.selectList[0].list = userApplicationService.provinces
               $scope.data.selectList[0].name = $scope.data.selectList[0].name + item1;
-              if ($scope.data.selectList[0].name.length>6){
-                $scope.data.selectList[0].name = $scope.data.selectList[0].name.substring(0,4) + '..'
+              $scope.data.selectList[0].city = item1;
+              if ($scope.data.selectList[0].name.length > 6) {
+                $scope.data.selectList[0].name = $scope.data.selectList[0].name.substring(0, 4) + '..'
               }
               $scope.data.selectList[0].selectSp = false;
               for (var i = 0; i < $scope.data.selectList.length; i++) {
                 $scope.data.selectList[i].select = false;
               }
               $scope.config.showSelectList = false;
-            }else{
+            } else {
               $scope.data.selectList[0].list = item1.citys
               $scope.data.selectList[0].name = item1.name;
+              $scope.data.selectList[0].province = item1.name;
               $scope.data.selectList[0].selectSp = true;
             }
             break;
           case 1:
             $scope.data.selectList[1].name = item1.label;
-            if ($scope.data.selectList[1].name.length>4){
-              $scope.data.selectList[1].name = $scope.data.selectList[1].name.substring(0,4) + '..'
+            $scope.data.selectList[1].status = item1.id
+            if ($scope.data.selectList[1].name.length > 4) {
+              $scope.data.selectList[1].name = $scope.data.selectList[1].name.substring(0, 4) + '..'
             }
             break;
           case 2:
             $scope.data.selectList[2].name = item1.label;
+            $scope.data.selectList[2].resource = item1.id;
             break;
           default:
             console.log('error');
         }
-        if(item2.id !== 0){
+        if (item2.id !== 0) {
           for (var i = 0; i < $scope.data.selectList.length; i++) {
             $scope.data.selectList[i].select = false;
           }
           $scope.config.showSelectList = false;
         }
+        if (!$scope.data.selectList[0].selectSp) {
+          $scope.data.messageList = [];
+          $scope.initData(1);
+        }
       }
-      $scope.telphone = function(item){
-        console.log(item)
+      $scope.telphone = function (item) {
         publicMethod.showphone(item.mobile_phone)
       }
       //路由监听事件
       $scope.$on('$stateChangeSuccess',
-        function(event, toState, toParams, fromState, fromParams) {
+        function (event, toState, toParams, fromState, fromParams) {
           if (fromState && toState && (fromState.name == 'timeSelectSetting') && toState.name == 'userApplicationList') {
-            console.log('=======')
+            $scope.data.selectList[3].list = SettingsService.get('timeSelectSetting')
+            $scope.data.selectList[3].name = SettingsService.get('timeSelectSettingSp')[0]+ SettingsService.get('timeSelectSettingSp')[1]
+            if ($scope.data.selectList[3].name.length > 6) {
+              $scope.data.selectList[3].name = $scope.data.selectList[3].name.substring(0, 4) + '..'
+            }
+            $scope.data.messageList = []
+            $scope.initData(1);
           }
         })
-      $scope.initData();
+      $scope.reset = function () {
+        $scope.data.selectList = angular.copy($scope.selectListCopy)
+        $scope.data.messageList = []
+        $scope.initData(1);
+      }
+      $scope.initData(1);
+      $scope.loadMore = function () {
+        $scope.data.page++;
+        $scope.initData($scope.data.page);
+      }
     }]);

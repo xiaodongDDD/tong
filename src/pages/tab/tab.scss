@@ -101,10 +101,10 @@
     @include tab-icon("../assets/img/tab/icon_nav_index.png");
   }
   .app-on {
-    @include tab-icon("../assets/img/tab/icon_nav_user_active.png");
+    @include tab-icon("../assets/img/tab/icon_nav_my_active.png");
   }
   .app-off {
-    @include tab-icon("../assets/img/tab/icon_nav_user.png");
+    @include tab-icon("../assets/img/tab/icon_nav_my.png");
   }
   .class-on {
     @include tab-icon("../assets/img/tab/icon_nav_class_active.png");
@@ -119,10 +119,10 @@
     @include tab-icon("../assets/img/tab/icon_nav_school.png");
   }
   .setting-on {
-    @include tab-icon("../assets/img/tab/icon_nav_setting.png");
+    @include tab-icon("../assets/img/tab/icon_nav_user_active.png");
   }
   .setting-off {
-    @include tab-icon("../assets/img/tab/icon_nav_setting.png");
+    @include tab-icon("../assets/img/tab/icon_nav_user.png");
   }
 }
 

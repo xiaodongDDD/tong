@@ -6,10 +6,16 @@
     </div>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
-    <ion-list>
-      <ion-item class="text-center item item-icon-right" ng-click="goMessageDetail()">
-        操作日志
-      </ion-item>
-    </ion-list>
+    <div ng-repeat="item in data.messageList" ng-if="data.messageList.length>0" style="background: white">
+      <div class="row ">
+        <div class="col">{{item.update_time * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+      </div>
+      <div class="row ">
+        <div class="col">{{item.detail}}</div>
+      </div>
+    </div>
+    <div ng-if="data.messageList<1" class="list">
+      <div class="item text-center">暂无数据</div>
+    </div>
   </ion-content>
 </ion-view>

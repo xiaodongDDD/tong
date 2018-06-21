@@ -4,7 +4,7 @@
     <div class="title titleStyle">
       跟进
     </div>
-    <button class="button button-clear button-positive" style="font-size: 14px;color: black;">保存</button>
+    <button class="button button-clear button-positive" style="font-size: 14px;color: black;" ng-click="submit()">保存</button>
   </ion-header-bar>
   <div class="bar bar-subheader">
     <div class=" button-bar">
@@ -46,8 +46,7 @@
         跟进记录
       </div>
       <div class="item">
-        <textarea rows="3" cols="20" style="background-color:#eee;padding:5px;width: 100%" placeholder="最多输入300个汉字">
-        在w3school，你可以找到你所需要的所有的网站建设教程。
+        <textarea rows="3" cols="20" style="background-color:#eee;padding:5px;width: 100%" placeholder="最多输入300个汉字" ng-model="data.successText">
         </textarea>
       </div>
     </div>
@@ -76,8 +75,7 @@
         跟进记录
       </div>
       <div class="item">
-        <textarea rows="3" cols="20" style="background-color:#eee;padding:5px;width: 100%" placeholder="最多输入300个汉字">
-        在w3school，你可以找到你所需要的所有的网站建设教程。
+        <textarea rows="3" cols="20" style="background-color:#eee;padding:5px;width: 100%" placeholder="最多输入300个汉字" ng-model="data.errorText">
         </textarea>
       </div>
     </div>

@@ -256,11 +256,10 @@
 
         loginPost().success(function (result) {
           var alias = 'yt'+result.response.u_id
-          console.log(alias)
           if (ionic.Platform.isWebView()) {
             window.JPush.setAlias({ sequence: 1, alias: alias },function(result){
-              alert('success')
-              alert(result.alias)
+              // alert('success')
+              // alert(result.alias)
             })
           }else{
             console.log('网页情况下不开启推送！');

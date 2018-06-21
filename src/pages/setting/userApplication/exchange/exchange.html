@@ -4,7 +4,7 @@
     <div class="title titleStyle">
       调换
     </div>
-    <button class="button button-clear button-positive" style="font-size: 14px;color: black;">保存</button>
+    <button class="button button-clear button-positive" style="font-size: 14px;color: black;" ng-click="submit()">保存</button>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
     <div class="list">
@@ -13,9 +13,9 @@
       </div>
       <label class="item item-input item-select">
         <div class="input-label">
-          <!--Lightsaber-->&nbsp;
+          <span>请选择</span>
         </div>
-        <select ng-model="data.province" ng-change="selectProvince(data.province)">
+        <select ng-model="data.province" ng-change="selectProvince(data.province)" >
           <option ng-repeat="item in data.listProvince" value="{{item}}">{{item.name}}</option>
         </select>
       </label>
@@ -32,29 +32,28 @@
       </div>
       <div class="item item-input-inset">
         <label class="item-input-wrapper">
-          <input type="text" placeholder="请正确输入培训师姓名">
+          <input type="text" placeholder="请正确输入培训师姓名" ng-model="data.selectName">
         </label>
-        <button class="button button-small">
+        <button class="button button-small" ng-click="selectInfo()">
           查询
         </button>
       </div>
-      <div class="item text-center">
+      <div class="item text-center" ng-if="clientSideList.length < 1">
         暂无数据
       </div>
-
       <ion-radio ng-repeat="item in clientSideList"
-                 ng-value="item.value"
-                 ng-model="data.clientSide">
+                 ng-value="item.u_id"
+                 ng-model="data.clientSide" ng-if="clientSideList.length > 0">
         <div class="row row-no-padding">
-          <div class="col">{{ item.text }}</div>
-          <div class="col">18298182058</div>
+          <div class="col">{{ item.user_name }}</div>
+          <div class="col">{{item.mobile_phone}}</div>
         </div>
       </ion-radio>
       <div class="item item-divider">
         调换缘由
       </div>
       <div class="item">
-        <textarea rows="3" cols="20" style="background-color:#eee;padding:5px;width: 100%" placeholder="最多输入300个汉字">二维翁翁</textarea>
+        <textarea rows="3" cols="20" style="background-color:#eee;padding:5px;width: 100%" placeholder="最多输入300个汉字" ng-model="data.exchang_reason"></textarea>
       </div>
       <div class="styleTips">
         温馨提示：只能调换给管辖实际归属地区域的人

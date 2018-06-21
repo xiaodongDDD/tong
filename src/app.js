@@ -76,10 +76,12 @@
         //启动极光推送服务
         // window.plugins.jPushPlugin.init();
         // window.plugins.jPushPlugin.setDebugMode(true);
-        // document.addEventListener("jpush.openNotification", onOpenNotification, false)
-        // var onOpenNotification = function (event) {
-        //   window.plugins.jPushPlugin.resetBadge()
-        // }
+        document.addEventListener("jpush.openNotification", onOpenNotification, false)
+        var onOpenNotification = function (event) {
+          alert(event)
+          alert('xiaoxi')
+          window.plugins.jPushPlugin.resetBadge()
+        }
       } else {
         console.log('网页情况下不开启推送！');
       }

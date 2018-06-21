@@ -15,7 +15,7 @@
       on-refresh="doRefresh()">
     </ion-refresher>
     <ion-list>
-      <ion-item class="text-center item item-icon-right" ng-class="{'urgentBackground': false}"
+      <ion-item class="text-center item item-icon-right" ng-class="{'urgentBackground': item.urgency_flag == 1}"
                 ng-click="goMessageDetail(item)" ng-repeat="item in data.messageList">
         <div class="row">
           <div class="col col-60 text-left bigTitle"><span ng-if="item.status == 0"><i class="ion-star" style="color: red" ></i>&nbsp;</span>{{item.title}}</div>

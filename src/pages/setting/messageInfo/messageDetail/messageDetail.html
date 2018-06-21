@@ -10,7 +10,7 @@
     </button>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
-    <div class="" ng-class="{'contentAll': true,'contentAllRed':false}">
+    <div class="" ng-class="{'contentAll': true,'contentAllRed':data.messageDetail.urgency_flag == 1}">
       <div class="row">
         <div class="col col-60 text-left bigTitle">{{data.messageDetail.title}}</div>
         <div class="col col-40 text-right smallTime" ng-if="data.messageDetail.send_time">{{data.messageDetail.send_time * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</div>

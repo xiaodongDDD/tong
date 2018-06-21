@@ -16,7 +16,8 @@ angular.module('settingModule')
       $scope.data.startDatetime = formatDate.formatDate(date, 'yyyy-MM-dd')
       //返回
       $scope.goBack = function () {
-        SettingsService.set('timeSelectSetting', '');
+        SettingsService.set('timeSelectSetting', ['', '']);
+        SettingsService.set('timeSelectSettingSp', ['时间搜索', '']);
         publicMethod.goBack();
       }
 
@@ -34,11 +35,13 @@ angular.module('settingModule')
           return;
         }
         var typeTime = [];
+        var typeTimeSp = []
         typeTime.push(new Date($scope.data.startDatetime).getTime()/1000);
         typeTime.push(new Date($scope.data.endDatetime).getTime()/1000);
-        typeTime = angular.toJson(typeTime);
-        console.log(typeTime);
+        typeTimeSp.push($scope.data.startDatetime);
+        typeTimeSp.push($scope.data.startDatetime);
         SettingsService.set('timeSelectSetting', typeTime);
+        SettingsService.set('timeSelectSettingSp', typeTimeSp);
         publicMethod.goBack();
       }
 

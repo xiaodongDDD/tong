@@ -11,7 +11,7 @@ angular.module('settingModule')
       }
       $scope.data = {
         messageList: [],
-        page:1
+        page: 1
       }
       $scope.goMessageDetail = function (item) {
         if (item.status == 0) {
@@ -29,13 +29,17 @@ angular.module('settingModule')
         function loginOut(buttonIndex) {
           console.log(buttonIndex)
           if (buttonIndex == 1) { //确认按钮
-            var arr = []
-            for (var i = 0; i < $scope.data.messageList.length; i++) {
-              if ($scope.data.messageList[i].status == '0') {
-                arr.push($scope.data.messageList[i].n_id)
+            var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.news_read_all";
+            hmsHttp.get(indexUrl).success(
+              function (response) {
+                $scope.Toast.show(response.response.msg);
+                $scope.data.messageList = [];
+                $scope.initData(1)
               }
-            }
-            $scope.readMessage(arr)
+            ).error(
+              function (response, status, header, config) {
+              }
+            );
           } else { //取消按钮
             return;
           }
@@ -50,7 +54,8 @@ angular.module('settingModule')
         }
         hmsHttp.post(indexUrl, obj).success(
           function (response) {
-            hmsPopup.showShortCenterToast(response.response.msg);
+            $scope.Toast.show(response.response.msg);
+            $scope.data.messageList = [];
             $scope.initData(1)
           }
         ).error(
@@ -70,10 +75,13 @@ angular.module('settingModule')
         hmsHttp.post(indexUrl, obj).success(
           function (response) {
             $scope.data.messageList = $scope.data.messageList.concat(response.response.list);
-            if(response.response.total_page === $scope.data.page){
+            if (response.response.total_page === $scope.data.page) {
               $scope.config.nextPage = false
-            }else{
+            } else {
               $scope.config.nextPage = true;
+            }
+            if (response.response.total_page == 0) {
+              $scope.config.nextPage = false
             }
             $ionicScrollDelegate.$getByHandle('mainScrollMessageList').resize();
             $scope.$broadcast('scroll.infiniteScrollComplete');

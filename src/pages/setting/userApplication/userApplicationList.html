@@ -42,10 +42,10 @@
     <ion-list>
       <ion-item ng-repeat="item in data.messageList">
         <div class="row row-no-padding rowHeight">
-          <div class="col-20">{{item.name}}</div>
-          <div class="col-60 numFontFamily font-little-small">{{item.apply_time}}</div>
+          <div class="col-20 longStyle">{{item.name}}</div>
+          <div class="col-60 numFontFamily font-little-small ">{{item.apply_time}}</div>
           <div class="col-20">
-            <button class="button button-small button-outline button-stable" ng-click="telphone(item)">
+            <button class="button button-small button-outline button-positive" ng-click="telphone(item)">
               拨打电话
             </button>
           </div>
@@ -53,32 +53,36 @@
         <div class="row row-no-padding rowHeight">
           <div class="col-20 font-medium-small longStyle">{{item.real_province_city}}</div>
           <div class="col-60 font-little-small longStyle">{{item.school_name}}</div>
-          <div class="col-20 font-medium-small">
+          <div class="col-20 font-medium-small longStyle text-right">
               {{item.apply_type}}
           </div>
         </div>
         <div class="row row-no-padding rowHeight">
           <div class="col-70 font-medium-small">当前处理人：{{item.direct_manager1}}</div>
-          <div class="col-30 font-medium-small">{{item.status_name}}</div>
+          <div class="col-30 font-medium-small text-right">{{item.status_name}}</div>
         </div>
         <div class="row row-no-padding rowHeight">
           <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(1,item)'>
+            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(1,item)'
+                    ng-disabled="item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0">
               分派
             </button>
           </div>
           <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block"  ng-click='goOperation(2,item)'>
+            <button class="button button-small button-outline button-positive button-block"  ng-click='goOperation(2,item)'
+                    ng-disabled="item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0">
               调换
             </button>
           </div>
           <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(3,item)'>
+            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(3,item)'
+                    ng-disabled="item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0">
               跟进
             </button>
           </div>
           <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(5,item)'>
+            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(5,item)'
+                    ng-disabled="item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0">
               返回
             </button>
           </div>
@@ -90,5 +94,8 @@
         </div>
       </ion-item>
     </ion-list>
+    <ion-infinite-scroll ng-if="config.nextPage" on-infinite="loadMore()" immediate-check='false' distance="1%" class="spinner"></ion-infinite-scroll>
+    <div class="text-center spinnerClass" ng-show="config.nextPage">正在加载..</div>
+    <div class="text-center spinnerClassSp" ng-show="!config.nextPage">暂无更多数据</div>
   </ion-content>
 </ion-view>

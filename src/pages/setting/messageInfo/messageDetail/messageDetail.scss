@@ -1,4 +1,5 @@
 .messageDetail {
+
   .bigTitle {
     font-size: 17px;
     color: #000000;
@@ -27,6 +28,9 @@
   }
   .contentAllRed{
     width: 100%;
-    background: red;
+    //background: red;
+    .bigTitle{
+      color: red;
+    }
   }
 }

@@ -12,7 +12,6 @@ angular.module('settingModule')
       }
       $scope.exitAccount = function () {
         function loginOut(buttonIndex) {
-          console.log(buttonIndex)
           if (buttonIndex == 1) { //确认按钮
             window.localStorage.token = '';
             $state.go('login');
@@ -46,7 +45,6 @@ angular.module('settingModule')
         hmsHttp.get(indexUrl).success(
           function (response) {
             $scope.data.userInfo = response.response;
-            console.log(response)
           }
         ).error(
           function (response, status, header, config) {
