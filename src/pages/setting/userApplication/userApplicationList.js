@@ -212,6 +212,7 @@ angular.module('settingModule')
           }
         })
       $scope.reset = function () {
+        $scope.config.showSelectList = false;
         $scope.data.selectList = angular.copy($scope.selectListCopy)
         $scope.data.messageList = []
         $scope.initData(1);

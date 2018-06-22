@@ -51,5 +51,9 @@ angular.module('settingModule')
           }
         );
       }
-      $scope.initData()
+      $scope.initData();
+      $scope.doRefresh = function(){
+        $scope.initData();
+        $scope.$broadcast("scroll.refreshComplete");
+      }
     }]);

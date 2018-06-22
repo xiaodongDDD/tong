@@ -54,7 +54,6 @@ angular.module('settingModule')
         }
         hmsHttp.post(indexUrl, obj).success(
           function (response) {
-            $scope.Toast.show(response.response.msg);
             $scope.data.messageList = [];
             $scope.initData(1)
           }
