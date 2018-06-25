@@ -51,15 +51,17 @@
           </div>
         </div>
         <div class="row row-no-padding rowHeight">
-          <div class="col-25 font-medium-small longStyle">{{item.real_province_city}}</div>
+          <div class="col-25 font-medium-small longStyle" ng-if='item.real_province_city'>{{item.real_province_city}}</div>
+          <div class="col-25 font-medium-small longStyle" ng-if='!item.real_province_city'>{{item.mobile_province_city}}</div>
           <div class="col-55 font-little-small longStyle">{{item.school_name}}</div>
           <div class="col-20 font-medium-small longStyle text-right">
               {{item.apply_type}}
           </div>
         </div>
         <div class="row row-no-padding rowHeight">
-          <div class="col-70 font-medium-small">当前处理人：{{item.direct_manager1}}</div>
-          <div class="col-30 font-medium-small text-right" ng-class="{redFont : item.status == 3}">{{item.status_name}}</div>
+          <div class="col-60 font-medium-small">当前处理人：{{item.direct_manager1}}</div>
+          <div class="col-20 font-medium-small">id：{{item.t_a_id}}</div>
+          <div class="col-20 font-medium-small text-right" ng-class="{redFont : item.color == 1}">{{item.status_name}}</div>
         </div>
         <div class="row row-no-padding rowHeight">
           <div class="col-20 paddingCol">
@@ -70,13 +72,13 @@
           </div>
           <div class="col-20 paddingCol">
             <button class="button button-small button-outline button-positive button-block"  ng-click='goOperation(2,item)'
-                    ng-disabled="item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0 || item.auth == 0">
+                    ng-disabled="item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0 || item.auth == 0 || item.area_manager_flag == 0">
               调换
             </button>
           </div>
           <div class="col-20 paddingCol">
             <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(3,item)'
-                    ng-disabled="item.status == 1 || item.status == 2  || item.status == 0">
+                    ng-disabled="item.status == 1 || item.status == 2  || item.status == 0 || item.auth == 0">
               跟进
             </button>
           </div>

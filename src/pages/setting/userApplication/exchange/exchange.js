@@ -72,7 +72,7 @@ angular.module('settingModule')
         var obj = {
           "module_id": 22,//模块id（必传）
           "user_name": $scope.data.selectName,//用户名称
-          "t_a_id": 1,//任务
+          "t_a_id": SettingsService.get('t_a_id'),//任务
           // "t_a_id":SettingsService.get('t_a_id'),//任务
           "real_province": '',//省份
           "real_city": $scope.data.city//城市

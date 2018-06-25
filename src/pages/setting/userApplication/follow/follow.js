@@ -47,13 +47,17 @@ angular.module('settingModule')
       $scope.setPlatform = function (p) {
         document.body.classList.remove('platform-ios');
         document.body.classList.remove('platform-android');
-        document.body.classList.add('platform-' + p);
+        if (ionic.Platform.isAndroid()) {
+          document.body.classList.add('platform-android');
+        } else if (ionic.Platform.isIOS()) {
+          document.body.classList.add('platform-ios');
+        }
         $scope.config.flag = p;
       }
 
       $scope.submit = function () {
         hmsPopup.showLoadingWithoutBackdrop('正在跟进...');
-        if ($scope.config.flag == 'ios') {
+        if ($scope.config.flag == '1') {
           if ($scope.data.successSelect1 == '') {
             hmsPopup.showShortCenterToast('请选择获知晓黑板的渠道');
             return;
@@ -81,18 +85,22 @@ angular.module('settingModule')
           "module_id": 22,//模块id（必传）
           "t_a_id": SettingsService.get('t_a_id'),//任务id
           "type": '',//1成功，2失败
-          "channel": $scope.data.successSelect1,//1公众号文章，2名师介绍，3老师推荐，4全校使用（成功传）
-          "further_record": $scope.data.successText,//更进记录
-          "fail_reason": $scope.data.errorSelect1,//失败原因(失败传)
-          "resource": $scope.data.successSelect2,//1重要资源，2潜在资源，3无效资源(成功传)
-          "touch_again": $scope.data.errorSelect2////1是，2否(失败传)
+          "channel": '',//1公众号文章，2名师介绍，3老师推荐，4全校使用（成功传）
+          "further_record": '',//更进记录
+          "fail_reason": '',//失败原因(失败传)
+          "resource": '',//1重要资源，2潜在资源，3无效资源(成功传)
+          "touch_again": ''////1是，2否(失败传)
         }
-        if ($scope.config.flag == 'ios') {
+        if ($scope.config.flag == '1') {
           obj.type = 1;
           obj.further_record = $scope.data.successText;
+          obj.channel = $scope.data.successSelect1;
+          obj.resource = $scope.data.successSelect2;
         } else {
           obj.type = 2;
           obj.further_record = $scope.data.errorText;
+          obj.fail_reason = $scope.data.errorSelect1;
+          obj.touch_again = $scope.data.errorSelect2;
         }
         if ($scope.data.province) {
           obj.real_province = JSON.parse($scope.data.province).name
@@ -122,11 +130,16 @@ angular.module('settingModule')
               $scope.data = {
                 successSelect1: data.channel,
                 successSelect2: data.resource,
-                successText: data.further_record,
+                successText: '',
                 errorSelect1: data.fail_reason,
                 errorSelect2: data.touch_again,
-                errorText: data.back_reason
+                errorText: ''
               };
+              if(data.channel == '') {
+                $scope.data.successText = data.further_record
+              }else{
+                $scope.data.errorText = data.further_record
+              }
             }
           }
         ).error(
