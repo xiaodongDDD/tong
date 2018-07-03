@@ -351,7 +351,7 @@
           animation: 'fade-in',
           showBackdrop: false,
           maxWidth: 200,
-          duration: 1500
+          duration: 3000
         });
       } else {
         $cordovaToast.showLongBottom((angular.isDefined(content) ? content : "操作失败")).then(function (success) {

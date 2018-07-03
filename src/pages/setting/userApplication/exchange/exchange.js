@@ -47,7 +47,7 @@ angular.module('settingModule')
           "u_id": $scope.data.clientSide,//调换的用户id
           "real_province": '',//省份
           "real_city": $scope.data.city,//城市
-          "exchang_reason": ""//调换的理由
+          "exchang_reason": $scope.data.exchang_reason//调换的理由
         }
         if ($scope.data.province) {
           obj.real_province = JSON.parse($scope.data.province).name

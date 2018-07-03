@@ -7,6 +7,10 @@ angular.module('settingModule')
     '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup','checkVersionService','jpushService','baseConfig','hmsHttp',
     function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup,checkVersionService,jpushService,baseConfig,hmsHttp) {
       $scope.config = {}
+      $rootScope.settingNum = {
+        messageNum: '',
+        applicationNum: ''
+      };
       $scope.data = {
         userInfo : {}
       }
@@ -45,6 +49,9 @@ angular.module('settingModule')
         hmsHttp.get(indexUrl).success(
           function (response) {
             $scope.data.userInfo = response.response;
+            $rootScope.settingNum.messageNum = $scope.data.userInfo.message_count
+            $rootScope.settingNum.applicationNum = $scope.data.userInfo.apply_count
+            console.log($rootScope.settingNum)
           }
         ).error(
           function (response, status, header, config) {
@@ -56,4 +63,5 @@ angular.module('settingModule')
         $scope.initData();
         $scope.$broadcast("scroll.refreshComplete");
       }
+      console.log('-------')
     }]);

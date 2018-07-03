@@ -3,9 +3,9 @@
     <div class="title titleStyle">
       个人中心
     </div>
-    <i class="ion-ios-email-outline right-image emailStyle" ng-if="!data.userInfo.message_count"
+    <i class="ion-ios-email-outline right-image emailStyle" ng-if="!settingNum.messageNum"
        ng-click="goMessage()"></i>
-    <i class="ion-email-unread right-image emailStyle" style="color: red" ng-if="data.userInfo.message_count"
+    <i class="ion-email-unread right-image emailStyle" style="color: red" ng-if="settingNum.messageNum"
        ng-click="goMessage()"></i>
   </ion-header-bar>
   <ion-content class="content-style" delegate-handle="mainScroll">
@@ -38,7 +38,7 @@
                 <li>
                   <img src="build/assets/img/setting/userApplication.png">
                   <p>用户申请</p>
-                  <span class="badge badge-assertive hongDian" ng-if="data.userInfo.apply_count">{{data.userInfo.apply_count}}</span>
+                  <span class="badge badge-assertive hongDian" ng-if="settingNum.applicationNum">{{settingNum.applicationNum}}</span>
                 </li>
               </ul>
             </div>

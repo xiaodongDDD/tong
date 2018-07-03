@@ -23,6 +23,10 @@ angular.module('settingModule')
 
       //查询
       $scope.confirmChange = function () {
+        console.log($scope.data.endDatetime)
+        console.log($scope.data.startDatetime)
+        $scope.data.startDatetime = $scope.data.startDatetime + ' 08:00:00'
+        $scope.data.endDatetime = $scope.data.endDatetime + ' 23:59:59'
         if (new Date($scope.data.endDatetime) < new Date($scope.data.startDatetime)) {
           $scope.Toast.show('截止日期不能早于起始日期，请重新选择');
           return;
@@ -36,8 +40,8 @@ angular.module('settingModule')
         }
         var typeTime = [];
         var typeTimeSp = []
-        typeTime.push(new Date($scope.data.startDatetime).getTime()/1000);
-        typeTime.push(new Date($scope.data.endDatetime).getTime()/1000);
+        typeTime.push(new Date($scope.data.startDatetime.replace(/-/g,"/")).getTime()/1000);
+        typeTime.push(new Date($scope.data.endDatetime.replace(/-/g,"/")).getTime()/1000);
         typeTimeSp.push($scope.data.startDatetime);
         typeTimeSp.push($scope.data.startDatetime);
         SettingsService.set('timeSelectSetting', typeTime);

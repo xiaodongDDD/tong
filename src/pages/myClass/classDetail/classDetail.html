@@ -52,7 +52,7 @@
           <div class="item item-avatar itemStyle"  style="background: #ffffff" ng-repeat="i in data.userListData.member_list" ng-click="goSchoolDetail()">
             <img ng-src="{{i.avatar}}" class="imgStyle">
             <div class="row rowStyleDetail">
-              <div class="col-50 schoolName">{{i.display_name}}</div>
+              <div class="col-50 schoolName">{{i.display_name}}<span class="schoolTime">({{i.invite_judge}})</span></div>
               <div class="col-50 schoolTime">{{i.join_time}}</div>
             </div>
             <div class="row rowStyleDetail">

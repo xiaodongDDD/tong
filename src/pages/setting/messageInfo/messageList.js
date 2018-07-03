@@ -23,6 +23,19 @@ angular.module('settingModule')
         $state.go('messageDetail');
       }
       $scope.goBack = function () {
+        hmsPopup.showLoadingWithoutBackdrop('正在加载...');
+        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.user_center";
+        hmsHttp.get(indexUrl).success(
+          function (response) {
+            $scope.data.userInfo = response.response;
+            $rootScope.settingNum.messageNum = $scope.data.userInfo.message_count
+            $rootScope.settingNum.applicationNum = $scope.data.userInfo.apply_count
+            console.log($rootScope.settingNum)
+          }
+        ).error(
+          function (response, status, header, config) {
+          }
+        );
         publicMethod.goBack();
       }
       $scope.allRead = function () {

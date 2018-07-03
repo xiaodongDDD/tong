@@ -57,7 +57,8 @@ angular.module('settingModule')
 
       $scope.submit = function () {
         hmsPopup.showLoadingWithoutBackdrop('正在跟进...');
-        if ($scope.config.flag == '1') {
+        console.log($scope.config.flag)
+        if ($scope.config.flag == 'ios') {
           if ($scope.data.successSelect1 == '') {
             hmsPopup.showShortCenterToast('请选择获知晓黑板的渠道');
             return;
@@ -91,7 +92,7 @@ angular.module('settingModule')
           "resource": '',//1重要资源，2潜在资源，3无效资源(成功传)
           "touch_again": ''////1是，2否(失败传)
         }
-        if ($scope.config.flag == '1') {
+        if ($scope.config.flag == 'ios') {
           obj.type = 1;
           obj.further_record = $scope.data.successText;
           obj.channel = $scope.data.successSelect1;
@@ -135,7 +136,7 @@ angular.module('settingModule')
                 errorSelect2: data.touch_again,
                 errorText: ''
               };
-              if(data.channel == '') {
+              if(data.channel !== '0') {
                 $scope.data.successText = data.further_record
               }else{
                 $scope.data.errorText = data.further_record

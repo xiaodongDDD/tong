@@ -30,13 +30,14 @@ angular.module('settingModule')
             id: 1,
             status: '',
             list: [
-              {id: '1', label: '手机号异常'},
-              {id: '2', label: '系统待分配'},
-              {id: '3', label: '待处理'},
-              {id: '4', label: '已分派'},
-              {id: '5', label: '已跟进'},
-              {id: '6', label: '已返回'},
-              {id: '7', label: '已调换'}
+              // {id: '1', label: '手机号异常'},
+              // {id: '2', label: '系统待分配'},
+              // {id: '3', label: '待处理'},
+              // {id: '4', label: '已分派'},
+              {id: '0', label: '未跟进'},
+              {id: '5', label: '已跟进'}
+              // {id: '6', label: '已返回'},
+              // {id: '7', label: '已调换'}
             ]
           }, {
             name: "资质评价",
@@ -54,15 +55,27 @@ angular.module('settingModule')
             id: 3,
             invited_code: '',
             list: ['', '']
-        }]
+          }]
       }
       $scope.selectListCopy = angular.copy($scope.data.selectList)
       $scope.goMessageDetail = function () {
         $state.go('messageDetail');
       }
       $scope.goBack = function () {
+        hmsPopup.showLoadingWithoutBackdrop('正在加载...');
+        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.user_center";
+        hmsHttp.get(indexUrl).success(
+          function (response) {
+            $scope.data.userInfo = response.response;
+            $rootScope.settingNum.messageNum = $scope.data.userInfo.message_count
+            $rootScope.settingNum.applicationNum = $scope.data.userInfo.apply_count
+            console.log($rootScope.settingNum)
+          }
+        ).error(
+          function (response, status, header, config) {
+          }
+        );
         publicMethod.goBack();
-        // $state.go("tab");
       }
       $scope.goOperation = function (id, item) {
         SettingsService.set('t_a_id', item.t_a_id)
@@ -87,7 +100,8 @@ angular.module('settingModule')
       //下拉刷新
       $scope.doRefresh = function () {
         $scope.data.messageList = []
-        $scope.initData(1);
+        $scope.data.page = 1;
+        $scope.initData($scope.data.page);
         $scope.$broadcast("scroll.refreshComplete");
       }
       $scope.initData = function (page) {
@@ -97,12 +111,20 @@ angular.module('settingModule')
           "module_id": 22,
           "province": $scope.data.selectList[0].province,//省份
           "city": $scope.data.selectList[0].city,//城市
-          "status": $scope.data.selectList[1].status,//1机号异常,2系统待分派，3待处理，4已分派，5已更进，6已返回，7已调换
+          "status": [],//1机号异常,2系统待分派，3待处理，4已分派，5已更进，6已返回，7已调换
           "resource": $scope.data.selectList[2].resource, //1重要资源，2潜在资源，3无效资源
           "start_time": $scope.data.selectList[3].list[0],//开始时间
           "end_time": $scope.data.selectList[3].list[1],//结束时间
           "now_page": page,
           "pagesize": 10,
+        }
+        console.log($scope.data.selectList[1].status)
+        if($scope.data.selectList[1].status === '5'){
+          obj.status = [5]
+        }else if($scope.data.selectList[1].status === ''){
+          obj.status = []
+        }else{
+          obj.status = [0,1,2,3,4,6,7]
         }
         hmsHttp.post(indexUrl, obj).success(
           function (response) {
@@ -192,7 +214,8 @@ angular.module('settingModule')
         }
         if (!$scope.data.selectList[0].selectSp) {
           $scope.data.messageList = [];
-          $scope.initData(1);
+          $scope.data.page = 1;
+          $scope.initData($scope.data.page);
         }
       }
       $scope.telphone = function (item) {
@@ -203,22 +226,31 @@ angular.module('settingModule')
         function (event, toState, toParams, fromState, fromParams) {
           if (fromState && toState && (fromState.name == 'timeSelectSetting') && toState.name == 'userApplicationList') {
             $scope.data.selectList[3].list = SettingsService.get('timeSelectSetting')
-            $scope.data.selectList[3].name = SettingsService.get('timeSelectSettingSp')[0]+ SettingsService.get('timeSelectSettingSp')[1]
+            $scope.data.selectList[3].name = SettingsService.get('timeSelectSettingSp')[0] + SettingsService.get('timeSelectSettingSp')[1]
             if ($scope.data.selectList[3].name.length > 6) {
               $scope.data.selectList[3].name = $scope.data.selectList[3].name.substring(0, 4) + '..'
             }
             $scope.data.messageList = []
-            $scope.initData(1);
+            $scope.data.page = 1;
+            $scope.initData($scope.data.page);
+          }else if (fromState.name === 'tab'){
+
+          }else if(fromState.name !== 'userApplicationList'){
+            $scope.data.messageList = [];
+            $scope.data.page = 1;
+            $scope.initData($scope.data.page)
           }
         })
       $scope.reset = function () {
         $scope.config.showSelectList = false;
         $scope.data.selectList = angular.copy($scope.selectListCopy)
         $scope.data.messageList = []
-        $scope.initData(1);
+        $scope.data.page = 1;
+        $scope.initData($scope.data.page);
       }
       $scope.initData(1);
       $scope.loadMore = function () {
+        console.log('======================')
         $scope.data.page++;
         $scope.initData($scope.data.page);
       }
