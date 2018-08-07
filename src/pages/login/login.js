@@ -19,7 +19,7 @@
     '$ionicScrollDelegate',
     'checkVersionService',
     'hmsPopup',
-    '$rootScope','$ionicBackdrop','jpushService'];
+    '$rootScope', '$ionicBackdrop', 'jpushService'];
 
   function loginCtrl($scope,
                      $state,
@@ -32,7 +32,7 @@
                      $ionicScrollDelegate,
                      checkVersionService,
                      hmsPopup,
-                     $rootScope,jpushService) {
+                     $rootScope, jpushService) {
     //将页面的导航bar设置成白色
     $ionicPlatform.ready(function () {
       if (window.StatusBar) {
@@ -40,7 +40,7 @@
       }
     });
 
-      /////////////////////////////////////
+    /////////////////////////////////////
     $timeout(function () {
       $scope.loginScroll = $ionicScrollDelegate.$getByHandle('loginScroll');
       $scope.lockScroll(true);
@@ -60,7 +60,7 @@
     }
     $scope.data = {
       accountPointText: '',
-      version : baseConfig.version.currentVersion
+      version: baseConfig.version.currentVersion
     }
     //获取焦点
     $scope.inputFocus = function (item) {
@@ -139,6 +139,7 @@
         }
       }
     };
+
     function toIPhoneModel(model) {
       var dictionary = {
         "i386": "Simulator",
@@ -207,10 +208,11 @@
         } else {
           model = device.model;
         }
-        var data = '&username=' + $scope.loginInfo.username + '&password=' + $scope.loginInfo.password;
+        var data = '&username=' + $scope.loginInfo.username + '&password=' + $scope.loginInfo.password + '&app_type=' + '1' + '&uuid=' + device.uuid;
         var url = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.login" + data;
       } catch (e) {
-        var data = '&username=' + $scope.loginInfo.username + '&password=' + $scope.loginInfo.password;
+        console.log(e)
+        var data = '&username=' + $scope.loginInfo.username + '&password=' + $scope.loginInfo.password + '&app_type=' + '1' + '&uuid=' + '';
         var url = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.login" + data;
       }
       if (baseConfig.debug) {
@@ -253,15 +255,20 @@
         }
 
 
-
         loginPost().success(function (result) {
-          var alias = 'yt'+result.response.u_id
+          if (result.hasOwnProperty('error_response')) {
+            hmsPopup.showShortCenterToast(result.error_response.msg);
+            if (result.error_response.code == '401') {
+              window.localStorage.mobile = result.error_response.mobile;
+              $state.go('smsVerification')
+            }
+            return
+          }
+          var alias = 'yt' + result.response.u_id
           if (ionic.Platform.isWebView()) {
-            window.JPush.setAlias({ sequence: 1, alias: alias },function(result){
-              // alert('success')
-              // alert(result.alias)
+            window.JPush.setAlias({sequence: 1, alias: alias}, function (result) {
             })
-          }else{
+          } else {
             console.log('网页情况下不开启推送！');
           }
           if (baseConfig.debug) {
@@ -274,8 +281,9 @@
             window.localStorage.checkboxSavePwd = $scope.rememberPassword;
             window.localStorage.identity = result.response.is_agent;
             window.localStorage.id = result.response.u_id;
+            window.localStorage.is_admin = result.response.is_admin;
             // if(result.response.is_agent == 0){
-              $state.go("tab");
+            $state.go("tab");
             // }else{
             //   $state.go("agentInfo");
             // }

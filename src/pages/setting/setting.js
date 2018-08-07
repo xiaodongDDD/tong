@@ -4,8 +4,8 @@
 
 angular.module('settingModule')
   .controller('settingCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup','checkVersionService','jpushService','baseConfig','hmsHttp',
-    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup,checkVersionService,jpushService,baseConfig,hmsHttp) {
+    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup','checkVersionService','jpushService','baseConfig','hmsHttp','SettingsService',
+    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup,checkVersionService,jpushService,baseConfig,hmsHttp,SettingsService) {
       $scope.config = {}
       $rootScope.settingNum = {
         messageNum: '',
@@ -63,5 +63,35 @@ angular.module('settingModule')
         $scope.initData();
         $scope.$broadcast("scroll.refreshComplete");
       }
-      console.log('-------')
+      $scope.province = function () {
+        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Task.address";
+        hmsHttp.get(indexUrl).success(
+          function (response) {
+            if (response.hasOwnProperty('response')) {
+              var listProvince = response.response.provinces;
+              SettingsService.set('provinces', listProvince)
+              var addressData = []
+              for (var i = 0; i < listProvince.length; i++) {
+                addressData[i] =
+                  {
+                    value: 10 + i,
+                    text: listProvince[i].name,
+                    children: []
+                  }
+                for (var j = 0; j < listProvince[i].citys.length; j++) {
+                  addressData[i].children[j] = {
+                    value: addressData[i].value + '-'+j,
+                    text: listProvince[i].citys[j]
+                  }
+                }
+              }
+              SettingsService.set('addressData', addressData)
+            }
+          }
+        ).error(
+          function (response, status, header, config) {
+          }
+        );
+      }
+      $scope.province();
     }]);

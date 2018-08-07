@@ -184,5 +184,29 @@
     line-height: 40px;
     text-decoration: none;
   }
-
+  .marginTopContent{
+    margin-top: 40px;
+  }
+  .selectSubHead{
+    background: #FFFFFF;
+    height: 44px;
+    text-align: center;
+    line-height: 44px;
+    .selectSubHeadDataActive{
+      font-family: PingFangSC-Medium;
+      font-size: 16px;
+      color: #0775F5;
+      letter-spacing: -0.39px;
+      border-bottom: 2px solid  #0775F5;
+    }
+    .selectSubHeadData{
+      font-family: PingFangSC-Light;
+      font-size: 15px;
+      color: #000000;
+      letter-spacing: -0.36px;
+    }
+  }
+  .bar-subheader {
+    padding: 0;
+  }
 }

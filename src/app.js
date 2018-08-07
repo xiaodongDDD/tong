@@ -144,7 +144,11 @@
         templateUrl: 'build/pages/login/login.html',
         controller: 'loginCtrl'
       })
-
+      .state('smsVerification', {
+        url: '/smsVerification',
+        templateUrl: 'build/pages/login/smsVerification/smsVerification.html',
+        controller: 'smsVerificationCtrl'
+      })
       .state('tab', {
         url: '/tab',
         templateUrl: 'build/pages/tab/tab.html',

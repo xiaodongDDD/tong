@@ -1,7 +1,35 @@
 .distribution {
-  .styleTips{
-    padding: 10px;
-    font-size: 14px;
-    font-family: PingFangSC-Light;
+  .contentPadding {
+    padding: 0 10px;
   }
+  .styleTips {
+    font-family: PingFangSC-Light;
+    font-size: 14px;
+    color: #888888;
+    letter-spacing: 0;
+    margin-top: 10px;
+    padding-left: 15px;
+  }
+  .list .item {
+    margin-top: 10px;
+    border: 0;
+  }
+  .item-radio .radio-icon {
+    font-size: 18px;
+    color: #3E7EF6;
+  }
+  .userName{
+    font-family: PingFangSC-Regular;
+    font-size: 17px;
+    color: #000000;
+    letter-spacing: 0;
+  }
+  .phone{
+    font-family: PingFangSC-Light;
+    font-size: 14px;
+    color: #888888;
+    letter-spacing: 0;
+    text-align: left;
+  }
+
 }

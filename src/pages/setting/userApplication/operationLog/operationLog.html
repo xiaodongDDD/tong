@@ -1,17 +1,18 @@
-<ion-view view-title="操作日志" class="myInfo indexPage">
+<ion-view view-title="操作日志" class="myInfo indexPage operationLog">
   <ion-header-bar class="head-bg">
     <button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>
     <div class="title titleStyle">
       操作日志
     </div>
   </ion-header-bar>
-  <ion-content class="content-style" delegate-handle="mainScroll">
-    <div ng-repeat="item in data.messageList" ng-if="data.messageList.length>0" style="background: white">
+  <ion-content class="content-style contentPadding" delegate-handle="mainScroll">
+    <div ng-repeat="item in data.messageList" ng-if="data.messageList.length>0" style="background: white;margin-top: 10px">
+      <span class="quan"></span>
       <div class="row ">
-        <div class="col">{{item.update_time * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+        <div class="col timeStyle">{{item.update_time * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</div>
       </div>
       <div class="row ">
-        <div class="col">{{item.detail}}</div>
+        <div class="col contentDetail">{{item.detail}}</div>
       </div>
     </div>
     <div ng-if="data.messageList<1" class="list">

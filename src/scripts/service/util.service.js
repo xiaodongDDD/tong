@@ -71,6 +71,10 @@
               hmsPopup.hideLoading();
               if (response.hasOwnProperty('error_response')) {
                 hmsPopup.showShortCenterToast(response.error_response.msg);
+                if (response.error_response.code == '401') {
+                  window.localStorage.mobile = response.error_response.mobile;
+                  $state.go('smsVerification')
+                }
                 return
               }
               if (baseConfig.debug) {
@@ -131,6 +135,10 @@
               hmsPopup.hideLoading()
               if (response.hasOwnProperty('error_response')) {
                 hmsPopup.showShortCenterToast(response.error_response.msg);
+                if (response.error_response.code == '401') {
+                  window.localStorage.mobile = response.error_response.mobile;
+                  $state.go('smsVerification')
+                }
                 return
               }
             }).error(function (response, status, header, config) {

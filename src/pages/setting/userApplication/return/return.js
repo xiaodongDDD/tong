@@ -11,11 +11,12 @@ angular.module('settingModule')
         text: '',
         province: '',
         city: '',
-        listCity: [],
         listProvince: userApplicationService.provinces,
-        clientSide: ''
+        clientSide: '',
+        address: '',
+        addressData: SettingsService.get('addressData')
       }
-      console.log($scope.data.listProvince)
+      console.log($scope.data.addressData)
       $scope.goBack = function () {
         publicMethod.goBack();
       }
@@ -25,16 +26,20 @@ angular.module('settingModule')
         {text: "我的区域负责人", value: "3"},
       ];
 
-      $scope.selectProvince = function (item) {
-        console.log(item)
-        $scope.data.listCity = JSON.parse(item).citys
-        console.log($scope.data.listCity)
-      }
       $scope.serverSideChange = function (item) {
         console.log("Selected Serverside, text:", item.text, "value:", item.value);
       };
+
       $scope.submit = function () {
         hmsPopup.showLoadingWithoutBackdrop('正在返回...');
+        for (var i = 0; i < $scope.data.addressData.length; i++) {
+          for (var j = 0; j < $scope.data.addressData[i].children.length; j++) {
+            if ($scope.data.address === $scope.data.addressData[i].children[j].value) {
+              $scope.data.province = $scope.data.addressData[i].text
+              $scope.data.city = $scope.data.addressData[i].children[j].text
+            }
+          }
+        }
         if ($scope.data.clientSide == '') {
           hmsPopup.showShortCenterToast('请选择返回的人员');
           return;
@@ -47,13 +52,10 @@ angular.module('settingModule')
         var obj = {
           "module_id": 22,//模块id（必传）
           "t_a_id": SettingsService.get('t_a_id'),//任务id
-          "real_province": "",//省份
+          "real_province": $scope.data.province,//省份
           "real_city": $scope.data.city,//城市
           "type": $scope.data.clientSide,//1我的上级，2梁老大，3我的区域负责人（单选）
           "back_reason": $scope.data.text
-        }
-        if ($scope.data.province) {
-          obj.real_province = JSON.parse($scope.data.province).name
         }
         hmsHttp.post(indexUrl, obj).success(
           function (response) {

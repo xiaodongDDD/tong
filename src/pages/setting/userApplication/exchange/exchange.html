@@ -6,42 +6,66 @@
     </div>
     <button class="button button-clear button-positive" style="font-size: 14px;color: black;" ng-click="submit()">保存</button>
   </ion-header-bar>
-  <ion-content class="content-style" delegate-handle="mainScroll">
-    <div class="list">
+  <ion-header-bar class="head-bg" ng-if="config.showInput">
+    <button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>
+    <div class="title titleStyle">
+      调换
+    </div>
+  </ion-header-bar>
+  <ion-header-bar class="head-bg item-input-inset" ng-if="!config.showInput">
+    <button class="button button-icon icon ion-ios-arrow-left" ng-click="goCancle()"></button>
+    <label class="item-input-wrapper" style="background: white">
+      <i class="icon ion-ios-search placeholder-icon"></i>
+      <input type="search" placeholder="请正确输入培训师姓名" ng-model="data.selectName">
+    </label>
+    <button class="button button-clear button-positive" ng-click="selectInfo()"
+            style="font-family: PingFangSC-Light;font-size: 17px;color: #030303;letter-spacing: -0.41px;text-align: right;">
+      搜索
+    </button>
+  </ion-header-bar>
+  <ion-content class="content-style contentPadding" delegate-handle="mainScroll">
+    <div class="list" style="background: #FFFFFF">
       <div class="item item-divider" style="border-top: 0px">
         实际归属地
       </div>
-      <label class="item item-input item-select">
-        <div class="input-label">
-          <span>请选择</span>
-        </div>
-        <select ng-model="data.province" ng-change="selectProvince(data.province)" >
-          <option ng-repeat="item in data.listProvince" value="{{item}}">{{item.name}}</option>
-        </select>
+      <div style="padding:0 15px;background: #FFFFFF"><div class="" style="height: 1px;width: 100%;background: #EFEFEF"></div></div>
+      <label class="item item-input item-icon-right" style="background: #FFFFFF;margin-top: 0">
+        <ul  input-treelist ng-model="data.address" labels="省,市" select-data="data.addressData" option-text="text" option-value="value" option-child="children"></ul>
+        <i  class="icon ion-ios-arrow-forward" style="color: #444444;border-radius: 2px;font-size: 20px"></i>
       </label>
-      <label class="item item-input item-select">
-        <div class="input-label">
-          <!--Lightsaber-->&nbsp;
-        </div>
-        <select ng-model="data.city">
-          <option ng-repeat="item in data.listCity">{{item}}</option>
-        </select>
-      </label>
+      <!--<label class="item item-input item-select">-->
+        <!--<div class="input-label">-->
+          <!--<span>请选择</span>-->
+        <!--</div>-->
+        <!--<select ng-model="data.province" ng-change="selectProvince(data.province)" >-->
+          <!--<option ng-repeat="item in data.listProvince" value="{{item}}">{{item.name}}</option>-->
+        <!--</select>-->
+      <!--</label>-->
+      <!--<label class="item item-input item-select">-->
+        <!--<div class="input-label">-->
+          <!--&lt;!&ndash;Lightsaber&ndash;&gt;&nbsp;-->
+        <!--</div>-->
+        <!--<select ng-model="data.city">-->
+          <!--<option ng-repeat="item in data.listCity">{{item}}</option>-->
+        <!--</select>-->
+      <!--</label>-->
       <div class="item item-divider">
         调换给
       </div>
-      <div class="item item-input-inset">
-        <label class="item-input-wrapper">
-          <input type="text" placeholder="请正确输入培训师姓名" ng-model="data.selectName">
+      <div style="padding:0 15px;background: #FFFFFF"><div class="" style="height: 1px;width: 100%;background: #EFEFEF;margin-bottom: 5px"></div></div>
+      <div class="item item-input-inset" style="border-top: 0px;background:#ffffff;padding: 0 10px;margin: 0 "
+           ng-click="changeHead()">
+        <label class="item-input-wrapper" style="background: #E8E8E8;border-radius: 4px;height: 30px"
+               ng-if="config.showInput">
+          <i class="icon ion-ios-search placeholder-icon"></i>
+          <span
+            style="font-family: PingFangSC-Light;font-size: 14px;color: #AAAAAA;letter-spacing: -0.15px;">请正确输入培训师姓名</span>
         </label>
-        <button class="button button-small" ng-click="selectInfo()">
-          查询
-        </button>
       </div>
-      <div class="item text-center" ng-if="clientSideList.length < 1">
+      <div class="item text-center" ng-if="clientSideList.length < 1" style="margin: 0">
         暂无数据
       </div>
-      <ion-radio ng-repeat="item in clientSideList"
+      <ion-radio ng-repeat="item in clientSideList" style="margin: 0"
                  ng-value="item.u_id"
                  ng-model="data.clientSide" ng-if="clientSideList.length > 0">
         <div class="row row-no-padding">
@@ -52,13 +76,14 @@
       <div class="item item-divider">
         调换缘由
       </div>
-      <div class="item">
+      <div class="item" style="padding-top: 0">
         <textarea rows="3" cols="20" style="background-color:#eee;padding:5px;width: 100%" placeholder="最多输入300个汉字" ng-model="data.exchang_reason"></textarea>
       </div>
       <div class="styleTips">
         温馨提示：只有区域负责人可以进行调换，只能调换给区域负责人。
       </div>
     </div>
+    <div class="buttonSub"><button class="login-btn" type="button" ng-click="submit()">保存</button></div>
 
   </ion-content>
 </ion-view>

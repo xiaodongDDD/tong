@@ -34,6 +34,8 @@ angular.module('myClassModule')
         pageName: '班级情况统计'
       }
       $scope.config = {
+        is_admin:window.localStorage.is_admin,
+        showContent: true,
         explainFlag: false,
         status: {
           class_found: false,
@@ -47,7 +49,7 @@ angular.module('myClassModule')
         showPageList: false,
         nextPage: false,
         nextId: '-1',
-        showSelectList : false
+        showSelectList: false
       }
       $scope.configParam = {}
       $scope.configSp = angular.copy($scope.config);
@@ -114,13 +116,17 @@ angular.module('myClassModule')
             $scope.operating[i].selected = false;
           }
         }
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.classData&type=" + $scope.data.type;
+        if($scope.config.showContent){
+          var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Statics.class_static&type=" + $scope.data.type;
+        }else{
+          var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.classData&type=" + $scope.data.type;
+        }
         hmsHttp.get(indexUrl).success(
           function (response) {
-            $scope.config = angular.copy($scope.configSp);
+            $scope.config.status = angular.copy($scope.configSp).status;
+            $scope.config.explainFlag = angular.copy($scope.configSp).explainFlag;
             $scope.newViewData = response.response;
             sliceThreeData($scope.newViewData);
-            SettingsService.set('classData', $scope.newViewData);
             SettingsService.set('timeSelect', '');
           }
         ).error(
@@ -164,6 +170,9 @@ angular.module('myClassModule')
 
 
       //初始化
+      if($scope.config.is_admin == 0){
+        $scope.config.showContent = false
+      }
       initPageData();
 
 
@@ -171,7 +180,7 @@ angular.module('myClassModule')
         $scope.configList.nextId = '';
         $scope.configList.showPageList = !$scope.configList.showPageList;
         $scope.configList.showSelectList = false;
-        for(var i=0;i<$scope.data.selectList.length;i++){
+        for (var i = 0; i < $scope.data.selectList.length; i++) {
           $scope.data.selectList[i].select = false;
         }
         if ($scope.configList.showPageList == true) {
@@ -199,13 +208,13 @@ angular.module('myClassModule')
           } else {
             $scope.data.selectList[i].select = false;
           }
-          if($scope.data.selectList[i].select == true){
+          if ($scope.data.selectList[i].select == true) {
             num++;
           }
         }
-        if(num == 1){
+        if (num == 1) {
           $scope.configList.showSelectList = true;
-        }else{
+        } else {
           $scope.configList.showSelectList = false;
         }
       }
@@ -234,6 +243,7 @@ angular.module('myClassModule')
       }
 
       $scope.isLock = false;
+
       //列表接口
       function initPageDataList(item) {
         if ($scope.isLock) return;
@@ -256,9 +266,9 @@ angular.module('myClassModule')
               $scope.data.totle = response.response.totle;
             }
             $scope.data.schoolList = $scope.data.schoolList.concat(response.response.class_list);
-            if(response.response.next_id < 0){
+            if (response.response.next_id < 0) {
               $scope.configList.nextPage = false
-            }else{
+            } else {
               $scope.configList.nextPage = true;
             }
             $scope.isLock = false;
@@ -292,4 +302,14 @@ angular.module('myClassModule')
         initPageDataList('1');
       }
 
+      $scope.selectSubHead = function (item) {
+        if (item === 1) {
+          $scope.config.showContent = true;
+        } else {
+          $scope.config.showContent = false;
+        }
+        $scope.newViewData = {};
+        initPageData();
+        console.log($scope.config.showContent);
+      }
     }]);

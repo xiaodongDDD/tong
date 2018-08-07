@@ -4,9 +4,10 @@
     <div class="title titleStyle">
       我的任务
     </div>
-    <button class="button button-clear button-positive" style="font-size: 14px;" ng-click="reset()">
-      重置条件
-    </button>
+    <!--<button class="button button-clear button-positive" style="font-size: 14px;" ng-click="reset()">-->
+      <!--重置条件-->
+    <!--</button>-->
+    <i class="ion-more right-image" ng-click="openPopover($event)"></i>
   </ion-header-bar>
   <div class="bar bar-subheader " style="z-index: 1002" ng-show="config.showPageList" >
     <div class="row rowStyle">
@@ -33,7 +34,7 @@
   <!--设置弹窗modal-->
   <div class="modalClass" ng-class="{'md-show-class':config.showSelectList}" ng-click="selectAny({})">
   </div>
-  <ion-content class="content-style" style="margin-top: 44px;" delegate-handle="mainScrollList">
+  <ion-content class="content-style contentPadding" style="margin-top: 44px;" delegate-handle="mainScrollList">
     <!-- 1.添加下拉刷新的组件 -->
     <ion-refresher
       pulling-text="下拉刷新页面数据..."
@@ -41,61 +42,53 @@
     </ion-refresher>
     <ion-list>
       <ion-item ng-repeat="item in data.messageList">
+        <img src="build/assets/img/setting/userPic.png" class="imgUser">
         <div class="row row-no-padding rowHeight">
-          <div class="col-20 longStyle">{{item.name}}</div>
-          <div class="col-60 numFontFamily font-little-small "><i class="ion-ios-stopwatch-outline redFont" ng-if="item.over_time == 1">&nbsp;超时&nbsp;</i>{{item.apply_time}}</div>
-          <div class="col-20">
-            <button class="button button-small button-outline button-positive" ng-click="telphone(item)">
-              拨打电话
-            </button>
+          <div class="col-20 longStyle username">{{item.name}}</div>
+          <div class="col-60 numFontFamily font-little-small" ng-class="{'timeOver':item.over_time == 1}">{{item.apply_time}}&nbsp;<span ng-if="item.over_time == 1">
+            <img src="build/assets/img/setting/timeOver.png" class="imgTime">
+          </span></div>
+          <div class="col-20 text-right"  ng-click="telphone(item)">
+            <img src="build/assets/img/setting/phone.png" class="imgPhone">
           </div>
         </div>
         <div class="row row-no-padding rowHeight">
-          <div class="col-25 font-medium-small longStyle" ng-if='item.real_province_city'>{{item.real_province_city}}</div>
-          <div class="col-25 font-medium-small longStyle" ng-if='!item.real_province_city'>{{item.mobile_province_city}}</div>
-          <div class="col-55 font-little-small longStyle">{{item.school_name}}</div>
-          <div class="col-20 font-medium-small longStyle text-right">
-              {{item.apply_type}}
+          <div class="col applyType">
+            {{item.apply_type}}
           </div>
         </div>
         <div class="row row-no-padding rowHeight">
-          <div class="col-60 font-medium-small longStyle">当前处理人：{{item.direct_manager1}}</div>
-          <div class="col-20 font-medium-small">id：{{item.t_a_id}}</div>
-          <div class="col-20 font-medium-small text-right" ng-class="{redFont : item.color == 1}">{{item.status_name}}</div>
+          <div class="col longStyle citySchool">
+            <span ng-if='item.real_province_city'>{{item.real_province_city}}</span>
+            <span ng-if='!item.real_province_city'>{{item.mobile_province_city}}</span>
+            -
+            {{item.school_name}}
+          </div>
         </div>
         <div class="row row-no-padding rowHeight">
-          <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(1,item)'
-                    ng-disabled="item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0 || item.auth == 0">
-              分派
-            </button>
+          <div class="col-60 citySchool longStyle">当前处理人：{{item.direct_manager1}}</div>
+          <div class="col-40 citySchool">ID：{{item.t_a_id}}</div>
+        </div>
+        <div class="row row-no-padding rowHeight">
+          <div class="col">
+            <button ng-click='goOperation(1,item)' ng-disabled="item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0 || item.auth == 0"
+                    ng-class="{'buttonActive':!(item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0 || item.auth == 0),'buttonUnActive':(item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0 || item.auth == 0)}">分派</button>
+            <button ng-click='goOperation(2,item)'
+                    ng-class="{'buttonActive':!(item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0 || item.auth == 0 || item.area_manager_flag == 0),'buttonUnActive':(item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0 || item.auth == 0 || item.area_manager_flag == 0)}" class="marginButton">调换</button>
+            <button ng-click='goOperation(3,item)' ng-disabled="item.status == 1 || item.status == 2  || item.status == 0 || item.auth == 0"
+                    ng-class="{'buttonActive':!(item.status == 1 || item.status == 2  || item.status == 0 || item.auth == 0),'buttonUnActive':(item.status == 1 || item.status == 2  || item.status == 0 || item.auth == 0)}" class="marginButton" ng-if="item.status != 5">跟进</button>
+            <button ng-click='goOperation(3,item)' class="marginButton buttonActive" ng-if="item.status == 5">跟进</button>
+            <button ng-click='goOperation(5,item)' ng-disabled="item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0 || item.auth == 0"
+                    ng-class="{'buttonActive':!(item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0 || item.auth == 0),'buttonUnActive':(item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0 || item.auth == 0)}" class="marginButton">返回</button>
           </div>
-          <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block"  ng-click='goOperation(2,item)'
-                    ng-disabled="item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0 || item.auth == 0 || item.area_manager_flag == 0">
-              调换
-            </button>
+        </div>
+        <div class="lineDiv"></div>
+        <div class="row row-no-padding rowHeight">
+          <div class="col-50 text-left statusName" ng-class="{redFont : item.color == 1}">
+            {{item.status_name}}
           </div>
-          <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(3,item)'
-                    ng-disabled="item.status == 1 || item.status == 2  || item.status == 0 || item.auth == 0" ng-if="item.status != 5">
-              跟进
-            </button>
-            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(3,item)'
-                    ng-if="item.status == 5">
-              跟进
-            </button>
-          </div>
-          <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(5,item)'
-                    ng-disabled="item.status == 1 || item.status == 2 || item.status == 5 || item.status == 0 || item.auth == 0">
-              返回
-            </button>
-          </div>
-          <div class="col-20 paddingCol">
-            <button class="button button-small button-outline button-positive button-block" ng-click='goOperation(4,item)'>
-              操作日志
-            </button>
+          <div class="col-50 text-right logGo" >
+            <span ng-click='goOperation(4,item)'>操作日志 <img src="build/assets/img/setting/allow.png"></span>
           </div>
         </div>
       </ion-item>

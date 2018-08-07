@@ -1,51 +1,89 @@
 .messageList {
+  .contentPadding {
+    padding: 10px;
+  }
+  .itemPadding{
+    padding: 18px 15px;
+  }
   .urgentBackground {
     //background-color: red;
     //color: red !important;
     //border: 1px solid red;
-    .bigTitle{
+    .bigTitle {
       color: red;
     }
   }
   .bigTitle {
+    height: 24px;
+    line-height: 24px;
+    font-family: PingFangSC-Regular;
     font-size: 17px;
     color: #000000;
-    font-family: PingFangSC-Regular;
+    letter-spacing: 0;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
   }
   .smallContent {
-    font-size: 15px;
-    color: #000000;
+    margin-top: 10px;
+    height: 20px;
+    line-height: 20px;
     font-family: PingFangSC-Light;
+    font-size: 14px;
+    color: #888888;
+    letter-spacing: 0;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
   }
   .smallTime {
-    font-size: 13px;
-    color: #888888;
-    vertical-align: bottom;
-    font-family: DIN-Regular !important;
+    height: 24px;
+    line-height: 24px;
+    font-family: DINPro-Regular;
+    font-size: 12px;
+    color: #AAAAAA;
+    text-align: right;
   }
-  .spinnerClass{
+  .spinnerClass {
     position: relative;
     top: -40px;
     height: 66px;
     line-height: 66px;
     color: #ccc;
   }
-  .spinnerClassSp{
+  .spinnerClassSp {
     position: relative;
     //top: -40px;
     height: 66px;
     line-height: 66px;
     color: #ccc;
   }
-  ion-list{
-    ion-item:first-child{
-      border-top: 0px;
+  ion-list {
+    ion-item {
+      margin-bottom: 10px;
+      border: 0px;
+      height: 81px;
+      padding: 0;
     }
+  }
+  .redSpan{
+    height: 8px;
+    width: 8px;
+    background: red;
+    display: block;
+    border-radius: 50%;
+    float: right;
+    position: relative;
+    top: 14px;
+  }
+  .imgSpan img{
+    height: 25px;
+    width: 25px;
+    float: left;
+    position: absolute;
+    top: 30px;
+  }
+  .imgLeft{
+    padding-left: 40px;
   }
 }

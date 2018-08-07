@@ -6,7 +6,9 @@ angular.module('settingModule')
   .controller('distributionCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
     '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup', 'publicMethod', 'baseConfig', '$ionicScrollDelegate', 'hmsHttp', 'SettingsService',
     function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup, publicMethod, baseConfig, $ionicScrollDelegate, hmsHttp, SettingsService) {
-      $scope.config = {}
+      $scope.config = {
+        showInput: true
+      }
       $scope.data = {
         clientSide: '',
         selectName: ''
@@ -43,6 +45,7 @@ angular.module('settingModule')
           "module_id": 22,//模块id（必传）
           "user_name": $scope.data.selectName,//用户名称
           "t_a_id": SettingsService.get('t_a_id')//任务
+          // "t_a_id": '69'//任务
         }
         hmsHttp.post(indexUrl, obj).success(
           function (response) {
@@ -60,4 +63,13 @@ angular.module('settingModule')
         console.log("Selected Serverside, text:", item.text, "value:", item.value);
       };
       $scope.selectInfo();
+
+
+      $scope.changeHead = function () {
+        $scope.config.showInput = false;
+      }
+
+      $scope.goCancle = function () {
+        $scope.config.showInput = true;
+      }
     }]);

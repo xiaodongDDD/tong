@@ -4,12 +4,8 @@
     <div class="title titleStyle">
       消息详情
     </div>
-    <!--<i class="ion-ios-email-outline right-image emailStyle" ng-click="goMessage()"></i>-->
-    <button class="button button-clear button-positive" style="font-size: 14px;" ng-click="goApplication()">
-      进入任务
-    </button>
   </ion-header-bar>
-  <ion-content class="content-style" delegate-handle="mainScroll">
+  <ion-content class="content-style contentPadding" delegate-handle="mainScroll">
     <div class="" ng-class="{'contentAll': true,'contentAllRed':data.messageDetail.urgency_flag == 1}">
       <div class="row">
         <div class="col col-60 text-left bigTitle">{{data.messageDetail.title}}</div>
@@ -21,5 +17,6 @@
         </div>
       </div>
     </div>
+    <button class="login-btn" type="button" ng-click="goApplication()">进入任务</button>
   </ion-content>
 </ion-view>

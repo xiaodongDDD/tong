@@ -1,0 +1,22 @@
+<ion-view view-title="短信验证" class="smsVerification">
+  <ion-header-bar align-title="center" class="head-bg haed header">
+    <button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>
+    <div class="title titleStyle">
+      登录安全验证
+    </div>
+  </ion-header-bar>
+  <ion-content class="loginContent" has-bouncing="false" scrollbar-y="false"
+               delegate-handle="loginScroll">
+    <div class="global-container">
+      <div class="tips">提示：检测到您已更换登录设备，请输入短信验证码校验账户安全！</div>
+      <div class="text-center phone">手机号码：{{data.mobile}}</div>
+      <div class="divInput"><input class="inputStyle" placeholder="验证码" ng-model="data.code">
+        <button class="" type="button" ng-click="getTestCode()"
+                ng-class="{'buttonCode':!canClick,'buttonCodeSp':canClick}"
+                ng-bind="description" ng-disabled="canClick">
+        </button>
+      </div>
+      <button class="login-btn" type="button" ng-click="login()">登录</button>
+    </div>
+  </ion-content>
+</ion-view>

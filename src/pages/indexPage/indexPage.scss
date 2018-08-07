@@ -169,14 +169,14 @@
     background: url(../assets/img/indexPage/icon_third.png) 0 center no-repeat;
     background-size: 24px 33px;
   }
-    .spanNum{
-      display: block;
-      height: 100%;
-      width: 100%;
-      text-align: center;
-      line-height: 50px;
-      white-space: nowrap;
-    }
+  .spanNum {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+    white-space: nowrap;
+  }
 
   .global-container .common-rank .head {
     float: left;
@@ -233,5 +233,26 @@
     color: #888888;
     text-align: center;
     line-height: 40px;
-    text-decoration: none;}
+    text-decoration: none;
+  }
+  .login-btn {
+    display: block;
+    width: 250px;
+    height: 48px;
+    background-color: #3E7EF6;
+    box-shadow: 0 10px 15px 0 rgba(57, 120, 255, 0.29);
+    border-radius: 60px;
+    font-size: 16px;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 48px;
+    margin: 0 auto;
+    border: 0;
+    margin-top: 50px;
+  }
+  .buttonSub {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+  }
 }

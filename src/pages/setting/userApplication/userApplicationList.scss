@@ -1,4 +1,19 @@
 .userApplicationList {
+  .right-image {
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    border: 10px solid transparent;
+    border-right: 0;
+    box-sizing: content-box;
+    z-index: 5;
+    font-size: 30px;
+  }
+  .contentPadding {
+    padding: 10px;
+  }
   .rowStyle {
     text-align: center;
     background: white;
@@ -15,10 +30,10 @@
       color: #C6C6C6;
     }
   }
-  .fontSelected{
+  .fontSelected {
     color: #0775F5;
   }
-  .fontSelectedSp{
+  .fontSelectedSp {
     font-family: PingFangSC-Light;
     font-size: 15px;
     //color: #000000;
@@ -69,14 +84,14 @@
   .bar-subheader {
     padding: 0;
   }
-  .spinnerClass{
+  .spinnerClass {
     position: relative;
     top: -40px;
     height: 66px;
     line-height: 66px;
     color: #ccc;
   }
-  .spinnerClassSp{
+  .spinnerClassSp {
     position: relative;
     height: 66px;
     line-height: 66px;
@@ -106,23 +121,127 @@
     left: 0;
     overflow-y: scroll;
   }
-  .headStylelist{
+  .headStylelist {
   }
-  .rowHeight{
+  .rowHeight {
     height: 36px;
     line-height: 36px;
     font-size: 16px;
     font-family: PingFangSC-Light;
+    .username {
+      font-family: PingFangSC-Regular;
+      font-size: 17px;
+      color: #000000;
+      letter-spacing: 0;
+    }
+    .timeOver {
+      font-family: DINPro-Regular;
+      font-size: 12px;
+      color: #FC5626;
+    }
+    .imgPhone {
+      height: 14px;
+      width: 14px;
+      margin-right: 16px;
+
+    }
+    .applyType {
+      font-family: PingFangSC-Light;
+      font-size: 14px;
+      color: #000000;
+      letter-spacing: 0;
+    }
+    .imgTime {
+      height: 13px;
+      width: 29px;
+      //vertical-align: text-bottom;
+      position: relative;
+      top: 2px;
+    }
+    .citySchool {
+      font-family: PingFangSC-Light;
+      font-size: 14px;
+      color: #000000;
+      letter-spacing: 0;
+    }
+    .buttonUnActive {
+      background: #F5F5F5;
+      border-radius: 3px;
+      height: 28px;
+      width: 57px;
+      font-family: PingFangSC-Regular;
+      font-size: 13px;
+      color: #B5B4B4;
+      letter-spacing: -0.31px;
+      text-align: center;
+      border: 0;
+    }
+    .buttonActive {
+      background: #D6E9FF;
+      border-radius: 3px;
+      height: 28px;
+      width: 57px;
+      font-family: PingFangSC-Regular;
+      font-size: 13px;
+      color: #0775F5;
+      letter-spacing: -0.31px;
+      text-align: center;
+      border: 0;
+    }
+    .marginButton {
+      margin-left: 12px;
+    }
+    .statusName {
+      font-family: PingFangSC-Light;
+      font-size: 14px;
+      color: #000000;
+      letter-spacing: 0;
+    }
+    .logGo {
+      font-family: PingFangSC-Light;
+      font-size: 14px;
+      color: #000000;
+      letter-spacing: -0.34px;
+      padding-right: 16px;
+      img {
+        height: 12px;
+        width: 8px;
+        height: 12px;
+        width: 8px;
+        position: relative;
+        top: 1px;
+      }
+    }
+
   }
-  .paddingCol{
+  .lineDiv {
+    height: 1px;
+    background: #EFEFEF;
+    margin: 8px 0 0 0;
+  }
+  .paddingCol {
     padding: 0 5px;
   }
-  .longStyle{
+  .longStyle {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
   }
-  .redFont{
-    color: red;
+  .redFont {
+    color: #FC5626;
+  }
+
+  ion-list ion-item {
+    border: 0;
+    margin-bottom: 10px;
+    padding: 16px 0 8px 36px;
+  }
+  .imgUser {
+    height: 16px;
+    width: 16px;
+    float: left;
+    position: absolute;
+    top: 26px;
+    left: 10px;
   }
 }

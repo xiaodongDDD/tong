@@ -1,26 +1,31 @@
 .messageDetail {
-
+  .contentPadding {
+    padding: 10px;
+  }
   .bigTitle {
+    font-family: PingFangSC-Regular;
     font-size: 17px;
     color: #000000;
-    font-family: PingFangSC-Regular;
+    letter-spacing: 0;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
   }
   .smallContent {
-    font-size: 15px;
-    color: #000000;
-    font-family: PingFangSC-Light;
     word-wrap: break-word !important;
     word-break: break-all !important;
     line-height: 28px;
+    font-family: PingFangSC-Light;
+    font-size: 14px;
+    color: #888888;
+    letter-spacing: 0;
   }
   .smallTime {
-    font-size: 13px;
-    color: #888888;
-    vertical-align: bottom;
-    font-family: DIN-Regular !important;
+    font-family: DINPro-Regular;
+    font-size: 12px;
+    color: #AAAAAA;
+    text-align: right;
+    line-height: 14px;
   }
   .contentAll {
     width: 100%;
@@ -32,5 +37,21 @@
     .bigTitle{
       color: red;
     }
+  }
+  .login-btn {
+    display: block;
+    width: 250px;
+    height: 48px;
+    background-color: #3E7EF6;
+    box-shadow: 0 10px 15px 0 rgba(57, 120, 255, 0.29);
+    border-radius: 60px;
+    font-size: 16px;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 48px;
+    margin: 0 auto;
+    border: 0;
+    margin-top: 20px;
+
   }
 }

@@ -6,15 +6,180 @@
     <!--<img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-click="openPopover($event)"/>-->
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
-  <ion-content class="content-style" delegate-handle="mainScroll">
+
+  <div class="bar bar-subheader " style="z-index: 1002" ng-if="config.is_admin == '1'">
+    <div class="row row-no-padding selectSubHead">
+      <div class="col" ng-class="{'selectSubHeadDataActive':config.showContent,'selectSubHeadData':!config.showContent}" ng-click="selectSubHead(1)">数据统计</div>
+      <div class="col" ng-class="{'selectSubHeadDataActive':!config.showContent,'selectSubHeadData':config.showContent}" ng-click="selectSubHead(2)">业绩统计</div>
+    </div>
+  </div>
+  <ion-content class="content-style" ng-class="{'marginTopContent': (config.is_admin == '1')}" delegate-handle="mainScroll">
     <!-- 1.添加下拉刷新的组件 -->
     <ion-refresher
       pulling-text="下拉刷新页面数据..."
       on-refresh="doRefresh()">
     </ion-refresher>
 
+    <!--global-container  1-->
+    <div class="global-container" ng-if="config.showContent">
+      <div class="statistics-time" >统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}
+      </div>
+      <!--new-data-statistics-->
+      <div class="new-data-statistics registered-users-num">
+        <div class="new-data-statistics-bg"></div>
+        <div class="data-box">
+          <img src="build/assets/img/myInfo/icon_user.png"/>
+          <div class="registered-users">
+            <div class="total">注册用户总数</div>
+            <div class="yesterday-added" >昨日新增：<span class="numFontFamily">{{newViewData.user_data.yes_res}}</span></div>
+          </div>
+          <div class="numbers numFontFamily">{{newViewData.user_data.new_res}}</div>
+          <div class="auto-height"></div>
+        </div>
+      </div>
+      <!--new-data-statistics-->
+
+
+      <!--user-regional-district-->
+      <div class="common-regional-district teacher-regional-district" ng-if="newViewData.user_address.length>0">
+        <div class="top">
+          <img src="build/assets/img/myInfo/icon_teacher_regional_district.png"/>
+          <div class="info">
+            <div class="title">注册用户区域分布</div>
+            <div class="point">晓黑板注册用户所用手机号码所属地区分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <div ng-repeat="group in  newViewDataSp.user_address">
+            <div class="lineClass"></div>
+            <div class="row  row-no-padding " ng-class="{'groupList': group.show,'groupListSp': !group.show}" ng-click="toggleGroup(group)">
+              <div class="col-3"></div>
+              <div class="col-30 text-left">{{group.province}}</div>
+              <div class="col-30 text-center numFontFamily">{{group.percent}}</div>
+              <div class="col-25 text-right numFontFamily">{{group.count}}</div>
+              <div class="col-11 text-right">
+                <i class="iBack ion-android-arrow-dropdown" ng-if="!isGroupShown(group) && group.city_list.length>0"></i>
+                <i class="iBackActive ion-android-arrow-dropup"
+                   ng-if="isGroupShown(group) && group.city_list.length>0"></i>
+              </div>
+              <div class="col-3"></div>
+            </div>
+            <div
+              style="box-shadow: inset 0 1px 6px 0 rgba(228, 228, 228, 0.50);background: #F6F6F6;">
+              <div class="groupListItem row row-no-padding item-accordion"
+                   ng-repeat="item in group.city_list"
+                   ng-show="isGroupShown(group)">
+                <div class="col-15"></div>
+                <div class="col-40 text-left" style="border-bottom: 1px solid #EFEFEF;">&nbsp;&nbsp;&nbsp;{{item.city}}
+                </div>
+                <div class="col-35 text-right numFontFamily" style="border-bottom: 1px solid #EFEFEF;">{{item.count}}</div>
+                <div class="col-10"></div>
+              </div>
+            </div>
+          </div>
+
+
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_address.length>3"
+             ng-click="showPartOrAll('user_address')">
+            {{config.status.user_address?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--user-regional-district-->
+
+
+      <!--teacher-regional-district-->
+      <div class="common-regional-district teacher-regional-district" ng-if="newViewData.teacher_address.length>0">
+        <div class="top">
+          <img src="build/assets/img/myInfo/icon_teacher_regional_district.png"/>
+          <div class="info">
+            <div class="title">教师用户学校地域分布</div>
+            <div class="point">晓黑板老师用户学校所处的地区人数分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in  newViewDataSp.teacher_address">
+              <td width="34%" class="first" ng-bind="item.city">未知</td>
+              <td width="33%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="33%" class="last numFontFamily">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.teacher_address.length>3"
+             ng-click="showPartOrAll('teacher_address')">
+            {{config.status.teacher_address?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--teacher-regional-district-->
+
+
+
+      <!--user-role-district-->
+      <div class="common-regional-district user-role-district" ng-if="newViewData.user_role.length>0">
+        <div class="top">
+          <img src="build/assets/img/myInfo/icon_user_role_district.png"/>
+          <div class="info">
+            <div class="title">用户角色分布</div>
+            <div class="point">晓黑板个人账户中不同角色类型的人数分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewDataSp.user_role" >
+              <td width="34%" class="first" ng-bind="item.teacher_type"></td>
+              <td width="33%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="33%" class="last numFontFamily">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_role.length>3"
+             ng-click="showPartOrAll('user_role')">
+            {{config.status.user_role?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--user-role-district-->
+
+      <!--user-item-type-->
+      <div class="common-regional-district user-item-type" ng-if="newViewData.user_type.length>0">
+        <div class="top">
+          <img src="build/assets/img/myInfo/icon_user_item_type.png"/>
+          <div class="info">
+            <div class="title">用户项目类型</div>
+            <div class="point">晓黑板注册用户所属的项目人数分布</div>
+          </div>
+          <div class="auto-height"></div>
+        </div>
+        <div class="bottom">
+          <table>
+            <tbody>
+            <tr ng-repeat="item in newViewDataSp.user_type" >
+              <td width="34%" class="first" ng-bind="item.teacher_type">教师</td>
+              <td width="33%" class="middle numFontFamily">{{item.percent}}</td>
+              <td width="33%" class="last numFontFamily">{{item.count}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <a href="javascript:void(0)" class="view-all-btn" ng-show="newViewData.user_type.length>3"
+             ng-click="showPartOrAll('user_type')">
+            {{config.status.user_type?'收起':'查看全部'}}
+          </a>
+        </div>
+      </div>
+      <!--user-item-type-->
+    </div>
     <!--global-container-->
-    <div class="global-container">
+
+
+    <!--global-container 2-->
+    <div class="global-container" ng-if="!config.showContent">
       <div class="statistics-time" >统计自{{newViewData.day_time.start_time}}至{{newViewData.day_time.end_time}}
       </div>
       <!--new-data-statistics-->

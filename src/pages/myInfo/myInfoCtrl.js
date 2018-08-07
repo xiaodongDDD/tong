@@ -11,14 +11,19 @@ angular.module('myInfoModule')
         names: ["teacher_address", "user_address", "user_role", "user_type"]
       };
       $scope.config = {
+        showContent: true,
         status: {
           teacher_address: false,
           user_address: false,
           user_role: false,
           user_type: false
-        }
+        },
+        is_admin:window.localStorage.is_admin
       };
-      $scope.configSp = angular.copy($scope.config);
+      $scope.configSp = {
+        status: {}
+      }
+      $scope.configSp.status = angular.copy($scope.config.status);
       $scope.newViewData = {};
       $scope.newViewDataSp = {};
       $scope.operating = indexPageService.operating;
@@ -44,10 +49,15 @@ angular.module('myInfoModule')
             $scope.operating[i].selected = false;
           }
         }
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.userData&type=" + $scope.data.type;
+        if ($scope.config.showContent) {
+          var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Statics.user_static&type=" + $scope.data.type;
+        } else {
+          var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.userData&type=" + $scope.data.type;
+        }
+        console.log($scope.config.showContent);
         hmsHttp.get(indexUrl).success(
           function (response) {
-            $scope.config = angular.copy($scope.configSp);
+            $scope.config.status = angular.copy($scope.configSp.status);
             $scope.newViewData = response.response;
             for (var i = 0; i < $scope.newViewData.user_address.length; i++) {
               $scope.newViewData.user_address[i].show = false;
@@ -96,9 +106,7 @@ angular.module('myInfoModule')
             $scope.newViewDataSp[$scope.data.names[i]] = data[$scope.data.names[i]].length > 3 ? data[$scope.data.names[i]].slice(0, 3) : data[$scope.data.names[i]];
           } else {
           }
-          ;
         }
-        ;
       }
 
       //右上角popover
@@ -129,7 +137,21 @@ angular.module('myInfoModule')
         $scope.popover.hide();
       }
 
+
+      $scope.selectSubHead = function (item) {
+        if (item === 1) {
+          $scope.config.showContent = true;
+        } else {
+          $scope.config.showContent = false;
+        }
+        $scope.newViewData = {};
+        initPageData();
+        console.log($scope.config.showContent);
+      }
       //初始化页面
+      if($scope.config.is_admin == 0){
+        $scope.config.showContent = false
+      }
       initPageData();
 
 

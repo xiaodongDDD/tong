@@ -1,18 +1,17 @@
 .setting {
+  .global-container {
+    padding: 0 0 70px 0;
+  }
   .userInfo {
     margin-top: 5px;
   }
   .username {
-    font-weight: bold;
-    font-size: 20px
+    font-family: PingFangSC-Regular;
+    font-size: 17px;
+    color: #000000;
+    letter-spacing: -0.41px;
   }
-  .position {
-    font-size: 14px
-  }
-  .companyName {
-    margin-top: 10px;
-    font-size: 15px
-  }
+
   .done {
     text-decoration: line-through;
   }
@@ -27,15 +26,20 @@
     align-items: center;
   }
   .col-25 img {
-    height: 64px;
-    width: 64px;
+    height: 48px;
+    width: 48px;
+
   }
   .col-25 ul li img {
-    height: 64px;
-    width: 64px;
+    height: 48px;
+    width: 48px;
     margin-top: 12px
   }
   .col-25 ul li p {
+    font-family: PingFangSC-Light;
+    font-size: 12px;
+    color: #888888;
+    letter-spacing: -0.41px;
     text-align: center;
   }
   .userStyle {
@@ -54,16 +58,62 @@
     width: 24px;
     position: relative;
     top: -90px;
-    left: 45px;
+    left: 36px;
   }
   .bigTitle {
     font-size: 15px;
     color: #000000;
     font-family: PingFangSC-Light;
   }
-  .bigTitleSp{
+  .bigTitleSp {
+    font-family: PingFangSC-Regular;
     font-size: 17px;
     color: #000000;
-    font-family: PingFangSC-Light;
+    letter-spacing: -0.41px;
+    padding-left: 20px;
+    margin-top: 30px;
+  }
+  .lineStyle {
+    background: #EFEFEF;
+    height: 1px;
+    margin: 0 20px;
+  }
+  .itemDiv {
+    background-color: #ffffff;
+    .rowStyleSp {
+      padding: 0 20px;
+    }
+    .rowStyle {
+      padding: 15px 20px;
+      .lineOther {
+        margin-top: 3px;
+        .position {
+          font-family: PingFangSC-Light;
+          font-size: 14px;
+          color: #888888;
+          letter-spacing: -0.41px;
+        }
+        .companyName {
+          font-family: PingFangSC-Light;
+          font-size: 14px;
+          color: #888888;
+          letter-spacing: -0.41px;
+        }
+      }
+
+    }
+  }
+  .listStyle{
+    margin-top: 10px;
+    .iconImg{
+      width: 20px;height: 20px;position: absolute;
+    }
+    .iconFont{
+      padding-left:40px;
+      font-family: PingFangSC-Light;
+      font-size: 15px;
+      color: #000000;
+      letter-spacing: 0;
+    }
   }
 }

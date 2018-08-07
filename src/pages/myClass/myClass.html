@@ -3,11 +3,18 @@
     <div class="title titleStyle">
       {{data.pageName}}
     </div>
-    <img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-if="!configList.showPageList" ng-click="changePage()"/>
-    <img class="left-image" src="build/assets/img/myInfo/btn_statistics@2x.png" ng-if="configList.showPageList" ng-click="changePage()"/>
+    <img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-if="!configList.showPageList && !config.showContent" ng-click="changePage()"/>
+    <img class="left-image" src="build/assets/img/myInfo/btn_statistics@2x.png" ng-if="configList.showPageList && !config.showContent" ng-click="changePage()"/>
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>
   </ion-header-bar>
-  <ion-content class="content-style" delegate-handle="mainScroll" ng-show="!configList.showPageList">
+
+  <div class="bar bar-subheader " style="z-index: 1002" ng-show="!configList.showPageList" ng-if="config.is_admin == '1'">
+    <div class="row row-no-padding selectSubHead">
+      <div class="col" ng-class="{'selectSubHeadDataActive':config.showContent,'selectSubHeadData':!config.showContent}" ng-click="selectSubHead(1)">数据统计</div>
+      <div class="col" ng-class="{'selectSubHeadDataActive':!config.showContent,'selectSubHeadData':config.showContent}" ng-click="selectSubHead(2)">业绩统计</div>
+    </div>
+  </div>
+  <ion-content class="content-style " ng-class="{'marginTopContent': (config.is_admin == '1')}" delegate-handle="mainScroll" ng-show="!configList.showPageList">
     <!-- 1.添加下拉刷新的组件 -->
     <ion-refresher
       pulling-text="下拉刷新页面数据..."

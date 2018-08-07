@@ -4,8 +4,8 @@
 
 angular.module('settingModule')
   .controller('userApplicationListCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup', 'publicMethod', 'userApplicationService', 'baseConfig', '$ionicScrollDelegate', 'hmsHttp', 'SettingsService',
-    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup, publicMethod, userApplicationService, baseConfig, $ionicScrollDelegate, hmsHttp, SettingsService) {
+    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup', 'publicMethod', 'userApplicationService', 'baseConfig', '$ionicScrollDelegate', 'hmsHttp', 'SettingsService','$ionicPopover',
+    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup, publicMethod, userApplicationService, baseConfig, $ionicScrollDelegate, hmsHttp, SettingsService,$ionicPopover) {
       $scope.config = {
         showPageList: true,
         showSelectList: false,
@@ -22,7 +22,7 @@ angular.module('settingModule')
             id: 0,
             province: '',
             city: '',
-            list: userApplicationService.provinces
+            list: SettingsService.get('provinces')
           },
           {
             name: "状态",
@@ -250,8 +250,41 @@ angular.module('settingModule')
       }
       $scope.initData(1);
       $scope.loadMore = function () {
-        console.log('======================')
         $scope.data.page++;
         $scope.initData($scope.data.page);
+      }
+      $scope.operating = [
+        {
+          id: 'reset',
+          text: '重置条件',
+          style: {'border-bottom-width': '2px', 'border-bottom-style': 'solid', 'border-bottom-color': '#DCDCDC'},
+          selected: false,
+        },
+        {
+          id: 'manager',
+          text: '管理',
+          style: {},
+          selected: false
+        }
+      ];
+      $scope.popover = $ionicPopover.fromTemplateUrl('build/pages/setting/userApplication/modal/popover.html', {
+        scope: $scope
+      });
+
+      // .fromTemplateUrl() 方法
+      $ionicPopover.fromTemplateUrl('build/pages/setting/userApplication/modal/popover.html', {
+        scope: $scope
+      }).then(function (popover) {
+        $scope.popover = popover;
+      });
+      $scope.openPopover = function ($event) {
+        $scope.popover.show($event);
+      };
+      $scope.selectPopover = function (x) {
+        console.log(x)
+        $scope.popover.hide();
+        if(x.id === 'reset'){
+          $scope.reset();
+        }
       }
     }]);

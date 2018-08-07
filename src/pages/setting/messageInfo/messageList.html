@@ -8,23 +8,29 @@
       全部已读
     </button>
   </ion-header-bar>
-  <ion-content class="content-style" delegate-handle="mainScrollMessageList">
+  <ion-content class="content-style contentPadding" delegate-handle="mainScrollMessageList" >
     <!-- 1.添加下拉刷新的组件 -->
     <ion-refresher
       pulling-text="下拉刷新页面数据..."
       on-refresh="doRefresh()">
     </ion-refresher>
     <ion-list>
-      <ion-item class="text-center item item-icon-right" ng-class="{'urgentBackground': item.urgency_flag == 1}"
+      <ion-item class="item itemPadding"
                 ng-click="goMessageDetail(item)" ng-repeat="item in data.messageList">
-        <div class="row">
-          <div class="col col-60 text-left bigTitle"><span ng-if="item.status == 0"><i class="ion-star" style="color: red" ></i>&nbsp;</span>{{item.title}}</div>
+        <span class="imgSpan">
+          <img src="build/assets/img/setting/dangeMessage.png" ng-if="item.status == 0">
+          <img src="build/assets/img/setting/message.png" ng-if="item.status != 0">
+        </span>
+        <div class="row row-no-padding">
+          <div class="col col-60 text-left bigTitle imgLeft"><span ng-if="item.status == 0"><i class="ion-star" style="color: red" ></i>&nbsp;</span>{{item.title}}</div>
           <div class="col col-40 text-right smallTime">{{item.send_time * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</div>
         </div>
-        <div class="row">
-          <div class="col text-left smallContent">{{item.content}}</div>
+        <div class="row row-no-padding">
+          <div class="col col-90 text-left smallContent imgLeft">{{item.content}}</div>
+          <div class="col col-10 text-right">
+            <span class="redSpan" ng-if="item.urgency_flag == 1"></span>
+          </div>
         </div>
-        <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
     </ion-list>
     <ion-infinite-scroll ng-if="config.nextPage" on-infinite="loadMore()" immediate-check='false' distance="1%" class="spinner"></ion-infinite-scroll>
