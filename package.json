@@ -70,7 +70,8 @@
     {
       "id": "jpush-phonegap-plugin",
       "locator": "/Users/daidongdong/Desktop/项目信息/plugin/jpush-phonegap-plugin"
-    }
+    },
+    "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [
     "android"
@@ -85,7 +86,8 @@
       "cordova-plugin-datepicker": {},
       "jpush-phonegap-plugin": {
         "APP_KEY": "ce1e044c687690a078e66f2c"
-      }
+      },
+      "ionic-plugin-keyboard": {}
     }
   }
 }

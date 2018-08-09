@@ -1,3 +1,10 @@
+.platform-ios .contentMargin{
+  margin-top: 64px;
+}
+.platform-android .contentMargin{
+  margin-top: 44px;
+}
+
 .distribution {
   .contentPadding {
     padding: 0 10px;

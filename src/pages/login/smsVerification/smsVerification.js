@@ -5,8 +5,7 @@ angular.module('loginModule')
   .controller('smsVerificationCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
     '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup', 'checkVersionService', 'jpushService', 'baseConfig', 'hmsHttp', 'publicMethod', '$interval', 'SettingsService', '$http',
     function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup, checkVersionService, jpushService, baseConfig, hmsHttp, publicMethod, $interval, SettingsService, $http) {
-      window.localStorage.mobile = '17777777709'
-    $scope.config = {}
+      $scope.config = {}
       $scope.data = {
         mobile: window.localStorage.mobile,
         code: ''
@@ -16,16 +15,54 @@ angular.module('loginModule')
       $scope.goBack = function () {
         publicMethod.goBack();
       }
+      $scope.canClick = false;
+      $scope.timeout = 60000;
+      $scope.timerCount = $scope.timeout / 1000;
+      $scope.description = "获取验证码";
+
+      $scope.onClick = function () {
+        // alert('shijian')
+        if ($scope.canClick === true) {
+          return
+        }
+        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.send_code&mobile=" + window.localStorage.mobile;
+        $http.post(indexUrl, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+          }
+        }).success(
+          function (response) {
+            if (response.hasOwnProperty('response')) {
+              console.log(response)
+            }
+          }
+        ).error(
+          function (response, status, header, config) {
+          }
+        );
+        $scope.canClick = true;
+        $scope.description = $scope.timerCount + "秒后重新获取";
+        var counter = $interval(function () {
+          $scope.timerCount = $scope.timerCount - 1;
+          $scope.description = $scope.timerCount + "秒后重新获取";
+        }, 1000);
+
+        $timeout(function () {
+          $scope.description = "获取验证码";
+          $scope.canClick = false;
+          $scope.timerCount = 60
+          $interval.cancel(counter);
+        }, $scope.timeout);
+      }
 
       $scope.canClick = false;
       $scope.description = "获取验证码";
       var second = 59;
       var timerHandler;
       $scope.getTestCode = function () {
-        if($scope.canClick === true){
+        if ($scope.canClick === true) {
           return
         }
-        console.log('--------------')
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.send_code&mobile=" + window.localStorage.mobile;
         $http.post(indexUrl, {
           headers: {

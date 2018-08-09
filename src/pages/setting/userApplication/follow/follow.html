@@ -4,12 +4,12 @@
     <div class="title titleStyle">
       跟进
     </div>
-    <button class="button button-clear button-positive" style="font-size: 14px;color: black;" ng-click="submit()">保存</button>
+    <!--<button class="button button-clear button-positive" style="font-size: 14px;color: black;" ng-click="submit()">保存</button>-->
   </ion-header-bar>
   <div class="bar bar-subheader " style="z-index: 1002">
     <div class="row row-no-padding selectSubHead">
-      <div class="col" ng-class="{'selectSubHeadDataActive':config.flag == 'ios','selectSubHeadData':config.flag == 'ionic'}" ng-click="setPlatform('ios')">数据统计</div>
-      <div class="col" ng-class="{'selectSubHeadDataActive':config.flag == 'ionic','selectSubHeadData':config.flag == 'ios'}" ng-click="setPlatform('ionic')">业绩统计</div>
+      <div class="col" ng-class="{'selectSubHeadDataActive':config.flag == 'ios','selectSubHeadData':config.flag == 'ionic'}" ng-click="setPlatform('ios')">跟进成功</div>
+      <div class="col" ng-class="{'selectSubHeadDataActive':config.flag == 'ionic','selectSubHeadData':config.flag == 'ios'}" ng-click="setPlatform('ionic')">跟进失败</div>
     </div>
   </div>
   <ion-content class="content-style contentPadding" delegate-handle="mainScroll" style="margin-top: 44px">
@@ -76,4 +76,5 @@
       </div>
     </div>
   </ion-content>
+  <div class="buttonSub"><button class="login-btn" type="button" ng-click="submit()">保存</button></div>
 </ion-view>
