@@ -25,7 +25,7 @@ angular.module('settingModule')
       $scope.confirmChange = function () {
         console.log($scope.data.endDatetime)
         console.log($scope.data.startDatetime)
-        $scope.data.startDatetime = $scope.data.startDatetime + ' 08:00:00'
+        $scope.data.startDatetime = $scope.data.startDatetime + ' 00:00:00'
         $scope.data.endDatetime = $scope.data.endDatetime + ' 23:59:59'
         if (new Date($scope.data.endDatetime) < new Date($scope.data.startDatetime)) {
           $scope.Toast.show('截止日期不能早于起始日期，请重新选择');

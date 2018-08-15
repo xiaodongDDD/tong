@@ -40,12 +40,17 @@ angular.module('settingModule')
             }
           }
         }
+        // console.log($scope.data.address)
+        // console.log($scope.data.province)
+        // console.log($scope.data.city)
+        // hmsPopup.showShortCenterToast('请选择返回的人员');
+        // return
         if ($scope.data.clientSide == '') {
           hmsPopup.showShortCenterToast('请选择返回的人员');
           return;
         }
         if ($scope.data.text == '') {
-          hmsPopup.showShortCenterToast('请选择返回缘由');
+          hmsPopup.showShortCenterToast('请填写返回缘由');
           return;
         }
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yi.back";

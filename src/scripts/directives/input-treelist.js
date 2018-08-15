@@ -54,7 +54,7 @@
               treelistInstance = inst;
               if (scope.ngModel) {
                 var item1 = $('#' + element.attr('id') + ' [data-val=' + scope.ngModel.substr(0, 2) + ']').attr('data-text');
-                var item2 = $('#' + element.attr('id') + ' [data-val=' + scope.ngModel.substr(0, 4) + ']').attr('data-text');
+                var item2 = $('#' + element.attr('id') + ' [data-val=' + scope.ngModel.substr(0, 5) + ']').attr('data-text');
                 $('#' + element.attr('id') + '_dummy').val(item1 + item2);
               }
 
@@ -76,18 +76,19 @@
           };
 
           if (scope.ngModel) {
-            options.defaultValue = [scope.ngModel.substr(0, 2), scope.ngModel.substr(0, 4), scope.ngModel];
+            options.defaultValue = [scope.ngModel.substr(0, 2), scope.ngModel.substr(0, 5), scope.ngModel];
           }
 
           setTimeout(function () {
             element.mobiscroll().treelist(options);
             scope.$watch('ngModel', function (value) {
               if (value) {
-                treelistInstance.setVal([value.substr(0, 2), value.substr(0, 4), value], true, false, false);
+                treelistInstance.setVal([value.substr(0, 2), value.substr(0, 5), value], true, false, false);
                 var item1 = $('#' + element.attr('id') + ' [data-val=' + value.substr(0, 2) + ']').attr('data-text');
-                var item2 = $('#' + element.attr('id') + ' [data-val=' + value.substr(0, 4) + ']').attr('data-text');
+                var item2 = $('#' + element.attr('id') + ' [data-val=' + value.substr(0, 5) + ']').attr('data-text');
                 $('#' + element.attr('id') + '_dummy').val(item1 + item2);
               }
+
             });
           });
         // });

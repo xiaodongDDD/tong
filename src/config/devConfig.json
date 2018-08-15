@@ -12,9 +12,9 @@
     "interfacePath": "http://school-test.xiaoheiban.cn",
     "iosUpdatePath": "https://www.pgyer.com/fpsM",
     "version": {
-      "currentVersion": "1.3.0",
-      "currentversionName": "此版本为测试版本1.3.0",
-      "currentSubVersion": "1.3.0",
+      "currentVersion": "1.4.0",
+      "currentversionName": "此版本为测试版本1.4.0",
+      "currentSubVersion": "1.4.0",
       "currentSubVersionName": "app包"
     }
   }

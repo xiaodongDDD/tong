@@ -79,8 +79,9 @@ angular.module('settingModule')
                     children: []
                   }
                 for (var j = 0; j < listProvince[i].citys.length; j++) {
+                  var num = 20 + j
                   addressData[i].children[j] = {
-                    value: addressData[i].value + '-'+j,
+                    value: addressData[i].value + '-'+num,
                     text: listProvince[i].citys[j]
                   }
                 }
