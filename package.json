@@ -20,6 +20,7 @@
         "cordova-android": "^6.2.3",
         "cordova-ios": "^4.4.0",
         "cordova-plugin-compat": "^1.2.0",
+        "cordova-plugin-crosswalk-webview": "^2.4.1",
         "cordova-plugin-datepicker": "^0.9.3",
         "cordova-plugin-file-transfer": "^1.7.0",
         "cordova-plugin-jcore": "^1.1.10",
@@ -72,7 +73,8 @@
             "id": "jpush-phonegap-plugin",
             "locator": "/Users/daidongdong/Desktop/项目信息/plugin/jpush-phonegap-plugin"
         },
-        "ionic-plugin-keyboard"
+        "ionic-plugin-keyboard",
+        "cordova-plugin-crosswalk-webview"
     ],
     "cordovaPlatforms": [
         "android"
@@ -88,7 +90,10 @@
             "jpush-phonegap-plugin": {
                 "APP_KEY": "422ec4e43143367e10a3cf79"
             },
-            "ionic-plugin-keyboard": {}
+            "ionic-plugin-keyboard": {},
+            "cordova-plugin-crosswalk-webview": {
+                "XWALK_MODE": "lite"
+            }
         }
     }
 }
