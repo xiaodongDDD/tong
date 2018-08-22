@@ -1,16 +1,15 @@
 <ion-view view-title="我的任务" class="myInfo indexPage userApplicationList">
-  <ion-header-bar class="head-bg" style="z-index: 1009">
+  <ion-header-bar class="head-bg item-input-inset" style="z-index: 1009">
     <button class="button button-icon icon ion-ios-arrow-left" ng-click="goBack()"></button>
-    <div class="title titleStyle">
-      我的任务
-    </div>
-    <!--<button class="button button-clear button-positive" style="font-size: 14px;" ng-click="reset()">-->
-      <!--重置条件-->
-    <!--</button>-->
-    <i class="ion-more right-image" ng-click="openPopover($event)"></i>
+    <label class="item-input-wrapper" ng-click="openModal()" style="background-color:white">
+      <i class="icon ion-ios-search placeholder-icon"></i>
+      <input type="search" placeholder="请输入学校名称" disabled ng-model="data.school_name">
+    </label>
+    <button class="button button-icon ion-more" ng-click="openPopover($event)">
+    </button>
   </ion-header-bar>
   <div class="bar bar-subheader " style="z-index: 1002" ng-show="config.showPageList" >
-    <div class="row rowStyle">
+    <div class="row rowStyle" >
       <div class="col-25 fontSelectedSp" ng-repeat="item in data.selectList" ng-click="selectAny(item)" >
         <span ng-bind="item.name" ng-if="!item.select" class="headStylelist"></span>
         <span ng-bind="item.name" ng-if="item.select" style="color:#0775F5" class="headStylelist"></span>
@@ -28,6 +27,10 @@
         </span>
         <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[1].select">{{i.label}}</span>
         <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[2].select">{{i.label}}</span>
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[3].select">{{i.label}}</span>
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[4].select">{{i.label}}</span>
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[5].select">{{i.label}}</span>
+        <span ng-class="{'fontStyle':true,'fontSp':false}" ng-show="data.selectList[6].select">{{i.label}}</span>
       </div>
     </div>
   </div>
@@ -40,6 +43,7 @@
       pulling-text="下拉刷新页面数据..."
       on-refresh="doRefresh()">
     </ion-refresher>
+    <div class="statistics-time" ng-if="data.selectList[3].nameSP[1]">统计自{{data.selectList[3].nameSP[0]}}至{{data.selectList[3].nameSP[1]}}</div>
     <ion-list>
       <ion-item ng-repeat="item in data.messageList">
         <img src="build/assets/img/setting/userPic.png" class="imgUser">
@@ -53,8 +57,11 @@
           </div>
         </div>
         <div class="row row-no-padding rowHeight">
-          <div class="col applyType">
+          <div class="col applyType col-50">
             {{item.apply_type}}
+          </div>
+          <div class="col applyType col-50 text-right" style="padding-right: 15px">
+            {{item.mobile_phone}}
           </div>
         </div>
         <div class="row row-no-padding rowHeight">

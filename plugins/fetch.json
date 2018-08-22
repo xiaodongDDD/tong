@@ -49,6 +49,22 @@
         "is_top_level": true,
         "variables": {}
     },
+    "cordova-plugin-splashscreen": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-splashscreen@^5.0.2"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-statusbar": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-statusbar@^2.4.2"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
     "cordova-plugin-crosswalk-webview": {
         "source": {
             "type": "registry",

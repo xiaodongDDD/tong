@@ -12,7 +12,8 @@ angular.module('settingModule')
         applicationNum: ''
       };
       $scope.data = {
-        userInfo : {}
+        userInfo : {},
+        version: baseConfig.version.currentVersion
       }
       $scope.exitAccount = function () {
         function loginOut(buttonIndex) {

@@ -4,8 +4,8 @@
 
 angular.module('settingModule')
   .controller('userApplicationListCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup', 'publicMethod', 'userApplicationService', 'baseConfig', '$ionicScrollDelegate', 'hmsHttp', 'SettingsService','$ionicPopover',
-    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup, publicMethod, userApplicationService, baseConfig, $ionicScrollDelegate, hmsHttp, SettingsService,$ionicPopover) {
+    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup', 'publicMethod', 'userApplicationService', 'baseConfig', '$ionicScrollDelegate', 'hmsHttp', 'SettingsService', '$ionicPopover', '$ionicModal',
+    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup, publicMethod, userApplicationService, baseConfig, $ionicScrollDelegate, hmsHttp, SettingsService, $ionicPopover, $ionicModal) {
       $scope.config = {
         showPageList: true,
         showSelectList: false,
@@ -14,6 +14,7 @@ angular.module('settingModule')
       $scope.data = {
         page: 1,
         messageList: [],
+        school_name: '',
         selectList: [
           {
             name: "地区搜索",
@@ -30,14 +31,8 @@ angular.module('settingModule')
             id: 1,
             status: '',
             list: [
-              // {id: '1', label: '手机号异常'},
-              // {id: '2', label: '系统待分配'},
-              // {id: '3', label: '待处理'},
-              // {id: '4', label: '已分派'},
               {id: '0', label: '未跟进'},
               {id: '5', label: '已跟进'}
-              // {id: '6', label: '已返回'},
-              // {id: '7', label: '已调换'}
             ]
           }, {
             name: "资质评价",
@@ -51,10 +46,29 @@ angular.module('settingModule')
             ]
           }, {
             name: "时间搜索",
+            nameSP:[],
             select: false,
             id: 3,
             invited_code: '',
             list: ['', '']
+          }, {
+            name: "当前处理人",
+            select: false,
+            id: 4,
+            invited_code: '',
+            list: []
+          }, {
+            name: "项目类型",
+            select: false,
+            id: 5,
+            invited_code: '',
+            list: [{id: '2', label: '邀请码申请'}, {id: '3', label: '校园认证'}, {id: '1', label: '讲座申请'}]
+          }, {
+            name: "继续跟进",
+            select: false,
+            id: 6,
+            invited_code: '',
+            list: [{id: '1', label: '是'}, {id: '2', label: '否'}]
           }]
       }
       $scope.selectListCopy = angular.copy($scope.data.selectList)
@@ -105,7 +119,7 @@ angular.module('settingModule')
         $scope.$broadcast("scroll.refreshComplete");
       }
       $scope.initData = function (page) {
-        hmsPopup.showLoadingWithoutBackdrop('正在加载...');
+        // hmsPopup.showLoadingWithoutBackdrop('正在加载...');
         var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yi.applyList";
         var obj = {
           "module_id": 22,
@@ -117,18 +131,29 @@ angular.module('settingModule')
           "end_time": $scope.data.selectList[3].list[1],//结束时间
           "now_page": page,
           "pagesize": 10,
+          "school_name":$scope.data.school_name,//学校姓名搜索
+          "mobile_phone":"",//手机号搜索
+          "touch_again":$scope.data.selectList[6].touch_again,//1是，2否
+          "direct_manager":$scope.data.selectList[4].direct_manager,//当前执行人
+          "apply_type":$scope.data.selectList[5].apply_type,//1培训申请，2邀请码申请3加入校园
         }
         console.log($scope.data.selectList[1].status)
-        if($scope.data.selectList[1].status === '5'){
+        if ($scope.data.selectList[1].status === '5') {
           obj.status = [5]
-        }else if($scope.data.selectList[1].status === ''){
+        } else if ($scope.data.selectList[1].status === '') {
           obj.status = []
-        }else{
-          obj.status = [0,1,2,3,4,6,7]
+        } else {
+          obj.status = [0, 1, 2, 3, 4, 6, 7]
         }
         hmsHttp.post(indexUrl, obj).success(
           function (response) {
             $scope.data.messageList = $scope.data.messageList.concat(response.response.list);
+            $scope.data.selectList[4].list = []
+            for(var i=0;i<response.response.children.length;i++){
+              $scope.data.selectList[4].list.push({
+                id: response.response.children[i].u_id, label: response.response.children[i].user_name
+              })
+            }
             if (response.response.total_page === $scope.data.page) {
               $scope.config.nextPage = false
             } else {
@@ -203,6 +228,18 @@ angular.module('settingModule')
             $scope.data.selectList[2].name = item1.label;
             $scope.data.selectList[2].resource = item1.id;
             break;
+          case 4:
+            $scope.data.selectList[4].name = item1.label;
+            $scope.data.selectList[4].direct_manager = item1.id;
+            break;
+          case 6:
+            $scope.data.selectList[6].name = item1.label;
+            $scope.data.selectList[6].touch_again = item1.id;
+            break;
+          case 5:
+            $scope.data.selectList[5].name = item1.label;
+            $scope.data.selectList[5].apply_type = item1.id;
+            break;
           default:
             console.log('error');
         }
@@ -227,25 +264,32 @@ angular.module('settingModule')
           if (fromState && toState && (fromState.name == 'timeSelectSetting') && toState.name == 'userApplicationList') {
             $scope.data.selectList[3].list = SettingsService.get('timeSelectSetting')
             $scope.data.selectList[3].name = SettingsService.get('timeSelectSettingSp')[0] + SettingsService.get('timeSelectSettingSp')[1]
+            $scope.data.selectList[3].nameSP.push(SettingsService.get('timeSelectSettingSp')[0])
+            $scope.data.selectList[3].nameSP.push(SettingsService.get('timeSelectSettingSp')[1])
+            console.log($scope.data.selectList[3].list)
+            console.log(SettingsService.get('timeSelectSettingSp')[0] + SettingsService.get('timeSelectSettingSp')[1])
+            console.log($scope.data.selectList[3].nameSP)
             if ($scope.data.selectList[3].name.length > 6) {
               $scope.data.selectList[3].name = $scope.data.selectList[3].name.substring(0, 4) + '..'
             }
             $scope.data.messageList = []
             $scope.data.page = 1;
             $scope.initData($scope.data.page);
-          }else if (fromState.name === 'tab'){
+          } else if (fromState.name === 'tab') {
 
-          }else if(fromState.name !== 'userApplicationList'){
-            $scope.data.messageList = [];
-            $scope.data.page = 1;
-            $scope.initData($scope.data.page)
           }
+          // else if (fromState.name !== 'userApplicationList') {
+          //   $scope.data.messageList = [];
+          //   $scope.data.page = 1;
+          //   $scope.initData($scope.data.page)
+          // }
         })
       $scope.reset = function () {
         $scope.config.showSelectList = false;
         $scope.data.selectList = angular.copy($scope.selectListCopy)
         $scope.data.messageList = []
         $scope.data.page = 1;
+        $scope.data.school_name = '';
         $scope.initData($scope.data.page);
       }
       $scope.initData(1);
@@ -283,8 +327,40 @@ angular.module('settingModule')
       $scope.selectPopover = function (x) {
         console.log(x)
         $scope.popover.hide();
-        if(x.id === 'reset'){
+        if (x.id === 'reset') {
           $scope.reset();
         }
       }
+
+
+      $ionicModal.fromTemplateUrl('build/pages/setting/userApplication/modal/search.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function (modal) {
+        $scope.modal = modal;
+      });
+      $scope.openModal = function () {
+        $scope.modal.show();
+      };
+      $scope.closeModal = function () {
+        $scope.modal.hide();
+      };
+      $scope.searchData = function () {
+        $scope.modal.hide();
+        $scope.data.messageList = []
+        $scope.data.page = 1;
+        $scope.initData($scope.data.page);
+      };
+      //当我们用到模型时，清除它！
+      $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+      });
+      // 当隐藏的模型时执行动作
+      $scope.$on('modal.hide', function () {
+        // 执行动作
+      });
+      // 当移动模型时执行动作
+      $scope.$on('modal.removed', function () {
+        // 执行动作
+      });
     }]);

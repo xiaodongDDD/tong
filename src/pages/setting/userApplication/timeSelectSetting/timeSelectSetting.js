@@ -43,7 +43,7 @@ angular.module('settingModule')
         typeTime.push(new Date($scope.data.startDatetime.replace(/-/g,"/")).getTime()/1000);
         typeTime.push(new Date($scope.data.endDatetime.replace(/-/g,"/")).getTime()/1000);
         typeTimeSp.push($scope.data.startDatetime);
-        typeTimeSp.push($scope.data.startDatetime);
+        typeTimeSp.push($scope.data.endDatetime);
         SettingsService.set('timeSelectSetting', typeTime);
         SettingsService.set('timeSelectSettingSp', typeTimeSp);
         publicMethod.goBack();

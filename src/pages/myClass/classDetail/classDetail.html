@@ -41,6 +41,11 @@
               <div class="col-50 schoolTime">{{i.create_time}}</div>
             </div>
             <div class="row rowStyleDetail">
+              <div class="col-50 personName">{{i.mobile}}</div>
+              <div class="col-50 fontColor text-right" >
+              </div>
+            </div>
+            <div class="row rowStyleDetail">
               <div class="col-50 personName">{{i.subject_name}}</div>
               <div class="col-50 fontColor text-right" >{{i.role}}
               </div>
@@ -52,13 +57,18 @@
           <div class="item item-avatar itemStyle"  style="background: #ffffff" ng-repeat="i in data.userListData.member_list" ng-click="goSchoolDetail()">
             <img ng-src="{{i.avatar}}" class="imgStyle">
             <div class="row rowStyleDetail">
-              <div class="col-50 schoolName">{{i.display_name}}<span class="schoolTime">({{i.invite_judge}})</span></div>
+              <div class="col-50 schoolName">{{i.display_name}}</div>
               <div class="col-50 schoolTime">{{i.join_time}}</div>
             </div>
             <div class="row rowStyleDetail">
               <div class="col-50 personName">{{i.role}}<span ng-if="i.relation">-</span>{{i.relation}}</div>
               <div class="col-50" style="text-align: right"
                    ng-class="{'fontColor': i.font,'personName' : !i.font}">{{i.speak_stype}}
+              </div>
+            </div>
+            <div class="row rowStyleDetail">
+              <div class="col-50 personName">{{i.invite_judge}}</div>
+              <div class="col-50 personName text-right" >{{i.invited_time}}
               </div>
             </div>
           </div>
