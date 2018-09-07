@@ -20,7 +20,7 @@ angular.module('settingModule')
       }
       $scope.initData = function () {
         hmsPopup.showLoadingWithoutBackdrop('正在加载...');
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.news_detail";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yimessage.news_detail";
         var obj = {
           n_id: SettingsService.get('messageId')
         }

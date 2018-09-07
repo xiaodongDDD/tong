@@ -50,9 +50,9 @@ angular.module('myInfoModule')
           }
         }
         if ($scope.config.showContent) {
-          var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Statics.user_static&type=" + $scope.data.type;
+          var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Statics.user_static&type=" + $scope.data.type;
         } else {
-          var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.userData&type=" + $scope.data.type;
+          var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.userData&type=" + $scope.data.type;
         }
         console.log($scope.config.showContent);
         hmsHttp.get(indexUrl).success(

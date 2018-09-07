@@ -1,8 +1,14 @@
 <ion-view view-title="班级情况统计" class="myClass myInfo indexPage myTab" cache-view='true'>
-  <ion-header-bar align-title="center" class="head-bg" style="z-index: 1002;">
-    <div class="title titleStyle">
+  <ion-header-bar align-title="center" class="head-bg item-input-inset" style="z-index: 1002;">
+    <div class="title titleStyle" ng-if="!configList.showPageList">
       {{data.pageName}}
     </div>
+    <label class="item-input-wrapper" ng-click="openModal()" style="background-color:white;width: 80%"  ng-if="configList.showPageList">
+      <i class="icon ion-ios-search placeholder-icon"></i>
+      <input type="search" placeholder="请输入班级号" disabled ng-model="data.class_number">
+    </label>
+    <button class="button button-icon" style="width: 60px">
+    </button>
     <img class="left-image" src="build/assets/img/myInfo/icon_select_list.png" ng-if="!configList.showPageList && !config.showContent" ng-click="changePage()"/>
     <img class="left-image" src="build/assets/img/myInfo/btn_statistics@2x.png" ng-if="configList.showPageList && !config.showContent" ng-click="changePage()"/>
     <img class="right-image" src="build/assets/img/indexPage/icon_select_time.png" ng-click="openPopover($event)"/>

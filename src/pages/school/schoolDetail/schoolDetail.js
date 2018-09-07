@@ -16,7 +16,7 @@ angular.module('schoolModule')
         publicMethod.goBack();
       }
       function init(){
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.classList";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yischool.classList";
         var data = {
           school_id: SettingsService.get('schoolInfo').school_id
         }
@@ -32,7 +32,7 @@ angular.module('schoolModule')
       }
 
       function initarc(){
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.arcList";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yischool.arcList";
         var data = {
           school_id: SettingsService.get('schoolInfo').school_id
         }

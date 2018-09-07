@@ -81,7 +81,7 @@ angular.module('settingModule')
             return;
           }
         }
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yi.furcher";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yi.furcher";
         var obj = {
           "module_id": 22,//模块id（必传）
           "t_a_id": SettingsService.get('t_a_id'),//任务id
@@ -119,7 +119,7 @@ angular.module('settingModule')
         );
       }
       $scope.initData = function () {
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yi.furcherDetail";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yi.furcherDetail";
         var obj = {
           "module_id": 22,//模块id（必传）
           "t_a_id": SettingsService.get('t_a_id')//任务id

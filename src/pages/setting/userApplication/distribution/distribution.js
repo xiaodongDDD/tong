@@ -19,7 +19,7 @@ angular.module('settingModule')
       $scope.clientSideList = [];
       $scope.submit = function () {
         hmsPopup.showLoadingWithoutBackdrop('正在分派...');
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yi.taskAssign";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yi.taskAssign";
         var obj = {
           "module_id": 22,//模块id（必传）
           "u_id": $scope.data.clientSide,//被分派的用户id
@@ -40,7 +40,7 @@ angular.module('settingModule')
 
       $scope.selectInfo = function (item) {
         hmsPopup.showLoadingWithoutBackdrop('正在搜索...');
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yi.taskAssignDetail";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yi.taskAssignDetail";
         var obj = {
           "module_id": 22,//模块id（必传）
           "user_name": $scope.data.selectName,//用户名称

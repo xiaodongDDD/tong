@@ -25,7 +25,7 @@ angular.module('loginModule')
         if ($scope.canClick === true) {
           return
         }
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.send_code&mobile=" + window.localStorage.mobile;
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yimessage.send_code&mobile=" + window.localStorage.mobile;
         $http.post(indexUrl, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -63,7 +63,7 @@ angular.module('loginModule')
         if ($scope.canClick === true) {
           return
         }
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.send_code&mobile=" + window.localStorage.mobile;
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yimessage.send_code&mobile=" + window.localStorage.mobile;
         $http.post(indexUrl, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -98,10 +98,10 @@ angular.module('loginModule')
       function loginPost() {//后台采用HAP后更改成包含Content-type的方式，账号密码采用encodeURIComponent()转换，这样可以传特殊符号
         try {
           var data = '&mobile=' + window.localStorage.mobile + '&code=' + $scope.data.code + '&uuid=' + device.uuid;
-          var url = baseConfig.basePath + "/api/?v=0.1&method=Xhbtongji.code_login" + data;
+          var url = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Xhbtongji.code_login" + data;
         } catch (e) {
           var data = '&mobile=' + window.localStorage.mobile + '&code=' + $scope.data.code + '&uuid=' + '';
-          var url = baseConfig.basePath + "/api/?v=0.1&method=Xhbtongji.code_login" + data;
+          var url = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Xhbtongji.code_login" + data;
         }
         if (baseConfig.debug) {
           console.log('loginPost.url ' + url);

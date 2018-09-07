@@ -2,8 +2,8 @@
  * Created by daidongdong on 2017/11/14.
  */
 angular.module('schoolModule')
-  .controller('schoolCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', 'SettingsService', 'hmsPopup', '$ionicScrollDelegate',
-    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, SettingsService, hmsPopup, $ionicScrollDelegate) {
+  .controller('schoolCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', 'SettingsService', 'hmsPopup', '$ionicScrollDelegate','$ionicModal',
+    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, SettingsService, hmsPopup, $ionicScrollDelegate,$ionicModal) {
       $scope.data = {
         pageName: '整校用户',
         type: SettingsService.get('timeType').id || 'day',
@@ -112,7 +112,7 @@ angular.module('schoolModule')
             $scope.operating[i].selected = false;
           }
         }
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.schoolData&type=" + $scope.data.type;
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.schoolData&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
             $scope.config = angular.copy($scope.configSp);
@@ -239,7 +239,7 @@ angular.module('schoolModule')
         if ($scope.isLock) return;
         $scope.isLock = true;
         hmsPopup.showLoadingWithoutBackdrop('正在加载...');
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.schoolLists";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yischool.schoolLists";
         var data = {
           type: $scope.data.type,
           province: $scope.data.selectList[0].province,
@@ -274,7 +274,7 @@ angular.module('schoolModule')
 
       //筛选
       $scope.selectList = function () {
-        var selectUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.schoolContidion&type=" + $scope.data.type;
+        var selectUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yischool.schoolContidion&type=" + $scope.data.type;
         hmsHttp.get(selectUrl).success(
           function (response) {
             $scope.data.selectListData = response.response;
@@ -291,4 +291,34 @@ angular.module('schoolModule')
         initPageDataList('1');
       }
 
+      $ionicModal.fromTemplateUrl('build/pages/myClass/modal/search.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function (modal) {
+        $scope.modal = modal;
+      });
+      $scope.openModal = function () {
+        $scope.modal.show();
+      };
+      $scope.closeModal = function () {
+        $scope.modal.hide();
+      };
+      $scope.searchData = function () {
+        $scope.modal.hide();
+        $scope.configList.nextId = '';
+        $scope.data.schoolList = [];
+        initPageDataList();
+      };
+      //当我们用到模型时，清除它！
+      $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+      });
+      // 当隐藏的模型时执行动作
+      $scope.$on('modal.hide', function () {
+        // 执行动作
+      });
+      // 当移动模型时执行动作
+      $scope.$on('modal.removed', function () {
+        // 执行动作
+      });
     }]);

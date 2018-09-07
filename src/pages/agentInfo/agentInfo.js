@@ -49,7 +49,7 @@ angular.module('myInfoModule')
         } else {
           hmsPopup.showLoadingWithoutBackdrop('正在加载...');
         }
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.indexRegion&type=" + $scope.data.type;
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.indexRegion&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
             console.log(response);

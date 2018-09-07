@@ -209,11 +209,11 @@
           model = device.model;
         }
         var data = '&username=' + $scope.loginInfo.username + '&password=' + $scope.loginInfo.password + '&app_type=' + '1' + '&uuid=' + device.uuid;
-        var url = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.login" + data;
+        var url = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.login" + data;
       } catch (e) {
         console.log(e)
         var data = '&username=' + $scope.loginInfo.username + '&password=' + $scope.loginInfo.password + '&app_type=' + '1' + '&uuid=' + '';
-        var url = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.login" + data;
+        var url = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.login" + data;
       }
       if (baseConfig.debug) {
         console.log('loginPost.url ' + url);

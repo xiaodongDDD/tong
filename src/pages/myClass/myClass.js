@@ -3,8 +3,8 @@
  */
 
 angular.module('myClassModule')
-  .controller('myClassCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', '$ionicScrollDelegate', 'SettingsService', 'hmsPopup', '$ionicBackdrop',
-    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, $ionicScrollDelegate, SettingsService, hmsPopup, $ionicBackdrop) {
+  .controller('myClassCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', '$ionicScrollDelegate', 'SettingsService', 'hmsPopup', '$ionicBackdrop', '$ionicModal',
+    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, $ionicScrollDelegate, SettingsService, hmsPopup, $ionicBackdrop, $ionicModal) {
       $scope.data = {
         type: SettingsService.get('timeType').id || 'day',
         names: ["class_address", "class_type", "class_member", "class_message", "class_found"],
@@ -31,10 +31,11 @@ angular.module('myClassModule')
             invited_code: '',
             list: []
           }],
-        pageName: '班级情况统计'
+        pageName: '班级情况统计',
+        class_number: ''
       }
       $scope.config = {
-        is_admin:window.localStorage.is_admin,
+        is_admin: window.localStorage.is_admin,
         showContent: true,
         explainFlag: false,
         status: {
@@ -116,10 +117,10 @@ angular.module('myClassModule')
             $scope.operating[i].selected = false;
           }
         }
-        if($scope.config.showContent){
-          var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Statics.class_static&type=" + $scope.data.type;
-        }else{
-          var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.classData&type=" + $scope.data.type;
+        if ($scope.config.showContent) {
+          var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Statics.class_static&type=" + $scope.data.type;
+        } else {
+          var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.classData&type=" + $scope.data.type;
         }
         hmsHttp.get(indexUrl).success(
           function (response) {
@@ -170,7 +171,7 @@ angular.module('myClassModule')
 
 
       //初始化
-      if($scope.config.is_admin == 0){
+      if ($scope.config.is_admin == 0) {
         $scope.config.showContent = false
       }
       initPageData();
@@ -250,12 +251,13 @@ angular.module('myClassModule')
         $scope.isLock = true;
         // hmsPopup.showLoadingWithoutBackdrop('正在加载...');
 
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yiclass.classLists";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yiclass.classLists";
         var data = {
           type: $scope.data.type,
           province: $scope.data.selectList[0].province,
           project_id: $scope.data.selectList[1].project_id,
           invited_code: $scope.data.selectList[2].invited_code,
+          class_number: $scope.data.class_number
         }
         if ($scope.configList.nextId > 0 && item == '1') {
           data.next_id = $scope.configList.nextId;
@@ -285,7 +287,7 @@ angular.module('myClassModule')
 
       //筛选
       $scope.selectList = function () {
-        var selectUrl = baseConfig.basePath + "/api/?v=0.1&method=Yiclass.classContidion&type=" + $scope.data.type;
+        var selectUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yiclass.classContidion&type=" + $scope.data.type;
         hmsHttp.get(selectUrl).success(
           function (response) {
             $scope.data.selectListData = response.response;
@@ -312,4 +314,35 @@ angular.module('myClassModule')
         initPageData();
         console.log($scope.config.showContent);
       }
+
+      $ionicModal.fromTemplateUrl('build/pages/myClass/modal/search.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function (modal) {
+        $scope.modal = modal;
+      });
+      $scope.openModal = function () {
+        $scope.modal.show();
+      };
+      $scope.closeModal = function () {
+        $scope.modal.hide();
+      };
+      $scope.searchData = function () {
+        $scope.modal.hide();
+        $scope.configList.nextId = '';
+        $scope.data.schoolList = [];
+        initPageDataList();
+      };
+      //当我们用到模型时，清除它！
+      $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+      });
+      // 当隐藏的模型时执行动作
+      $scope.$on('modal.hide', function () {
+        // 执行动作
+      });
+      // 当移动模型时执行动作
+      $scope.$on('modal.removed', function () {
+        // 执行动作
+      });
     }]);

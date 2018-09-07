@@ -77,7 +77,7 @@ angular.module('settingModule')
       }
       $scope.goBack = function () {
         hmsPopup.showLoadingWithoutBackdrop('正在加载...');
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.user_center";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yimessage.user_center";
         hmsHttp.get(indexUrl).success(
           function (response) {
             $scope.data.userInfo = response.response;
@@ -120,7 +120,7 @@ angular.module('settingModule')
       }
       $scope.initData = function (page) {
         // hmsPopup.showLoadingWithoutBackdrop('正在加载...');
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yi.applyList";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yi.applyList";
         var obj = {
           "module_id": 22,
           "province": $scope.data.selectList[0].province,//省份

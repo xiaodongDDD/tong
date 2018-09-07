@@ -4,8 +4,8 @@
 
 angular.module('settingModule')
   .controller('settingCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup','checkVersionService','jpushService','baseConfig','hmsHttp','SettingsService',
-    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup,checkVersionService,jpushService,baseConfig,hmsHttp,SettingsService) {
+    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup','checkVersionService','jpushService','baseConfig','hmsHttp','SettingsService','$http',
+    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup,checkVersionService,jpushService,baseConfig,hmsHttp,SettingsService,$http) {
       $scope.config = {}
       $rootScope.settingNum = {
         messageNum: '',
@@ -18,8 +18,16 @@ angular.module('settingModule')
       $scope.exitAccount = function () {
         function loginOut(buttonIndex) {
           if (buttonIndex == 1) { //确认按钮
-            window.localStorage.token = '';
-            $state.go('login');
+            var data = '&username=' + window.localStorage.empno + '&password=' + window.localStorage.checkboxSavePwd + '&app_type=' + '1' + '&uuid=' + '';
+            var url = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.login" + data;
+            $http.post(url, {
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+              }
+            }).success(function (result) {
+              window.localStorage.token = '';
+              $state.go('login');
+            })
           } else { //取消按钮
             return;
           }
@@ -46,7 +54,7 @@ angular.module('settingModule')
       }
       $scope.initData = function () {
         hmsPopup.showLoadingWithoutBackdrop('正在加载...');
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.user_center";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yimessage.user_center";
         hmsHttp.get(indexUrl).success(
           function (response) {
             $scope.data.userInfo = response.response;
@@ -65,7 +73,7 @@ angular.module('settingModule')
         $scope.$broadcast("scroll.refreshComplete");
       }
       $scope.province = function () {
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Task.address";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Task.address";
         hmsHttp.get(indexUrl).success(
           function (response) {
             if (response.hasOwnProperty('response')) {

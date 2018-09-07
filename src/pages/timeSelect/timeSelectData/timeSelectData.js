@@ -24,7 +24,7 @@ angular.module('indexPageModule')
         }
         $scope.data.type = SettingsService.get('timeSelect');
         console.log($scope.data.type);
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.index&type=" + $scope.data.type;
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.index&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
             $scope.newViewData = response.response;

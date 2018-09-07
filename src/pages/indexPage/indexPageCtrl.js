@@ -118,9 +118,9 @@ angular.module('indexPageModule')
         } else {
           hmsPopup.showLoadingWithoutBackdrop('正在加载...');
         }
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.index&type=" + $scope.data.type;
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.index&type=" + $scope.data.type;
         if (item == '2') {
-          indexUrl = baseConfig.basePath + "/api/?v=0.1&method=xhbtongji.index&type=" + $scope.data.type + "&filter=" + $scope.data.filterSelect;
+          indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.index&type=" + $scope.data.type + "&filter=" + $scope.data.filterSelect;
         }
         hmsHttp.get(indexUrl).success(
           function (response) {
@@ -195,5 +195,23 @@ angular.module('indexPageModule')
       $scope.selectFilterSelect = function (item) {
         initPageData('2');
         console.log(item)
+      }
+      //个人列表
+      $scope.goPersonalLeaderboardList = function(){
+        $state.go('personalLeaderboard');
+      }
+      //个人信息
+      $scope.goPersonInfo = function(item){
+        SettingsService.set('personInfo',item);
+        $state.go('personInfo');
+      }
+      //领队排行榜
+      $scope.goLeaderLeaderboardList = function(){
+        $state.go('leaderLeaderboard');
+      }
+      //领队信息
+      $scope.goLeaderInfo = function(item){
+        SettingsService.set('leaderInfo',item);
+        $state.go('leaderInfo');
       }
     }]);

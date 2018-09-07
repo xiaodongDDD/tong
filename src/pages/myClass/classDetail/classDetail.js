@@ -25,7 +25,7 @@ angular.module('myClassModule')
 
       //接口
       $scope.selectList = function(item){
-        var selectUrl = baseConfig.basePath + "/api/?v=0.1&method=Yiclass.classInfo";
+        var selectUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yiclass.classInfo";
         var data = {
           type : $scope.data.type,
           class_token :  $scope.data.classDetail.class_token,

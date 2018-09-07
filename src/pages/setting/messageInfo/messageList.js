@@ -24,7 +24,7 @@ angular.module('settingModule')
       }
       $scope.goBack = function () {
         hmsPopup.showLoadingWithoutBackdrop('正在加载...');
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.user_center";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yimessage.user_center";
         hmsHttp.get(indexUrl).success(
           function (response) {
             $scope.data.userInfo = response.response;
@@ -42,7 +42,7 @@ angular.module('settingModule')
         function loginOut(buttonIndex) {
           console.log(buttonIndex)
           if (buttonIndex == 1) { //确认按钮
-            var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.news_read_all";
+            var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yimessage.news_read_all";
             hmsHttp.get(indexUrl).success(
               function (response) {
                 $scope.Toast.show(response.response.msg);
@@ -61,7 +61,7 @@ angular.module('settingModule')
         hmsPopup.confirm('是否将全部信息设置为已读？？', '提示信息', loginOut);
       }
       $scope.readMessage = function (arr) {
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.news_read";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yimessage.news_read";
         var obj = {
           ids: arr
         }
@@ -78,7 +78,7 @@ angular.module('settingModule')
 
       $scope.initData = function (page) {
         hmsPopup.showLoadingWithoutBackdrop('正在加载...');
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yimessage.news_list";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yimessage.news_list";
         var obj = {
           receive_people: window.localStorage.id,
           now_page: page,

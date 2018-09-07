@@ -45,7 +45,7 @@ angular.module('settingModule')
           hmsPopup.showShortCenterToast('请选择调换人员');
           return;
         }
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yi.exchange";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yi.exchange";
         var obj = {
           "module_id": 22,//模块id（必传）
           "user_name": '',//用户名称
@@ -70,7 +70,7 @@ angular.module('settingModule')
 
       $scope.selectInfo = function (item) {
         hmsPopup.showLoadingWithoutBackdrop('正在搜索...');
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yi.exchangeUserSearch";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yi.exchangeUserSearch";
         console.log($scope.data.province)
         var obj = {
           "module_id": 22,//模块id（必传）

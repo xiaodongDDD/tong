@@ -15,7 +15,7 @@ angular.module('schoolModule')
       }
 
       function init(){
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.arcTeacher";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yischool.arcTeacher";
         var data = {
           s_a_id: SettingsService.get('arcItem').s_a_id
         }

@@ -31,14 +31,18 @@
     };
     var dealVersionUtil = function (localVersion, serveVersion) {
       if (parseInt(localVersion[0]) < parseInt(serveVersion[0])) {
+        // alert(parseInt(localVersion[0]) < parseInt(serveVersion[0]) + 'one')
         return true;
       } else if (parseInt(localVersion[0]) == parseInt(serveVersion[0])) {
         if (parseInt(localVersion[1]) < parseInt(serveVersion[1])) {
+          // alert(parseInt(localVersion[1]) < parseInt(serveVersion[1]) + 'two')
           return true;
         } else if (parseInt(localVersion[1]) == parseInt(serveVersion[1])) {
           if (parseInt(localVersion[2]) < parseInt(serveVersion[2])) {
+            // alert(parseInt(localVersion[2]) < parseInt(serveVersion[2]) + 'three')
             return true;
           } else {
+            // alert('不更新' + 'three')
             return false;
           }
         }

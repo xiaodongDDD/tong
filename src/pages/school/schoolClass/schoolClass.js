@@ -22,7 +22,7 @@ angular.module('schoolModule')
         (item == 'class') ? $scope.config.headStyleActive = true : $scope.config.headStyleActive = false;
       }
       function init(item){
-        var indexUrl = baseConfig.basePath + "/api/?v=0.1&method=Yischool.classInfo";
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yischool.classInfo";
         var data = {
           class_id: SettingsService.get('schoolClass').class_id,
           class_type: item

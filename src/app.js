@@ -76,12 +76,12 @@
         //启动极光推送服务
         // window.plugins.jPushPlugin.init();
         // window.plugins.jPushPlugin.setDebugMode(true);
-        document.addEventListener("jpush.openNotification", onOpenNotification, false)
-        var onOpenNotification = function (event) {
-          alert(event)
-          alert('xiaoxi')
-          window.plugins.jPushPlugin.resetBadge()
-        }
+        // document.addEventListener("jpush.openNotification", onOpenNotification, false)
+        // var onOpenNotification = function (event) {
+        //   alert(event)
+        //   alert('xiaoxi')
+        //   window.plugins.jPushPlugin.resetBadge()
+        // }
       } else {
         console.log('网页情况下不开启推送！');
       }
@@ -158,19 +158,43 @@
       .state('indexPage', {
         url: '/indexPage',
         templateUrl: 'build/pages/indexPage/indexPage.html',
-        controller: 'indexPageCtrl',
+        controller: 'indexPageCtrl'
+      })
+      //个人排行-公司
+      .state('personalLeaderboard', {
+        url: '/personalLeaderboard',
+        templateUrl: 'build/pages/indexPage/personalLeaderboard/personalLeaderboard.html',
+        controller: 'personalLeaderboardCtrl'
+      })
+      //个人排行-领队
+      .state('leaderLeaderboard', {
+        url: '/leaderLeaderboard',
+        templateUrl: 'build/pages/indexPage/leaderLeaderboard/leaderLeaderboard.html',
+        controller: 'leaderLeaderboardCtrl'
+      })
+      //个人信息
+      .state('personInfo', {
+        url: '/personInfo',
+        templateUrl: 'build/pages/indexPage/personalLeaderboard/personInfo/personInfo.html',
+        controller: 'personInfoCtrl'
+      })
+      //领队详情
+      .state('leaderInfo', {
+        url: '/leaderInfo',
+        templateUrl: 'build/pages/indexPage/leaderLeaderboard/leaderInfo/leaderInfo.html',
+        controller: 'leaderInfoCtrl'
       })
       //注册用戶
       .state('myInfo', {
         url: '/myInfo',
         templateUrl: 'build/pages/myInfo/myInfo.html',
-        controller: 'myInfoCtrl',
+        controller: 'myInfoCtrl'
       })
       //代理商-注册用戶
       .state('agentInfo', {
         url: '/agentInfo',
         templateUrl: 'build/pages/agentInfo/agentInfo.html',
-        controller: 'agentInfoCtrl',
+        controller: 'agentInfoCtrl'
       })
       //學校
       .state('school', {
