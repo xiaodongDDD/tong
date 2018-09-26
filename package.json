@@ -97,13 +97,7 @@
             "ionic-plugin-keyboard": {},
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-statusbar": {},
-            "cordova-plugin-crosswalk-webview": {
-                "XWALK_MODE": "lite",
-                "XWALK_VERSION": "23+",
-                "XWALK_LITEVERSION": "xwalk_core_library_canary:17+",
-                "XWALK_COMMANDLINE": "--disable-pull-to-refresh-effect",
-                "XWALK_MULTIPLEAPK": "true"
-            }
+            "cordova-plugin-crosswalk-webview": {}
         }
     }
 }

@@ -2,8 +2,8 @@
  * Created by daidongdong on 2017/11/14.
  */
 angular.module('schoolModule')
-  .controller('schoolCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', 'SettingsService', 'hmsPopup', '$ionicScrollDelegate','$ionicModal',
-    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, SettingsService, hmsPopup, $ionicScrollDelegate,$ionicModal) {
+  .controller('schoolCtrl', ['$scope', '$rootScope', '$state', '$ionicPlatform', '$ionicPopover', 'indexPageService', 'baseConfig', 'hmsHttp', '$timeout', 'SettingsService', 'hmsPopup', '$ionicScrollDelegate', '$ionicModal',
+    function ($scope, $rootScope, $state, $ionicPlatform, $ionicPopover, indexPageService, baseConfig, hmsHttp, $timeout, SettingsService, hmsPopup, $ionicScrollDelegate, $ionicModal) {
       $scope.data = {
         pageName: '整校用户',
         type: SettingsService.get('timeType').id || 'day',
@@ -112,7 +112,7 @@ angular.module('schoolModule')
             $scope.operating[i].selected = false;
           }
         }
-        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.schoolData&type=" + $scope.data.type;
+        var indexUrl = baseConfig.basePath + "/api/?v=" + baseConfig.version.currentVersion + "&method=xhbtongji.schoolData&type=" + $scope.data.type;
         hmsHttp.get(indexUrl).success(
           function (response) {
             $scope.config = angular.copy($scope.configSp);
@@ -239,7 +239,7 @@ angular.module('schoolModule')
         if ($scope.isLock) return;
         $scope.isLock = true;
         hmsPopup.showLoadingWithoutBackdrop('正在加载...');
-        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yischool.schoolLists";
+        var indexUrl = baseConfig.basePath + "/api/?v=" + baseConfig.version.currentVersion + "&method=Yischool.schoolLists";
         var data = {
           type: $scope.data.type,
           province: $scope.data.selectList[0].province,
@@ -255,6 +255,10 @@ angular.module('schoolModule')
               $scope.data.totle = response.response.total;
             }
             $scope.data.schoolList = $scope.data.schoolList.concat(response.response.school_list);
+            for (var i = 0; i < $scope.data.schoolList.length; i++) {
+              $scope.data.schoolList[i].showTime = false
+              $scope.data.schoolList[i].showImport = false
+            }
             if (response.response.next_id < 0) {
               $scope.configList.nextPage = false
             } else {
@@ -274,7 +278,7 @@ angular.module('schoolModule')
 
       //筛选
       $scope.selectList = function () {
-        var selectUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yischool.schoolContidion&type=" + $scope.data.type;
+        var selectUrl = baseConfig.basePath + "/api/?v=" + baseConfig.version.currentVersion + "&method=Yischool.schoolContidion&type=" + $scope.data.type;
         hmsHttp.get(selectUrl).success(
           function (response) {
             $scope.data.selectListData = response.response;
@@ -321,4 +325,10 @@ angular.module('schoolModule')
       $scope.$on('modal.removed', function () {
         // 执行动作
       });
+      $scope.showTime = function (item) {
+        item.showTime = !item.showTime
+      }
+      $scope.showImport = function (item) {
+        item.showImport = !item.showImport
+      }
     }]);

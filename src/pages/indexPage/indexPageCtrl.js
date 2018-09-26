@@ -118,10 +118,11 @@ angular.module('indexPageModule')
         } else {
           hmsPopup.showLoadingWithoutBackdrop('正在加载...');
         }
-        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.index&type=" + $scope.data.type;
-        if (item == '2') {
-          indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.index&type=" + $scope.data.type + "&filter=" + $scope.data.filterSelect;
-        }
+        // var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.index&type=" + $scope.data.type;
+        // if (item == '2') {
+        console.log()
+        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.index&type=" + $scope.data.type + "&filter=" + $scope.data.filterSelect;
+        // }
         hmsHttp.get(indexUrl).success(
           function (response) {
             $scope.config = angular.copy($scope.configSp);

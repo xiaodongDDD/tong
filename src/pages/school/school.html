@@ -325,20 +325,43 @@
     <div class="padding" delegate-handle="scrollList" style="padding-top: 0;">
       <div class="listDesc">共 <span class="numFontFamily">{{data.totle}}</span> 个</div>
       <div class="list">
-        <a class="item item-avatar itemStyle" ng-repeat="school in data.schoolList" ng-click="goSchoolDetail(school)">
-          <img ng-src="{{school.school_img}}" class="imgStyle">
-          <div class="row rowStyleDetail">
+        <a class="item item-avatar itemStyle" ng-repeat="school in data.schoolList" >
+          <img ng-src="{{school.school_img}}" class="imgStyle" ng-click="goSchoolDetail(school)">
+          <div class="row rowStyleDetail" ng-click="goSchoolDetail(school)">
             <div class="col-50 schoolName" ng-bind="school.school_name"></div>
             <div class="col-50 schoolTime" ng-bind="school.create_time"></div>
           </div>
-          <div class="row rowStyleDetail">
+          <div class="row rowStyleDetail" ng-click="goSchoolDetail(school)">
             <div class="col-40 personName">全校人数&nbsp;<span class="numFontFamily">{{school.teacher_num}}</span></div>
             <div class="col-30 personName">架构&nbsp;<span class="numFontFamily">{{school.arc_count}}</span></div>
             <div class="col-30 personName">扫码&nbsp;<span class="numFontFamily">{{school.scan_count}}</span></div>
           </div>
-          <div class="row rowStyleDetail">
-            <div class="col-50 principal" ng-bind="school.teacher_name" style="font-family: PingFangSC-Regular"></div>
-            <div class="col-50 saleName" ng-bind="school.user_name"></div>
+          <div class="row rowStyleDetail" ng-click="goSchoolDetail(school)">
+            <div class="col-33 principal" ng-bind="school.teacher_name" style="font-family: PingFangSC-Regular"></div>
+            <div class="col-33 principal" ng-bind="school.reach_rate_rate"></div>
+            <div class="col-34 saleName" ng-bind="school.user_name"></div>
+          </div>
+          <div class="row rowStyleDetail" ng-click="showImport(school)">
+            <div class="col-50 principal">导入时间
+              <i class="ion-ios-arrow-down iconStyle ng-cloak" ng-if="school.import_time.length>0"></i>
+            </div>
+            <div class="col-50 schoolTime" ng-if="school.import_time.length>0">{{school.import_time[0].create_time*1000 | date:'yyyy-MM-dd HH:mm' }}</div>
+            <div class="col-50 schoolTime" ng-if="school.import_time.length<1">暂无时间</div>
+          </div>
+          <div class="row rowStyleDetail" ng-repeat="import in school.import_time" ng-if="school.showImport" ng-show="$index !== 0">
+            <div class="col-50 principal" ></div>
+            <div class="col-50 schoolTime">{{import.create_time*1000 | date:'yyyy-MM-dd HH:mm'}}</div>
+          </div>
+          <div class="row rowStyleDetail" ng-click="showTime(school)">
+            <div class="col-50 principal">达标时间
+              <i class="ion-ios-arrow-down iconStyle ng-cloak" ng-if="school.reach_rate_time.length>0"></i>
+            </div>
+            <div class="col-50 schoolTime" ng-if="school.reach_rate_time.length>0">{{(school.reach_rate_time[0].time*1000) | date:'yyyy-MM-dd HH:mm'}}</div>
+            <div class="col-50 schoolTime" ng-if="school.reach_rate_time.length<1">暂无时间</div>
+          </div>
+          <div class="row rowStyleDetail" ng-repeat="i in school.reach_rate_time" ng-if="school.showTime" ng-show="$index !== 0">
+            <div class="col-50 principal"></div>
+            <div class="col-50 schoolTime">{{i.time*1000 | date:'yyyy-MM-dd HH:mm'}}</div>
           </div>
         </a>
 

@@ -4,34 +4,33 @@
 
 angular.module('settingModule')
   .controller('settingCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
-    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup','checkVersionService','jpushService','baseConfig','hmsHttp','SettingsService','$http',
-    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup,checkVersionService,jpushService,baseConfig,hmsHttp,SettingsService,$http) {
+    '$ionicSlideBoxDelegate', '$ionicPlatform', '$ionicLoading', '$timeout', 'hmsPopup', 'checkVersionService', 'jpushService', 'baseConfig', 'hmsHttp', 'SettingsService', '$http',
+    function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate, $ionicPlatform, $ionicLoading, $timeout, hmsPopup, checkVersionService, jpushService, baseConfig, hmsHttp, SettingsService, $http) {
       $scope.config = {}
       $rootScope.settingNum = {
         messageNum: '',
         applicationNum: ''
       };
       $scope.data = {
-        userInfo : {},
+        userInfo: {},
         version: baseConfig.version.currentVersion
       }
       $scope.exitAccount = function () {
         function loginOut(buttonIndex) {
           if (buttonIndex == 1) { //确认按钮
-            var data = '&username=' + window.localStorage.empno + '&password=' + window.localStorage.checkboxSavePwd + '&app_type=' + '1' + '&uuid=' + '';
-            var url = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=xhbtongji.login" + data;
-            $http.post(url, {
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-              }
-            }).success(function (result) {
-              window.localStorage.token = '';
-              $state.go('login');
-            })
+            if (ionic.Platform.isWebView()) {
+              window.JPush.setAlias({sequence: 1, alias: 'yta1'}, function (result) {
+              })
+            } else {
+              console.log('网页情况下不开启推送！');
+            }
+            window.localStorage.token = '';
+            $state.go('login');
           } else { //取消按钮
             return;
           }
         }
+
         hmsPopup.confirm('是否确认要退出一统？', '提示信息', loginOut);
       }
       //修改密码
@@ -47,14 +46,14 @@ angular.module('settingModule')
       $scope.goMessage = function () {
         if (ionic.Platform.isWebView()) {
           jpushService.resetBadge();
-        }else{
+        } else {
           console.log('网页情况下不开启推送！');
         }
         $state.go('messageList');
       }
       $scope.initData = function () {
         hmsPopup.showLoadingWithoutBackdrop('正在加载...');
-        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Yimessage.user_center";
+        var indexUrl = baseConfig.basePath + "/api/?v=" + baseConfig.version.currentVersion + "&method=Yimessage.user_center";
         hmsHttp.get(indexUrl).success(
           function (response) {
             $scope.data.userInfo = response.response;
@@ -68,12 +67,12 @@ angular.module('settingModule')
         );
       }
       $scope.initData();
-      $scope.doRefresh = function(){
+      $scope.doRefresh = function () {
         $scope.initData();
         $scope.$broadcast("scroll.refreshComplete");
       }
       $scope.province = function () {
-        var indexUrl = baseConfig.basePath + "/api/?v="+ baseConfig.version.currentVersion +"&method=Task.address";
+        var indexUrl = baseConfig.basePath + "/api/?v=" + baseConfig.version.currentVersion + "&method=Task.address";
         hmsHttp.get(indexUrl).success(
           function (response) {
             if (response.hasOwnProperty('response')) {
@@ -90,7 +89,7 @@ angular.module('settingModule')
                 for (var j = 0; j < listProvince[i].citys.length; j++) {
                   var num = 20 + j
                   addressData[i].children[j] = {
-                    value: addressData[i].value + '-'+num,
+                    value: addressData[i].value + '-' + num,
                     text: listProvince[i].citys[j]
                   }
                 }
